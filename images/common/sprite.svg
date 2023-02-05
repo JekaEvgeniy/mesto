@@ -1,0 +1,14 @@
+<svg width="0" height="0" class="hidden">
+
+	<svg id="btn-add" viewBox="0 0 150 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<rect x="1" y="1" width="148" height="48" rx="1" stroke="currentColor" stroke-width="2"/>
+		<path d="M86 23.7778H76.2222V14H73.7778V23.7778H64V26.2222H73.7778V36H76.2222V26.2222H86V23.7778Z" fill="currentColor"/>
+	</svg>
+
+
+	<svg id="btn-edit" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<path d="M9.60352 15.7666L17 8.32812L15.6602 7L8.2832 14.4194L9.60352 15.7666Z" fill="currentColor"/>
+		<path d="M8.96191 16.4116L7 17L7.58496 15.0835L8.96191 16.4116Z" fill="currentColor"/>
+		<path fill-rule="evenodd" clip-rule="evenodd" d="M0 0H24V24H0V0ZM1 1H23V23H1V1Z" fill="currentColor"/>
+	</svg>
+</svg>

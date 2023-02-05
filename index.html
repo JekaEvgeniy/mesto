@@ -13,10 +13,33 @@
 <body class="body">
 	<div class="page">
 		<header class="header">
-			<img class="header__logo" src="./images/header-logo.svg" alt="Логотип" loading="lazy">
+			<img class="header__logo" src="./images/header/header-logo.svg" alt="Логотип" loading="lazy">
 		</header>
 		<main class="content">
+			<section class="profile">
+				<figure class="profile__figure">
+					<img class="profile__avatar" src="./images/profile/photo.webp"
+					alt="Фотография французского исследователя Жак-Ив Кусто">
+				</figure>
 
+				<div class="profile__description">
+					<div class="profile__info">
+						<h1 class="profile__header">Жак-Ив Кусто</h1>
+						<button class="profile__button profile__button_type_edit" type="button" name="button" aria-label="Редактировать">
+							<svg class="image-contain" xmlns="http://www.w3.org/2000/svg">
+								<use xlink:href="./images/common/sprite.svg#btn-edit"></use>
+							</svg>
+						</button>
+					</div>
+					<p class="profile__subtitle">Исследователь океана</p>
+				</div>
+
+				<button class="profile__button profile__button_type_add" type="button" name="button" aria-label="Добавить">
+					<svg class="image-contain" xmlns="http://www.w3.org/2000/svg">
+						<use xlink:href="./images/common/sprite.svg#btn-add"></use>
+					</svg>
+				</button>
+			</section>
 		</main>
 		<footer class="footer">
 			<p class="footer__copyright">© 2023. Евгений М.</p>

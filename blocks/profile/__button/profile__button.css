@@ -1,0 +1,31 @@
+.profile__button {
+	margin : 0;
+	padding: 0;
+
+	display        : inline-flex;
+	justify-content: center;
+
+	background-color: transparent;
+	border          : none;
+
+	transition: opacity 0.3s ease-in-out;
+
+	font-size  : 0;
+	line-height: normal;
+	text-indent: 0;
+
+	vertical-align: top;
+	white-space   : nowrap;
+
+	line-height: normal;
+	text-align : center;
+
+	color: #fff;
+
+	cursor     : pointer;
+	user-select: none;
+}
+
+.profile__button:hover {
+	opacity: 0.6;
+}
