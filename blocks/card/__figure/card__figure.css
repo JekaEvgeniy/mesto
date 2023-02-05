@@ -1,0 +1,8 @@
+.card__figure {
+	position: relative;
+
+	margin: 0;
+	padding: 0 0 100% 0;
+	overflow: hidden;
+	border-radius: 10px 10px 0 0;
+}
