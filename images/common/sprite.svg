@@ -5,11 +5,6 @@
 		<path fill-rule="evenodd" clip-rule="evenodd" d="M0 0H24V24H0V0ZM1 1H23V23H1V1Z" fill="currentColor"/>
 	</symbol>
 
-	<symbol id="btn-add" viewBox="0 0 150 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-		<rect x="1" y="1" width="148" height="48" rx="1" stroke="currentColor" stroke-width="2"/>
-		<path d="M86 23.7778H76.2222V14H73.7778V23.7778H64V26.2222H73.7778V36H76.2222V26.2222H86V23.7778Z" fill="currentColor"/>
-	</symbol>
-
 	<symbol id="btn-favorite" viewBox="0 0 23 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 		<path d="M20.1321 3.01641L20.1338 3.01815C22.2005 5.04137 22.2031 8.36157 20.1321 10.4093L11.1649 19.2759L2.22387 10.4352C2.22328 10.4346 2.22269 10.434 2.2221 10.4334C1.2362 9.43732 0.68457 8.12058 0.68457 6.72397C0.68457 5.32206 1.2174 4.00798 2.22023 3.0164L2.22023 3.01641L2.22199 3.01465C4.271 0.968374 7.63736 0.965861 9.71134 3.03688L9.71309 3.03861L10.8134 4.12654L11.1685 4.47768L11.52 4.12297L12.6185 3.01465C14.6918 0.966537 18.0595 0.96712 20.1321 3.01641Z" fill="var(--btn-favorite-fill)" stroke="var(--btn-favorite-stroke)"/>
 	</symbol>

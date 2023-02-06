@@ -7,3 +7,9 @@
 	margin-right: 32px;
 	padding-top : 1px;
 }
+
+@media all and (max-width: 767px) {
+	.profile__description {
+		align-items: center;
+	}
+}

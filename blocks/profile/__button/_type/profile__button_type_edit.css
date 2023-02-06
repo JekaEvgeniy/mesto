@@ -1,4 +1,13 @@
 .profile__button_type_edit {
+	flex: 0 0 auto;
+
 	width : 24px;
 	height: 24px;
+}
+
+@media all and (max-width: 767px) {
+	.profile__button_type_edit {
+		width: 18px;
+		height: 18px;
+	}
 }
