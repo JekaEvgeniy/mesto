@@ -1,0 +1,7 @@
+.popup__table-cell {
+	display: table-cell;
+	width: 100%;
+
+	vertical-align: middle;
+	text-align: center;
+}

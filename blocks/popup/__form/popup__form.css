@@ -1,0 +1,12 @@
+.popup__form {
+	margin : 39px 0 0 0;
+	padding: 0;
+}
+
+.popup__form>:first-child {
+	margin-top: 0;
+}
+
+.popup__form>:last-child {
+	margin-bottom: 0;
+}
