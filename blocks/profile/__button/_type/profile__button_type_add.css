@@ -33,3 +33,20 @@
 	margin-top : -11px;
 	margin-left: -1px;
 }
+
+@media all and (max-width: 767px) {
+	.profile__button_type_add {
+		max-width : 100%;
+		margin-top: 33px;
+	}
+
+	.profile__button_type_add:before {
+		width      : 16px;
+		margin-left: -8px;
+	}
+
+	.profile__button_type_add:after {
+		height    : 16px;
+		margin-top: -8px;
+	}
+}

@@ -10,6 +10,8 @@
 
 @media all and (max-width: 767px) {
 	.profile__header {
+		/* Оступы слева и справа из-за pixelPerfect */
+		padding-left: 28px;
 		margin-right: 10px;
 
 		font-size  : 27px;

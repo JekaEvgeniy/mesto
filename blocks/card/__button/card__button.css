@@ -1,6 +1,7 @@
 .card__button {
+	flex    : 0 0 auto;
 	position: relative;
-	top: -1px;
+	top     : -1px;
 
 	margin : 0 0 0 32px;
 	padding: 0;
