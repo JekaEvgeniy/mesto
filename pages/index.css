@@ -36,7 +36,7 @@
 @import url(../blocks/card/__image/card__image.css);
 
 @import url(../blocks/popup/popup.css);
-@import url(../blocks/popup/_is-opened/popup_is-opened.css);
+@import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__table/popup__table.css);
 @import url(../blocks/popup/__table-cell/popup__table-cell.css);
 @import url(../blocks/popup/__inside/popup__inside.css);
