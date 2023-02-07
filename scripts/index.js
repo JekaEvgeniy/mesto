@@ -10,6 +10,8 @@
 	let profileSubTitle = document.querySelector('.js-profile-subtitle');
 	let profileSubTitleText;
 
+	let popupForm = document.querySelectorAll('.js-popup-form');
+
 	for (let i = 0; i < popupBtn.length; i++) {
 		let el = popupBtn[i];
 		el.addEventListener('click', function () {
@@ -45,10 +47,46 @@
 	for (let i = 0; i < popupBtnClose.length; i++) {
 		let el = popupBtnClose[i];
 		el.addEventListener('click', function () {
-			let activePopup = document.querySelector('.' + popupToggleClass);
-			if (activePopup) {
-				activePopup.classList.remove(popupToggleClass);
+			if (typeof closedAllPopup === 'function') {
+				closedAllPopup();
 			}
 		});
 	}
+
+	for (let i = 0; i < popupForm.length; i++) {
+		let el = popupForm[i];
+		el.addEventListener('submit', function (e) {
+			e.preventDefault();
+
+			let inputName = el.querySelector('.js-popup-input-name');
+			let inputStatus = el.querySelector('.js-popup-input-status');
+			if (inputName) {
+				let inputNameVal = inputName.value;
+				if (inputNameVal && profileTitle) {
+					profileTitle.textContent = inputNameVal;
+				}
+			}
+
+			if (inputStatus) {
+				let inputStatusVal = inputStatus.value;
+				if (inputStatusVal && profileSubTitle) {
+					profileSubTitle.textContent = inputStatusVal;
+				}
+			}
+
+			if (typeof closedAllPopup === 'function') {
+				closedAllPopup();
+			}
+
+		});
+	}
+
+	function closedAllPopup() {
+		let activePopup = document.querySelector('.js-popup.' + popupToggleClass) ?? document.querySelector('.popup_opened');
+		if (activePopup) {
+			activePopup.classList.remove(popupToggleClass);
+		}
+	}
+
+
 })();
