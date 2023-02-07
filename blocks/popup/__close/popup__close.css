@@ -20,6 +20,10 @@
 	transition : opacity 0.3s ease-in-out;
 	cursor     : pointer;
 	user-select: none;
+
+	background-repeat  : no-repeat;
+	background-position: center;
+	background-image   : url(../../../images/popup/close.svg);
 }
 
 .popup__close:hover {

@@ -3,6 +3,10 @@
 
 	width : 24px;
 	height: 24px;
+
+	background-repeat: no-repeat;
+	background-position: center;
+	background-image: url(../../../../images/profile/btn-edit.svg);
 }
 
 @media all and (max-width: 1023px) {

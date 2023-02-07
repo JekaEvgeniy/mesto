@@ -1,6 +1,5 @@
 .card__button_active {
-	--btn-favorite-stroke: #000;
-	--btn-favorite-fill  : #000;
+	background-image : url(../../../../images/card/favorite_active.svg);
 }
 
 .card__button_active:hover {

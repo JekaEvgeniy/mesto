@@ -23,6 +23,10 @@
 
 	cursor     : pointer;
 	user-select: none;
+
+	background-repeat  : no-repeat;
+	background-position: center;
+	background-image   : url(../../../images/card/favorite.svg);
 }
 
 .card__button:hover {
