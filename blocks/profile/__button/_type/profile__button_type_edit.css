@@ -5,7 +5,7 @@
 	height: 24px;
 }
 
-@media all and (max-width: 767px) {
+@media all and (max-width: 1023px) {
 	.profile__button_type_edit {
 		width : 18px;
 		height: 18px;

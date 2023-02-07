@@ -8,7 +8,7 @@
 	line-height: 22px;
 }
 
-@media all and (max-width: 767px) {
+@media all and (max-width: 1023px) {
 	.profile__subtitle {
 		margin-top: 7px;
 
