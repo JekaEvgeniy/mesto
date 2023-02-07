@@ -87,6 +87,16 @@
 			activePopup.classList.remove(popupToggleClass);
 		}
 	}
+})();
 
+(function(){
 
+	let btnsToggleFavorite = document.querySelectorAll('.js-toggle-favorite');
+	for (let i = 0; i < btnsToggleFavorite.length; i++) {
+		let btnToggleFavorite = btnsToggleFavorite[i];
+
+		btnToggleFavorite.addEventListener('click', function () {
+			btnToggleFavorite.classList.toggle('card__button_active');
+		});
+	}
 })();

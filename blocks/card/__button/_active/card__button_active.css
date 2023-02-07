@@ -1,0 +1,8 @@
+.card__button_active {
+	--btn-favorite-stroke: #000;
+	--btn-favorite-fill  : #000;
+}
+
+.card__button_active:hover {
+	opacity: 1;
+}
