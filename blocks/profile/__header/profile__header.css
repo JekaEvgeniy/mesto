@@ -6,6 +6,10 @@
 	font-weight: 500;
 	font-size  : 42px;
 	line-height: 48px;
+
+	text-overflow: ellipsis;
+	overflow     : hidden;
+	white-space  : nowrap;
 }
 
 @media all and (max-width: 1023px) {

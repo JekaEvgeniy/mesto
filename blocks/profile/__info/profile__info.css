@@ -3,3 +3,9 @@
 	align-items: baseline;
 	position: relative;
 }
+
+@media all and (max-width: 1023px) {
+	.profile__info {
+		justify-content: center;
+	}
+}

@@ -8,3 +8,8 @@
 
 	border-radius: 0 0 10px 10px;
 }
+@media all and (max-width: 767px) {
+	.card__info {
+		padding-right: 20px;
+	}
+}
