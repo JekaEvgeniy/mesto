@@ -24,6 +24,7 @@
 	background-repeat  : no-repeat;
 	background-position: center;
 	background-image   : url(../../../images/popup/close.svg);
+	background-size: contain;
 }
 
 .popup__close:hover {

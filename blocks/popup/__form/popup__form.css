@@ -3,14 +3,6 @@
 	padding: 0;
 }
 
-.popup__form>:first-child {
-	margin-top: 0;
-}
-
-.popup__form>:last-child {
-	margin-bottom: 0;
-}
-
 @media all and (max-width: 767px) {
 	.popup__form {
 		margin-top: 65px;
