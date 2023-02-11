@@ -22,6 +22,7 @@
 
 	cursor     : pointer;
 	user-select: none;
+	outline: none;
 }
 
 .profile__button:hover {

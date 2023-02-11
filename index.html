@@ -24,13 +24,13 @@
 
 				<div class="profile__description">
 					<div class="profile__info">
-						<h1 class="profile__header js-profile-header">Жак-Ив Кусто</h1>
-						<button class="profile__button profile__button_type_edit js-toggle-popup" data-target="profile" type="button" name="button" aria-label="Редактировать"></button>
+						<h1 class="profile__header">Жак-Ив Кусто</h1>
+						<button class="profile__button profile__button_type_edit" type="button" name="button" aria-label="Редактировать"></button>
 					</div>
-					<p class="profile__subtitle js-profile-subtitle">Исследователь океана</p>
+					<p class="profile__subtitle">Исследователь океана</p>
 				</div>
 
-				<button class="profile__button profile__button_type_add js-toggle-popup" type="button" name="button" aria-label="Добавить"></button>
+				<button class="profile__button profile__button_type_add" type="button" name="button" aria-label="Добавить"></button>
 			</section>
 
 			<section class="cards" aria-label="Посещенные места">
@@ -40,7 +40,7 @@
 					</figure>
 					<div class="card__info">
 						<h2 class="card__title">Карачаевск</h2>
-						<button class="card__button js-toggle-favorite" type="button" name="button" aria-label="Добавить в избранное"></button>
+						<button class="card__button" type="button" name="button" aria-label="Добавить в избранное"></button>
 					</div>
 				</article>
 
@@ -50,7 +50,7 @@
 					</figure>
 					<div class="card__info">
 						<h2 class="card__title">Гора Эльбрус</h2>
-						<button class="card__button js-toggle-favorite" type="button" name="button" aria-label="Добавить в избранное"></button>
+						<button class="card__button" type="button" name="button" aria-label="Добавить в избранное"></button>
 					</div>
 				</article>
 
@@ -60,7 +60,7 @@
 					</figure>
 					<div class="card__info">
 						<h2 class="card__title">Домбай</h2>
-						<button class="card__button js-toggle-favorite" type="button" name="button" aria-label="Добавить в избранное"></button>
+						<button class="card__button" type="button" name="button" aria-label="Добавить в избранное"></button>
 					</div>
 				</article>
 
@@ -70,7 +70,7 @@
 					</figure>
 					<div class="card__info">
 						<h2 class="card__title">Гора Эльбрус</h2>
-						<button class="card__button js-toggle-favorite" type="button" name="button" aria-label="Добавить в избранное"></button>
+						<button class="card__button" type="button" name="button" aria-label="Добавить в избранное"></button>
 					</div>
 				</article>
 
@@ -81,7 +81,7 @@
 					</figure>
 					<div class="card__info">
 						<h2 class="card__title">Домбай</h2>
-						<button class="card__button js-toggle-favorite" type="button" name="button" aria-label="Добавить в избранное"></button>
+						<button class="card__button" type="button" name="button" aria-label="Добавить в избранное"></button>
 					</div>
 				</article>
 
@@ -92,29 +92,27 @@
 					</figure>
 					<div class="card__info">
 						<h2 class="card__title">Карачаево-Черкесия</h2>
-						<button class="card__button js-toggle-favorite" type="button" name="button" aria-label="Добавить в избранное"></button>
+						<button class="card__button" type="button" name="button" aria-label="Добавить в избранное"></button>
 					</div>
 				</article>
 			</section>
 
-			<section class="popup js-popup" data-target="profile">
-				<div class="popup__table">
-					<div class="popup__table-cell">
-						<div class="popup__inside">
-							<div class="popup__container">
-								<h2 class="popup__title">Редактировать профиль</h2>
+			<section class="popup">
 
-								<form action="#" name="profile" class="popup__form js-popup-form">
-									<input type="text" class="popup__input js-popup-input-name" name="firstName" placeholder="ФИО">
-									<input type="text" class="popup__input js-popup-input-status" name="status" placeholder="Вид деятельности">
-									<button class="popup__button" type="submit">Сохранить</button>
-								</form>
-							</div>
-							<button class="popup__close js-popup-close" type="button" aria-label="Закрыть"></button>
+				<div class="popup__inside">
+					<div class="popup__container">
+						<h2 class="popup__title">Редактировать профиль</h2>
 
-						</div>
+						<form action="#" name="profile" class="popup__form">
+							<input type="text" class="popup__input popup__input_type_name" name="firstName" placeholder="ФИО">
+							<input type="text" class="popup__input popup__input_type_status" name="status" placeholder="Вид деятельности">
+							<button class="popup__button" type="submit">Сохранить</button>
+						</form>
 					</div>
+					<button class="popup__close" type="button" aria-label="Закрыть"></button>
+
 				</div>
+
 			</section>
 		</main>
 		<footer class="footer">

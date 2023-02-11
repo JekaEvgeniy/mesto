@@ -20,6 +20,7 @@
 	transition : opacity 0.3s ease-in-out;
 	cursor     : pointer;
 	user-select: none;
+	outline: none;
 
 	background-repeat  : no-repeat;
 	background-position: center;

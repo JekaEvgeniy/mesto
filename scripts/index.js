@@ -1,102 +1,51 @@
 'use strict';
 
-(function () {
-	let popupBtn = document.querySelectorAll('.js-toggle-popup');
-	let popupBtnClose = document.querySelectorAll('.js-popup-close');
-	let popupToggleClass = 'popup_opened';
+let popup = document.querySelector('.popup');
+let popupForm = popup.querySelector('.popup__form');
+let popupInputName = popup.querySelector('.popup__input_type_name');
+let popupInputStatus = popup.querySelector('.popup__input_type_status');
 
-	let profileTitle = document.querySelector('.js-profile-header');
-	let profileTitleText;
-	let profileSubTitle = document.querySelector('.js-profile-subtitle');
-	let profileSubTitleText;
+let popupBtn = document.querySelector('.profile__button_type_edit');
+let popupBtnClose = document.querySelector('.popup__close');
+let popupToggleClass = 'popup_opened';
 
-	let popupForm = document.querySelectorAll('.js-popup-form');
+let profileTitle = document.querySelector('.profile__header');
+let profileSubTitle = document.querySelector('.profile__subtitle');
 
-	for (let i = 0; i < popupBtn.length; i++) {
-		let el = popupBtn[i];
-		el.addEventListener('click', function () {
-			let target = el.getAttribute('data-target');
-			if (target) {
-				let popup = document.querySelector('.js-popup[data-target="' + target + '"]');
-				if (popup) {
-					popup.classList.add(popupToggleClass);
-				}
+popupBtn.addEventListener('click', popupOpen);
+popupBtnClose.addEventListener('click', closedPopup);
+popupForm.addEventListener('submit', popupSubmit);
 
-				if (target == 'profile' && popup) {
-					let popupInputName = popup.querySelector('.js-popup-input-name');
-					if (profileTitle) {
-						profileTitleText = profileTitle.innerText;
-					}
-					if (profileTitleText && popupInputName) {
-						popupInputName.value = profileTitleText;
-					}
+function popupOpen() {
+	popup.classList.add(popupToggleClass);
 
-
-					let popupInputStatus = popup.querySelector('.js-popup-input-status');
-					if (profileSubTitle) {
-						profileSubTitleText = profileSubTitle.innerText;
-					}
-					if (profileSubTitleText) {
-						popupInputStatus.value = profileSubTitleText;
-					}
-				}
-			}
-		});
+	let profileTitleText = profileTitle.textContent; // ФИО
+	if (profileTitleText) {
+		popupInputName.value = profileTitleText;
 	}
 
-	for (let i = 0; i < popupBtnClose.length; i++) {
-		let el = popupBtnClose[i];
-		el.addEventListener('click', function () {
-			if (typeof closedAllPopup === 'function') {
-				closedAllPopup();
-			}
-		});
+	let profileSubTitleText = profileSubTitle.textContent; // Статус
+	if (profileSubTitleText) {
+		popupInputStatus.value = profileSubTitleText;
+	}
+}
+
+function popupSubmit(e) {
+	e.preventDefault();
+
+	let popupInputNameValue = popupInputName.value;
+	if (popupInputNameValue) {
+		profileTitle.textContent = popupInputNameValue;
 	}
 
-	for (let i = 0; i < popupForm.length; i++) {
-		let el = popupForm[i];
-		el.addEventListener('submit', function (e) {
-			e.preventDefault();
-
-			let inputName = el.querySelector('.js-popup-input-name');
-			let inputStatus = el.querySelector('.js-popup-input-status');
-			if (inputName) {
-				let inputNameVal = inputName.value;
-				if (inputNameVal && profileTitle) {
-					profileTitle.textContent = inputNameVal;
-				}
-			}
-
-			if (inputStatus) {
-				let inputStatusVal = inputStatus.value;
-				if (inputStatusVal && profileSubTitle) {
-					profileSubTitle.textContent = inputStatusVal;
-				}
-			}
-
-			if (typeof closedAllPopup === 'function') {
-				closedAllPopup();
-			}
-
-		});
+	let popupInputStatusValue = popupInputStatus.value;
+	if (popupInputStatus) {
+		profileSubTitle.textContent = popupInputStatusValue;
 	}
 
-	function closedAllPopup() {
-		let activePopup = document.querySelector('.js-popup.' + popupToggleClass) ?? document.querySelector('.popup_opened');
-		if (activePopup) {
-			activePopup.classList.remove(popupToggleClass);
-		}
-	}
-})();
+	closedPopup();
+}
 
-(function(){
-
-	let btnsToggleFavorite = document.querySelectorAll('.js-toggle-favorite');
-	for (let i = 0; i < btnsToggleFavorite.length; i++) {
-		let btnToggleFavorite = btnsToggleFavorite[i];
-
-		btnToggleFavorite.addEventListener('click', function () {
-			btnToggleFavorite.classList.toggle('card__button_active');
-		});
-	}
-})();
+function closedPopup() {
+	popup.classList.remove(popupToggleClass);
+}
