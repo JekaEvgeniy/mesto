@@ -39,7 +39,7 @@ function popupSubmit(e) {
 	}
 
 	let popupInputStatusValue = popupInputStatus.value;
-	if (popupInputStatus) {
+	if (popupInputStatusValue) {
 		profileSubTitle.textContent = popupInputStatusValue;
 	}
 
