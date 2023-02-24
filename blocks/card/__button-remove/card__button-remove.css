@@ -24,3 +24,7 @@
 	background-position: center;
 	background-image   : url(../../../images/card/remove.svg);
 }
+
+.card__button-remove:hover {
+	opacity: 0.6;
+}
