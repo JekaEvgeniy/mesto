@@ -44,13 +44,13 @@ let profileTitle = document.querySelector('.profile__header');
 let profileSubTitle = document.querySelector('.profile__subtitle');
 
 // # Рендеринг карточек
-
 const cardItem = (cardsContainer, item) => {
 	const cardTemplate = document.querySelector('#card').content.cloneNode(true);
 	const cardTitle = cardTemplate.querySelector('.card__title');
 	const cardImg = cardTemplate.querySelector('.card__image');
 
 	cardTitle.textContent = item.name;
+
 	cardImg.src = item.link;
 	cardImg.setAttribute('alt', `Изображение - ${item.name}`);
 
