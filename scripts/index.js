@@ -27,7 +27,6 @@ const initialCards = [
 	}
 ];
 
-
 let profilePopup = document.querySelector('#popup-profile');
 let profilePopupForm = profilePopup.querySelector('.popup__form');
 let profilePopupInputName = profilePopup.querySelector('.popup__input_type_name');
