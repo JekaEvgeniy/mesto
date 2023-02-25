@@ -31,17 +31,17 @@ const initialCards = [
 
 const cardsContainer = document.querySelector('#cards');
 
-let popup = document.querySelector('.popup');
-let popupForm = popup.querySelector('.popup__form');
-let popupInputName = popup.querySelector('.popup__input_type_name');
-let popupInputStatus = popup.querySelector('.popup__input_type_status');
-
-let popupBtn = document.querySelector('.profile__button_type_edit');
-let popupBtnClose = document.querySelector('.popup__close');
-let popupToggleClass = 'popup_opened';
+let profilePopup = document.querySelector('#popup-profile');
+let profilePopupForm = profilePopup.querySelector('.popup__form');
+let profilePopupInputName = profilePopup.querySelector('.popup__input_type_name');
+let profilePopupInputStatus = profilePopup.querySelector('.popup__input_type_status');
+let profilePopupBtn = document.querySelector('.profile__button_type_edit');
 
 let profileTitle = document.querySelector('.profile__header');
 let profileSubTitle = document.querySelector('.profile__subtitle');
+
+const popupBtnClose = document.querySelector('.popup__close');
+const popupToggleClass = 'popup_opened';
 
 // # Cards
 
@@ -83,33 +83,35 @@ initialCards.forEach((item) => {
 
 // # popup
 
-popupBtn.addEventListener('click', popupOpen);
-popupBtnClose.addEventListener('click', closedPopup);
-popupForm.addEventListener('submit', popupSubmit);
+profilePopupBtn.addEventListener('click', popupOpen);
+profilePopupForm.addEventListener('submit', popupSubmit);
+
+popupBtnClose.addEventListener('click', closedPopup); // Global btn
 
 function popupOpen() {
-	popup.classList.add(popupToggleClass);
+	// FIXME: в функции оставить только открытие, замену текста перенести.
+	profilePopup.classList.add(popupToggleClass);
 
 	let profileTitleText = profileTitle.textContent; // ФИО
 	if (profileTitleText) {
-		popupInputName.value = profileTitleText;
+		profilePopupInputName.value = profileTitleText;
 	}
 
 	let profileSubTitleText = profileSubTitle.textContent; // Статус
 	if (profileSubTitleText) {
-		popupInputStatus.value = profileSubTitleText;
+		profilePopupInputStatus.value = profileSubTitleText;
 	}
 }
 
 function popupSubmit(e) {
 	e.preventDefault();
 
-	let popupInputNameValue = popupInputName.value;
+	let popupInputNameValue = profilePopupInputName.value;
 	if (popupInputNameValue) {
 		profileTitle.textContent = popupInputNameValue;
 	}
 
-	let popupInputStatusValue = popupInputStatus.value;
+	let popupInputStatusValue = profilePopupInputStatus.value;
 	if (popupInputStatusValue) {
 		profileSubTitle.textContent = popupInputStatusValue;
 	}
@@ -118,5 +120,5 @@ function popupSubmit(e) {
 }
 
 function closedPopup() {
-	popup.classList.remove(popupToggleClass);
+	profilePopup.classList.remove(popupToggleClass);
 }
