@@ -1,6 +1,5 @@
 'use strict';
 
-
 const initialCards = [
 	{
 		name: 'Архыз',
@@ -51,6 +50,10 @@ let newCardPopupForm = newCardPopup.querySelector('.popup__form');
 let newCardPopupInputTitle = newCardPopup.querySelector('.popup__input_type_title');
 let newCardPopupInputUrl   = newCardPopup.querySelector('.popup__input_type_url');
 
+let popupImage = document.querySelector('#popup-image');
+let popupImageImage = popupImage.querySelector('.popup-figure__img');
+let popupImageCaption = popupImage.querySelector('.popup-figure__figcaption');
+
 const removeCard = (e) => {
 	e.target.closest('.card').remove();
 }
@@ -58,7 +61,6 @@ const removeCard = (e) => {
 const likeCard = (e) => {
 	e.target.classList.toggle('card__button_active');
 }
-
 
 const cardItem = (cardsContainer, item) => {
 	const cardTemplate = document.querySelector('#card').content.cloneNode(true);
@@ -70,17 +72,19 @@ const cardItem = (cardsContainer, item) => {
 
 	cardTitle.textContent = item.name;
 
-	// Если изображения нет - грузить no-photo или скрывать изображение.
+	// Если изображения нет - заменить на no-photo или скрывать изображение (в ТЗ нет)
 	if (item.link) {
 		cardImg.src = item.link;
 	}else {
 		cardImg.src = '#';
 	}
 
-	cardImg.setAttribute('alt', `Изображение - ${item.name}`);
+	cardImg.setAttribute('alt', `${item.name}`);
 
 	cardBtnRemove.addEventListener('click', removeCard);
 	cardBtnLike.addEventListener('click', likeCard);
+
+	cardImg.addEventListener('click', popupFancyboxImage );
 
 	return cardTemplate;
 }
@@ -113,7 +117,6 @@ profilePopupForm.addEventListener('submit', popupSubmit);
 
 // # popup newcard
 newCardBtnAdd.addEventListener('click', () => {
-
 	newCardPopupInputTitle.value = '';
 	newCardPopupInputUrl.value = '';
 
@@ -121,7 +124,6 @@ newCardBtnAdd.addEventListener('click', () => {
 });
 
 newCardPopupForm.addEventListener('submit', newCardPopupSubmit);
-
 
 // # Global all popup
 popupBtnsClose.forEach( (el) => {
@@ -169,6 +171,27 @@ function closedPopup(e) {
 	let el = e.target;
 	let parentContainer = el.closest('.popup');
 	parentContainer.classList.remove(popupToggleClass);
+}
+
+function popupFancyboxImage(e){
+	let el = e.target;
+	let elUrl = el.getAttribute('src');
+	let elTitle = el.getAttribute('alt');
+
+	if ( elUrl && popupImageImage){
+		popupImageImage.src = elUrl;
+	}
+
+	if ( elTitle ){
+		if ( popupImageImage ) {
+			popupImageImage.alt = elTitle;
+		}
+		if ( popupImageCaption ) {
+			popupImageCaption.textContent = elTitle;
+		}
+	}
+
+	popupOpen(popupImage);
 }
 
 /*
