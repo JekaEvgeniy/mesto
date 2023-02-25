@@ -2,7 +2,7 @@
 	box-sizing: border-box;
 	position: relative;
 
-	padding: 40px;
+	padding: 40px 0;
 	width : 100%;
 	max-width: 510px;
 	margin-left: auto;
@@ -11,6 +11,7 @@
 
 @media all and (max-width: 767px) {
 	.popup__inside {
-		padding: 36px 19px 19px 19px;
+		/* padding: 36px 19px 19px 19px; */
+		padding: 36px 0 19px 0;
 	}
 }

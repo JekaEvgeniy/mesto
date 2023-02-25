@@ -1,4 +1,6 @@
 .popup {
+	box-sizing: border-box;
+
 	position: fixed;
 	top     : 0;
 	left    : 0;
@@ -22,4 +24,12 @@
 	pointer-events: none;
 
 	transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
+
+	padding:0 40px;
+}
+
+@media all and (max-width: 767px) {
+	.popup {
+		padding: 0 19px;
+	}
 }
