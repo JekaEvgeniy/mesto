@@ -49,12 +49,18 @@ const removeCard = (e) => {
 	e.target.closest('.card').remove();
 }
 
+const likeCard = (e) => {
+	e.target.classList.toggle('card__button_active');
+}
+
+
 const cardItem = (cardsContainer, item) => {
 	const cardTemplate = document.querySelector('#card').content.cloneNode(true);
 	const cardTitle = cardTemplate.querySelector('.card__title');
 	const cardImg = cardTemplate.querySelector('.card__image');
 
 	const cardBtnRemove = cardTemplate.querySelector('.card__button-remove');
+	const cardBtnLike = cardTemplate.querySelector('.card__button');
 
 	cardTitle.textContent = item.name;
 
@@ -62,6 +68,7 @@ const cardItem = (cardsContainer, item) => {
 	cardImg.setAttribute('alt', `Изображение - ${item.name}`);
 
 	cardBtnRemove.addEventListener('click', removeCard);
+	cardBtnLike.addEventListener('click', likeCard);
 
 	return cardTemplate;
 }
