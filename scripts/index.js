@@ -29,21 +29,27 @@ const initialCards = [
 ];
 
 
-const cardsContainer = document.querySelector('#cards');
-
 let profilePopup = document.querySelector('#popup-profile');
 let profilePopupForm = profilePopup.querySelector('.popup__form');
 let profilePopupInputName = profilePopup.querySelector('.popup__input_type_name');
 let profilePopupInputStatus = profilePopup.querySelector('.popup__input_type_status');
-let profilePopupBtn = document.querySelector('.profile__button_type_edit');
 
 let profileTitle = document.querySelector('.profile__header');
 let profileSubTitle = document.querySelector('.profile__subtitle');
+let profileBtnEdit = document.querySelector('.profile__button_type_edit');
 
-const popupBtnClose = document.querySelector('.popup__close');
+const popupBtnsClose = document.querySelectorAll('.popup__close');
 const popupToggleClass = 'popup_opened';
 
 // # Cards
+
+const cardsContainer = document.querySelector('#cards');
+
+let newCardBtnAdd = document.querySelector('.profile__button_type_add');
+let newCardPopup = document.querySelector('#popup-newcard');
+let newCardPopupForm = newCardPopup.querySelector('.popup__form');
+let newCardPopupInputTitle = newCardPopup.querySelector('.popup__input_type_title');
+let newCardPopupInputUrl   = newCardPopup.querySelector('.popup__input_type_url');
 
 const removeCard = (e) => {
 	e.target.closest('.card').remove();
@@ -64,7 +70,13 @@ const cardItem = (cardsContainer, item) => {
 
 	cardTitle.textContent = item.name;
 
-	cardImg.src = item.link;
+	// Если изображения нет - грузить no-photo или скрывать изображение.
+	if (item.link) {
+		cardImg.src = item.link;
+	}else {
+		cardImg.src = '#';
+	}
+
 	cardImg.setAttribute('alt', `Изображение - ${item.name}`);
 
 	cardBtnRemove.addEventListener('click', removeCard);
@@ -74,23 +86,16 @@ const cardItem = (cardsContainer, item) => {
 }
 
 const renderCardItem = (cardsContainer, item) => {
-	cardsContainer.append(cardItem(cardsContainer, item));
+	cardsContainer.prepend(cardItem(cardsContainer, item));
 }
 
 initialCards.forEach((item) => {
 	renderCardItem(cardsContainer, item);
 });
 
-// # popup
-
-profilePopupBtn.addEventListener('click', popupOpen);
-profilePopupForm.addEventListener('submit', popupSubmit);
-
-popupBtnClose.addEventListener('click', closedPopup); // Global btn
-
-function popupOpen() {
-	// FIXME: в функции оставить только открытие, замену текста перенести.
-	profilePopup.classList.add(popupToggleClass);
+// # popup profile
+profileBtnEdit.addEventListener('click', () => {
+	popupOpen(profilePopup);
 
 	let profileTitleText = profileTitle.textContent; // ФИО
 	if (profileTitleText) {
@@ -101,6 +106,31 @@ function popupOpen() {
 	if (profileSubTitleText) {
 		profilePopupInputStatus.value = profileSubTitleText;
 	}
+
+});
+
+profilePopupForm.addEventListener('submit', popupSubmit);
+
+// # popup newcard
+newCardBtnAdd.addEventListener('click', () => {
+
+	newCardPopupInputTitle.value = '';
+	newCardPopupInputUrl.value = '';
+
+	popupOpen(newCardPopup);
+});
+
+newCardPopupForm.addEventListener('submit', newCardPopupSubmit);
+
+
+// # Global all popup
+popupBtnsClose.forEach( (el) => {
+	el.addEventListener('click', closedPopup); // Global btn
+});
+
+function popupOpen(popupID) {
+	// Открываем нужный нам popup по идишнику ${popupID}
+	popupID.classList.add(popupToggleClass);
 }
 
 function popupSubmit(e) {
@@ -116,9 +146,34 @@ function popupSubmit(e) {
 		profileSubTitle.textContent = popupInputStatusValue;
 	}
 
-	closedPopup();
+	closedPopup(e);
 }
 
-function closedPopup() {
-	profilePopup.classList.remove(popupToggleClass);
+function newCardPopupSubmit(e){
+	e.preventDefault();
+
+	let popupInputTitleValue = newCardPopupInputTitle.value;
+	let popupInputUrlValue = newCardPopupInputUrl.value;
+
+	let newItem = {
+		'name': popupInputTitleValue,
+		'link': popupInputUrlValue,
+	}
+
+	renderCardItem(cardsContainer, newItem);
+
+	closedPopup(e);
 }
+
+function closedPopup(e) {
+	let el = e.target;
+	let parentContainer = el.closest('.popup');
+	parentContainer.classList.remove(popupToggleClass);
+}
+
+/*
+Тестовое изображение:
+
+https://images.unsplash.com/photo-1634992531782-1c988a2cb5f1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTEzfHxubyUyMHBob3RvfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=300&q=60
+
+*/
