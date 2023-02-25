@@ -21,4 +21,5 @@
 * [Ссылка на макет 5 спринта в Figma](https://www.figma.com/file/bjyvbKKJN2naO0ucURl2Z0/JavaScript.-Sprint-5?node-id=0%3A1)
 
 ## Ссылка на чеклист
-* [Чеклист](https://code.s3.yandex.net/web-developer/checklists-pdf/new-program/checklist-4.pdf)
+* [Чеклист 4 спринта](https://code.s3.yandex.net/web-developer/checklists-pdf/new-program/checklist-4.pdf)
+* [Чеклист 5 спринта](https://code.s3.yandex.net/web-developer/checklists-pdf/new-program/checklist-5.pdf)
