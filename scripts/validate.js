@@ -1,6 +1,5 @@
 /*
 	* включение валидации вызовом enableValidation
-	* все настройки передаются при вызове enableValidation
 */
 
 const validationConfig = {
@@ -13,10 +12,12 @@ const validationConfig = {
 };
 
 const enableValidation = () => {
-	const formItems = Array.from(document.querySelectorAll(validationConfig.formSelector));
+	const forms = Array.from(document.querySelectorAll(validationConfig.formSelector));
 
-	formItems.forEach(function(form){
+	forms.forEach(function(form){
 		form.addEventListener('submit', disabledSubmitForm);
+
+		setEventListenersInput(form);
 	});
 };
 
@@ -24,4 +25,14 @@ enableValidation();
 
 function disabledSubmitForm(e) {
 		e.preventDefault();
+}
+
+function setEventListenersInput(form){
+	const inputs = Array.from(form.querySelectorAll(validationConfig.inputSelector) );
+
+	inputs.forEach( (input) => {
+		input.addEventListener('input', () => {
+			console.log('keydown input');
+		});
+	});
 }
