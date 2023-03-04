@@ -31,8 +31,19 @@ function setEventListenersInput(form){
 	const inputs = Array.from(form.querySelectorAll(validationConfig.inputSelector) );
 
 	inputs.forEach( (input) => {
-		input.addEventListener('input', () => {
-			console.log('keydown input');
+		input.addEventListener('input', (e) => {
+			checkInputValid(e);
 		});
 	});
+}
+
+function checkInputValid(e){
+	let el = e.target;
+	let checkValid = el.validity.valid;
+
+	if (!checkValid) {
+		el.classList.add(validationConfig.inputErrorClass);
+	} else {
+		el.classList.remove(validationConfig.inputErrorClass);
+	}
 }
