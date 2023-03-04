@@ -14,10 +14,11 @@
 	background-color: transparent;
 	outline         : none;
 
-
 	font-family: 'Inter', Arial, sans-serif;
 	font-size  : 14px;
 	line-height: normal;
 	font-weight: 400;
 	color      : #000;
+
+	transition: border-color 0.3s ease-in-out;
 }

@@ -41,9 +41,29 @@
 					<div class="popup__container">
 						<h2 class="popup__title">Редактировать профиль</h2>
 
-						<form action="#" name="profile" class="popup__form">
-							<input type="text" class="popup__input popup__input_type_name" name="firstName" placeholder="ФИО">
-							<input type="text" class="popup__input popup__input_type_status" name="status" placeholder="Вид деятельности">
+						<form action="#" name="profile" class="popup__form" novalidate>
+							<input
+								required
+								type="text"
+								class="popup__input popup__input_type_name"
+								name="firstName"
+								placeholder="ФИО"
+								minlength="2"
+								maxlength="40"
+								autocomplete="off"
+							>
+
+							<input
+								required
+								type="text"
+								class="popup__input popup__input_type_status"
+								name="status"
+								placeholder="Вид деятельности"
+								minlength="2"
+								maxlength="200"
+								autocomplete="off"
+							>
+
 							<button class="popup__button" type="submit">Сохранить</button>
 						</form>
 					</div>
@@ -74,9 +94,28 @@
 					<div class="popup__container">
 						<h2 class="popup__title">Новое место</h2>
 
-						<form action="#" name="card" class="popup__form">
-							<input type="text" class="popup__input popup__input_type_title" name="title" placeholder="Название">
-							<input type="text" class="popup__input popup__input_type_url" name="url" placeholder="Ссылка на картинку">
+						<form action="#" name="card" class="popup__form" novalidate>
+
+							<input
+								required
+								class="popup__input popup__input_type_title"
+								type="text"
+								name="title"
+								placeholder="Название"
+								minlength="2"
+								maxlength="30"
+								autocomplete="off"
+							>
+
+							<input
+								required
+								class="popup__input popup__input_type_url"
+								type="url"
+								name="url"
+								placeholder="Ссылка на картинку"
+								autocomplete="off"
+							>
+
 							<button class="popup__button" type="submit">Создать</button>
 						</form>
 					</div>
@@ -107,6 +146,7 @@
 		</footer>
 	</div><!-- END .page -->
 
+	<script src="./scripts/validate.js"></script>
 	<script src="./scripts/index.js"></script>
 </body>
 
