@@ -27,6 +27,7 @@ const initialCards = [
 	}
 ];
 
+const popups       = document.querySelectorAll('.popup');
 const profilePopup = document.querySelector('#popup-profile');
 const profilePopupForm = profilePopup.querySelector('.popup__form');
 const profilePopupInputName = profilePopup.querySelector('.popup__input_type_name');
@@ -187,7 +188,6 @@ function closedPopup(el) {
 	el.classList.remove(popupToggleClass);
 }
 
-
 function openPopupFancyboxImage(e) {
 	const el = e.target;
 	const elUrl = el.getAttribute('src');
@@ -208,6 +208,7 @@ function openPopupFancyboxImage(e) {
 
 	openPopup(popupImage);
 }
+
 function closedPopupEsc(e) {
 	if (e.key === 'Escape') {
 		const popupOpened = document.querySelector('.popup_opened');
@@ -216,3 +217,12 @@ function closedPopupEsc(e) {
 		}
 	}
 }
+
+// Закрываем popup по клику на overlay
+popups.forEach( (el) => {
+	el.addEventListener('click', (e) => {
+		if (e.target === e.currentTarget) {
+			closedPopup(e.target);
+		}
+	});
+});
