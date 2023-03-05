@@ -125,12 +125,18 @@ newCardPopupForm.addEventListener('submit', submitPopupFormNewCard);
 
 // # Global all popup
 popupBtnsClose.forEach((el) => {
-	el.addEventListener('click', closedPopup); // Global btn
+	el.addEventListener('click', (e) =>{
+		let el = e.target;
+		let parentPopup = el.closest('.popup');
+		closedPopup(parentPopup);
+	}); // Global btn
 });
 
 function openPopup(popupID) {
 	// Открываем нужный нам popup по идишнику ${popupID}
 	popupID.classList.add(popupToggleClass);
+
+	document.addEventListener('keydown', closedPopupEsc);
 }
 
 function submitPopupFormProfile(e) {
@@ -146,7 +152,7 @@ function submitPopupFormProfile(e) {
 		profileSubTitle.textContent = popupInputStatusValue;
 	}
 
-	closedPopup(e);
+	closedPopup(profilePopup);
 }
 
 function submitPopupFormNewCard(e) {
@@ -174,14 +180,13 @@ function submitPopupFormNewCard(e) {
 		popupBtn.classList.add('popup__button_disabled');
 	}
 
-	closedPopup(e);
+	closedPopup(newCardPopup);
 }
 
-function closedPopup(e) {
-	const el = e.target;
-	const parentContainer = el.closest('.popup');
-	parentContainer.classList.remove(popupToggleClass);
+function closedPopup(el) {
+	el.classList.remove(popupToggleClass);
 }
+
 
 function openPopupFancyboxImage(e) {
 	const el = e.target;
@@ -202,4 +207,12 @@ function openPopupFancyboxImage(e) {
 	}
 
 	openPopup(popupImage);
+}
+function closedPopupEsc(e) {
+	if (e.key === 'Escape') {
+		const popupOpened = document.querySelector('.popup_opened');
+		if (popupOpened ){
+			closedPopup(popupOpened);
+		}
+	}
 }
