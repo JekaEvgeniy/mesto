@@ -6,16 +6,10 @@ const enableValidation = (options) => {
 	const forms = Array.from(document.querySelectorAll(options.formSelector));
 
 	forms.forEach( (form) => {
-		form.addEventListener('submit', disabledSubmitForm);
-
 		// Для каждой формы делаем свой EventListener
 		setEventListeners(form, options);
 	});
 };
-
-function disabledSubmitForm(e) {
-		e.preventDefault();
-}
 
 const setEventListeners = (form, options) => {
 	const inputs = Array.from(form.querySelectorAll(options.inputSelector) );
