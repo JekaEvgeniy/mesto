@@ -150,6 +150,7 @@ function submitPopupFormProfile(e) {
 }
 
 function submitPopupFormNewCard(e) {
+	const thisForm = e.target;
 	e.preventDefault();
 
 	const popupInputTitleValue = newCardPopupInputTitle.value;
@@ -164,7 +165,14 @@ function submitPopupFormNewCard(e) {
 
 	// очищаем заполненные поля формы, чтобы при повторном открытии popup
 	// в инпутах не было предыдущих значений:
-	e.target.reset();
+	thisForm.reset();
+
+	// После того как добавили новую карточку, в модалке
+	// кнопка должна быть неактивна (disabled) при повторном открытии этой модалки
+	const popupBtn = thisForm.querySelector('.popup__button');
+	if ( popupBtn ) {
+		popupBtn.classList.add('popup__button_disabled');
+	}
 
 	closedPopup(e);
 }
