@@ -19,6 +19,7 @@ function disabledSubmitForm(e) {
 function setEventListenersInput(form, options){
 	// console.log(options.inputSelector);
 	const inputs = Array.from(form.querySelectorAll(options.inputSelector) );
+	const buttonSubmit = form.querySelector(options.submitButtonSelector);
 
 	inputs.forEach( (inputElement) => {
 
@@ -44,11 +45,25 @@ function setEventListenersInput(form, options){
 				}
 			}
 
+			toggleBtnState(inputs, buttonSubmit, options);
 			// checkInputValidity(formElement);
 		});
 
 	});
 }
+
+function toggleBtnState(inputs, buttonSubmit, options){
+	const checkValid = inputs.every( (inputElement) => {
+		return inputElement.validity.valid;
+	});
+
+	if (!checkValid) {
+		buttonSubmit.classList.add(options.inactiveButtonClass);
+	} else {
+		buttonSubmit.classList.remove(options.inactiveButtonClass);
+	}
+}
+
 
 // function checkInputValidity(formElement){
 	// let el = e.target;
