@@ -55,11 +55,11 @@ const toggleInputState = (inputElement, options) => {
 	const errorElement = document.querySelector(`#${inputElementId}-error`);
 
 	if (!isValid) {
-		inputElement.classList.add(options.inputErrorClass);
+		addStateInputError(inputElement, options);
 
 		showMessageInputError(errorElement, inputElement, options);
 	} else {
-		inputElement.classList.remove(options.inputErrorClass);
+		removeStateInputError(inputElement, options);
 
 		hideMessageInputError(errorElement, inputElement, options);
 	}
@@ -79,6 +79,12 @@ const hideMessageInputError = (errorElement, inputElement, options) => {
 	}
 }
 
+const addStateInputError = (inputElement, options) => {
+	inputElement.classList.add(options.inputErrorClass);
+}
+const removeStateInputError = (inputElement, options) => {
+	inputElement.classList.remove(options.inputErrorClass);
+}
 
 // function checkInputValidity(formElement){
 	// let el = e.target;
