@@ -127,8 +127,8 @@ newCardPopupForm.addEventListener('submit', submitPopupFormNewCard);
 // # Global all popup
 popupBtnsClose.forEach((el) => {
 	el.addEventListener('click', (e) =>{
-		let el = e.target;
-		let parentPopup = el.closest('.popup');
+		const el = e.target;
+		const parentPopup = el.closest('.popup');
 		closedPopup(parentPopup);
 	}); // Global btn
 });
