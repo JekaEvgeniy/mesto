@@ -44,25 +44,29 @@
 						<form action="#" name="profile" class="popup__form" novalidate>
 							<input
 								required
-								type="text"
+								id="profile-name-input"
 								class="popup__input popup__input_type_name"
+								type="text"
 								name="firstName"
 								placeholder="ФИО"
 								minlength="2"
 								maxlength="40"
 								autocomplete="off"
 							>
+							<span class="popup__error" id="profile-name-input-error"></span>
 
 							<input
 								required
-								type="text"
+								id="profile-status-input"
 								class="popup__input popup__input_type_status"
+								type="text"
 								name="status"
 								placeholder="Вид деятельности"
 								minlength="2"
 								maxlength="200"
 								autocomplete="off"
 							>
+							<span class="popup__error" id="profile-status-input-error"></span>
 
 							<button class="popup__button" type="submit">Сохранить</button>
 						</form>
@@ -98,6 +102,7 @@
 
 							<input
 								required
+								id="newcard-title-input"
 								class="popup__input popup__input_type_title"
 								type="text"
 								name="title"
@@ -106,15 +111,18 @@
 								maxlength="30"
 								autocomplete="off"
 							>
+							<span class="popup__error" id="newcard-title-input-error"></span>
 
 							<input
 								required
+								id="newcard-url-input"
 								class="popup__input popup__input_type_url"
 								type="url"
 								name="url"
 								placeholder="Ссылка на картинку"
 								autocomplete="off"
 							>
+							<span class="popup__error" id="newcard-url-input-error"></span>
 
 							<button class="popup__button" type="submit">Создать</button>
 						</form>
