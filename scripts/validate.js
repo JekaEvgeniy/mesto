@@ -5,10 +5,11 @@
 const enableValidation = (options) => {
 	const forms = Array.from(document.querySelectorAll(options.formSelector));
 
-	forms.forEach(function(form){
+	forms.forEach( (form) => {
 		form.addEventListener('submit', disabledSubmitForm);
 
-		setEventListenersInput(form, options);
+		// Для каждой формы делаем свой EventListener
+		setEventListeners(form, options);
 	});
 };
 
@@ -16,8 +17,7 @@ function disabledSubmitForm(e) {
 		e.preventDefault();
 }
 
-function setEventListenersInput(form, options){
-	// console.log(options.inputSelector);
+const setEventListeners = (form, options) => {
 	const inputs = Array.from(form.querySelectorAll(options.inputSelector) );
 	const buttonSubmit = form.querySelector(options.submitButtonSelector);
 
@@ -25,9 +25,9 @@ function setEventListenersInput(form, options){
 
 		inputElement.addEventListener('input', () => {
 			const isValid = inputElement.validity.valid;
+
 			const inputElementId = inputElement.id;
 			const errorElement = document.querySelector(`#${inputElementId}-error`);
-			// console.log(`#${inputElementId}-error`);
 
 			if (! isValid ){
 				inputElement.classList.add(options.inputErrorClass);
@@ -46,23 +46,30 @@ function setEventListenersInput(form, options){
 			}
 
 			toggleBtnState(inputs, buttonSubmit, options);
+
 			// checkInputValidity(formElement);
 		});
 
 	});
-}
 
-function toggleBtnState(inputs, buttonSubmit, options){
-	const checkValid = inputs.every( (inputElement) => {
-		return inputElement.validity.valid;
+	// делаем так, чтобы при загрузке страницы кнопка была неактивна (disabled)
+	toggleBtnState(inputs, buttonSubmit, options);
+};
+
+const toggleBtnState = (inputs, buttonSubmit, options) => {
+	const checkValid = inputs.every( el => {
+		return el.validity.valid;
 	});
 
 	if (!checkValid) {
 		buttonSubmit.classList.add(options.inactiveButtonClass);
+		buttonSubmit.disabled = true;
 	} else {
 		buttonSubmit.classList.remove(options.inactiveButtonClass);
+		buttonSubmit.disabled = false;
 	}
-}
+};
+
 
 
 // function checkInputValidity(formElement){
