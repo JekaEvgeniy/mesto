@@ -41,11 +41,9 @@ const toggleBtnState = (inputs, buttonSubmit, options) => {
 	});
 
 	if (!checkValid) {
-		buttonSubmit.classList.add(options.inactiveButtonClass);
-		buttonSubmit.disabled = true;
+		disableButton(buttonSubmit, options);
 	} else {
-		buttonSubmit.classList.remove(options.inactiveButtonClass);
-		buttonSubmit.disabled = false;
+		enableButton(buttonSubmit, options);
 	}
 };
 
@@ -86,20 +84,15 @@ const removeStateInputError = (inputElement, options) => {
 	inputElement.classList.remove(options.inputErrorClass);
 }
 
-// function checkInputValidity(formElement){
-	// let el = e.target;
-	// let checkValid = el.validity.valid;
-	// let elID = el.id;
-	// console.log(el);
-	// console.log(elID);
+const disableButton = (buttonSubmit, options) => {
+	buttonSubmit.classList.add(options.inactiveButtonClass);
+	buttonSubmit.disabled = true;
+}
 
-	// if (!checkValid) {
-	// 	el.classList.add(options.inputErrorClass);
-	// } else {
-	// 	el.classList.remove(options.inputErrorClass);
-	// }
-// }
-
+const enableButton = (buttonSubmit, options) => {
+	buttonSubmit.classList.remove(options.inactiveButtonClass);
+	buttonSubmit.disabled = false;
+}
 
 enableValidation({
 	formSelector: '.popup__form',
