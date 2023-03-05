@@ -24,30 +24,9 @@ const setEventListeners = (form, options) => {
 	inputs.forEach( (inputElement) => {
 
 		inputElement.addEventListener('input', () => {
-			const isValid = inputElement.validity.valid;
-
-			const inputElementId = inputElement.id;
-			const errorElement = document.querySelector(`#${inputElementId}-error`);
-
-			if (! isValid ){
-				inputElement.classList.add(options.inputErrorClass);
-
-				if (errorElement) {
-					errorElement.textContent = inputElement.validationMessage;
-					errorElement.classList.add(options.errorClass)
-				}
-			} else {
-				inputElement.classList.remove(options.inputErrorClass);
-
-				if (errorElement) {
-					errorElement.textContent = '';
-					errorElement.classList.remove(options.errorClass)
-				}
-			}
+			toggleInputState(inputElement, options);
 
 			toggleBtnState(inputs, buttonSubmit, options);
-
-			// checkInputValidity(formElement);
 		});
 
 	});
@@ -69,6 +48,28 @@ const toggleBtnState = (inputs, buttonSubmit, options) => {
 		buttonSubmit.disabled = false;
 	}
 };
+
+const toggleInputState = (inputElement, options) => {
+	const isValid = inputElement.validity.valid;
+	const inputElementId = inputElement.id;
+	const errorElement = document.querySelector(`#${inputElementId}-error`);
+
+	if (!isValid) {
+		inputElement.classList.add(options.inputErrorClass);
+
+		if (errorElement) {
+			errorElement.textContent = inputElement.validationMessage;
+			errorElement.classList.add(options.errorClass)
+		}
+	} else {
+		inputElement.classList.remove(options.inputErrorClass);
+
+		if (errorElement) {
+			errorElement.textContent = '';
+			errorElement.classList.remove(options.errorClass)
+		}
+	}
+}
 
 
 
