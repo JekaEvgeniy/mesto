@@ -1,5 +1,8 @@
 .popup__error {
-	display: none;
+	display: block;
+	margin-top: 5px;
+	/* opacity: 0; */
+	transition: opacity 0.3s ease-in-out;
 
 	font-weight: 400;
 	font-size  : 12px;
