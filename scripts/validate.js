@@ -57,20 +57,27 @@ const toggleInputState = (inputElement, options) => {
 	if (!isValid) {
 		inputElement.classList.add(options.inputErrorClass);
 
-		if (errorElement) {
-			errorElement.textContent = inputElement.validationMessage;
-			errorElement.classList.add(options.errorClass)
-		}
+		showMessageInputError(errorElement, inputElement, options);
 	} else {
 		inputElement.classList.remove(options.inputErrorClass);
 
-		if (errorElement) {
-			errorElement.textContent = '';
-			errorElement.classList.remove(options.errorClass)
-		}
+		hideMessageInputError(errorElement, inputElement, options);
 	}
 }
 
+const showMessageInputError = (errorElement, inputElement, options) => {
+	if (errorElement) {
+		errorElement.textContent = inputElement.validationMessage;
+		errorElement.classList.add(options.errorClass)
+	}
+}
+
+const hideMessageInputError = (errorElement, inputElement, options) => {
+	if (errorElement) {
+		errorElement.textContent = '';
+		errorElement.classList.remove(options.errorClass)
+	}
+}
 
 
 // function checkInputValidity(formElement){
