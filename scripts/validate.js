@@ -89,21 +89,19 @@ const enableButton = (buttonSubmit, validationConfig) => {
 }
 
 const disableSubmitButton = (popupEl, validationConfig) => {
-	// Блокируем кнопку при закрытии popup
+	// Блокируем кнопку при закрытии popup (в модалке fancybox кнопки нет!)
 
 	const buttonSubmit = popupEl.querySelector(validationConfig.submitButtonSelector);
-	disableButton(buttonSubmit, validationConfig)
+	if (buttonSubmit ){
+		disableButton(buttonSubmit, validationConfig)
+	}
 }
 
 const hideErrors = (popupEl, validationConfig) => {
 	// Скрываем сообщения об ошибках при закрытии popup + Удаляем ошибки с input
 
-	const messagesError = popupEl.querySelectorAll('.popup__error_visible');
-	const inputsError = popupEl.querySelectorAll('.popup__input_type_error');
-
-	// validationConfig.errorClass - он их не видит.
-	// const messagesError = popupEl.querySelectorAll(validationConfig.errorClass);
-	// const inputsError = popupEl.querySelectorAll(validationConfig.inputErrorClass);
+	const messagesError = popupEl.querySelectorAll('.' + validationConfig.errorClass);
+	const inputsError = popupEl.querySelectorAll('.' + validationConfig.inputErrorClass);
 
 	messagesError.forEach((el) => {
 		el.classList.remove(validationConfig.errorClass);
