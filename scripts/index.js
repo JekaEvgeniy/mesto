@@ -120,6 +120,9 @@ profilePopupForm.addEventListener('submit', submitPopupFormProfile);
 // # popup newcard
 newCardBtnAdd.addEventListener('click', () => {
 	openPopup(newCardPopup);
+
+	newCardPopupInputTitle.value = '';
+	newCardPopupInputUrl.value = '';
 });
 
 newCardPopupForm.addEventListener('submit', submitPopupFormNewCard);
@@ -129,7 +132,7 @@ popupBtnsClose.forEach((el) => {
 	el.addEventListener('click', (e) =>{
 		const el = e.target;
 		const parentPopup = el.closest('.popup');
-		closedPopup(parentPopup);
+		closePopup(parentPopup);
 	}); // Global btn
 });
 
@@ -144,16 +147,12 @@ function submitPopupFormProfile(e) {
 	e.preventDefault();
 
 	const popupInputNameValue = profilePopupInputName.value;
-	if (popupInputNameValue) {
-		profileTitle.textContent = popupInputNameValue;
-	}
+	profileTitle.textContent = popupInputNameValue;
 
 	const popupInputStatusValue = profilePopupInputStatus.value;
-	if (popupInputStatusValue) {
-		profileSubTitle.textContent = popupInputStatusValue;
-	}
+	profileSubTitle.textContent = popupInputStatusValue;
 
-	closedPopup(profilePopup);
+	closePopup(profilePopup);
 }
 
 function submitPopupFormNewCard(e) {
@@ -174,18 +173,14 @@ function submitPopupFormNewCard(e) {
 	// в инпутах не было предыдущих значений:
 	thisForm.reset();
 
-	// После того как добавили новую карточку, в модалке
-	// кнопка должна быть неактивна (disabled) при повторном открытии этой модалки
-	const popupBtn = thisForm.querySelector('.popup__button');
-	if ( popupBtn ) {
-		popupBtn.classList.add('popup__button_disabled');
-	}
-
-	closedPopup(newCardPopup);
+	closePopup(newCardPopup);
 }
 
-function closedPopup(el) {
+function closePopup(el) {
 	el.classList.remove(popupToggleClass);
+
+	disableSubmitButton(el, validationConfig);
+	hideErrors(el, validationConfig);
 }
 
 function openPopupFancyboxImage(e) {
@@ -213,7 +208,7 @@ function closedPopupEsc(e) {
 	if (e.key === 'Escape') {
 		const popupOpened = document.querySelector('.popup_opened');
 		if (popupOpened ){
-			closedPopup(popupOpened);
+			closePopup(popupOpened);
 		}
 	}
 }
@@ -222,7 +217,7 @@ function closedPopupEsc(e) {
 popups.forEach( (el) => {
 	el.addEventListener('click', (e) => {
 		if (e.target === e.currentTarget) {
-			closedPopup(e.target);
+			closePopup(e.target);
 		}
 	});
 });
