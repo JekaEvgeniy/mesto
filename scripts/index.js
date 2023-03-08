@@ -101,6 +101,10 @@ initialCards.forEach((item) => {
 
 // # popup profile
 profileBtnEdit.addEventListener('click', () => {
+
+	disableSubmitButton(profilePopup, validationConfig);
+	hideErrors(profilePopup, validationConfig);
+
 	openPopup(profilePopup);
 
 	const profileTitleText = profileTitle.textContent; // ФИО
@@ -119,6 +123,10 @@ profilePopupForm.addEventListener('submit', submitPopupFormProfile);
 
 // # popup newcard
 newCardBtnAdd.addEventListener('click', () => {
+
+	disableSubmitButton(newCardPopup, validationConfig);
+	hideErrors(newCardPopup, validationConfig);
+
 	openPopup(newCardPopup);
 
 	newCardPopupInputTitle.value = '';
@@ -179,8 +187,7 @@ function submitPopupFormNewCard(e) {
 function closePopup(el) {
 	el.classList.remove(popupToggleClass);
 
-	disableSubmitButton(el, validationConfig);
-	hideErrors(el, validationConfig);
+	document.removeEventListener('keydown', closedPopupEsc);
 }
 
 function openPopupFancyboxImage(e) {
