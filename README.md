@@ -27,3 +27,4 @@
 * [Чеклист 4 спринта](https://code.s3.yandex.net/web-developer/checklists-pdf/new-program/checklist-4.pdf)
 * [Чеклист 5 спринта](https://code.s3.yandex.net/web-developer/checklists-pdf/new-program/checklist-5.pdf)
 * [Чеклист 6 спринта](https://code.s3.yandex.net/web-developer/checklists-pdf/new-program/checklist-6.pdf)
+* [Чеклист 7 спринта](https://code.s3.yandex.net/web-developer/checklists-pdf/new-program/checklist-7.pdf)
