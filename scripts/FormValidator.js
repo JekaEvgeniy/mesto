@@ -122,4 +122,3 @@ const validationConfig = {
 	errorClass: 'popup__error_visible'
 }
 enableValidation(validationConfig);
-
