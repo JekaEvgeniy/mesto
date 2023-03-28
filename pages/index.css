@@ -62,12 +62,3 @@
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
-
-
-#cards {
-	border: 2px solid red;
-}
-
-.card {
-	border: 2px solid yellow;
-}

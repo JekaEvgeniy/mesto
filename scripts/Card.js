@@ -10,6 +10,23 @@ export default class Card {
 
 	render(){
 		this._view = Card._template.cloneNode(true).children[0];
+
+		const item = this._item;
+		const view = this._view;
+
+		const cardTitle = view.querySelector('.card__title');
+		const cardImg   = view.querySelector('.card__image');
+
+		cardTitle.textContent = item.name;
+		// Если изображения нет - заменить на no-photo или скрывать изображение (в ТЗ нет)
+		if (item.link) {
+			cardImg.src = item.link;
+		} else {
+			cardImg.src = '#';
+		}
+
+		cardImg.setAttribute('alt', `${item.name}`);
+
 		this._container.append(this._view);
 	}
 }
