@@ -8,6 +8,10 @@ export default class Card {
 		this._container = container;
 	}
 
+	_removeCard = () => {
+		this._view.remove();
+	}
+
 	render(){
 		this._view = Card._template.cloneNode(true).children[0];
 
@@ -26,6 +30,8 @@ export default class Card {
 		}
 
 		cardImg.setAttribute('alt', `${item.name}`);
+
+		view.querySelector('.card__button-remove').addEventListener('click', this._removeCard);
 
 		this._container.append(this._view);
 	}
