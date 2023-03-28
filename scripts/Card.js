@@ -12,6 +12,10 @@ export default class Card {
 		this._view.remove();
 	}
 
+	_likeCard = (e) => {
+		e.target.classList.toggle('card__button_active');
+	}
+
 	render(){
 		this._view = Card._template.cloneNode(true).children[0];
 
@@ -32,6 +36,13 @@ export default class Card {
 		cardImg.setAttribute('alt', `${item.name}`);
 
 		view.querySelector('.card__button-remove').addEventListener('click', this._removeCard);
+
+		view.querySelector('.card__button').addEventListener('click', this._likeCard );
+
+		// view.querySelector('.card__button').addEventListener('click', (e) => {
+		// 	// e.currentTarget._likeCard;
+		// 	// e.target.classList.toggle('card__button_active');
+		// });
 
 		this._container.append(this._view);
 	}
