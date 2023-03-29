@@ -50,9 +50,9 @@ const newCardPopupForm = newCardPopup.querySelector('.popup__form');
 const newCardPopupInputTitle = newCardPopup.querySelector('.popup__input_type_title');
 const newCardPopupInputUrl = newCardPopup.querySelector('.popup__input_type_url');
 
-const popupImage = document.querySelector('#popup-image');
-const popupImageImage = popupImage.querySelector('.popup-figure__img');
-const popupImageCaption = popupImage.querySelector('.popup-figure__figcaption');
+export const popupImage = document.querySelector('#popup-image');
+export const popupImageImage = popupImage.querySelector('.popup-figure__img');
+export const popupImageCaption = popupImage.querySelector('.popup-figure__figcaption');
 
 const cardTemplate = document.querySelector('#card');
 
@@ -63,3 +63,12 @@ initialCards.forEach((item) => {
 	const card = new Card(item, cardsContainer);
 	card.render();
 });
+
+export function openPopup(popupID) {
+	console.log(`>>> run function openPopup(${popupID})`);
+
+	// Открываем нужный нам popup по идишнику ${popupID}
+	popupID.classList.add(popupToggleClass);
+
+	document.addEventListener('keydown', closedPopupEsc);
+}

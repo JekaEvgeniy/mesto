@@ -1,4 +1,10 @@
 console.warn(' >>> Card.js');
+import {
+	openPopup,
+	popupImage,
+	popupImageImage,
+	popupImageCaption
+} from './index.js';
 
 export default class Card {
 	static _template = document.querySelector('#card').content;
@@ -14,6 +20,30 @@ export default class Card {
 
 	_likeCard = (e) => {
 		e.target.classList.toggle('card__button_active');
+	}
+
+	_fancybox = (e) => {
+		// Должно работать:
+		// закрытие по крестику
+		// Закрытие по пустому месту.
+		const el = e.target;
+		const elUrl = el.getAttribute('src');
+		const elTitle = el.getAttribute('alt');
+
+		if (elUrl && popupImageImage) {
+			popupImageImage.src = elUrl;
+		}
+
+		if (elTitle) {
+			if (popupImageImage) {
+				popupImageImage.alt = elTitle;
+			}
+			if (popupImageCaption) {
+				popupImageCaption.textContent = elTitle;
+			}
+		}
+
+		openPopup(popupImage);
 	}
 
 	render(){
@@ -37,12 +67,9 @@ export default class Card {
 
 		view.querySelector('.card__button-remove').addEventListener('click', this._removeCard);
 
-		view.querySelector('.card__button').addEventListener('click', this._likeCard );
+		view.querySelector('.card__button').addEventListener('click', this._likeCard);
 
-		// view.querySelector('.card__button').addEventListener('click', (e) => {
-		// 	// e.currentTarget._likeCard;
-		// 	// e.target.classList.toggle('card__button_active');
-		// });
+		view.querySelector('.card__image').addEventListener('click', this._fancybox);
 
 		this._container.append(this._view);
 	}
