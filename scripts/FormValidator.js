@@ -51,13 +51,13 @@ export default class FormValidator {
 			inputElement.addEventListener('input', (e) => {
 				console.log(`addEventListener >>> input; val = ${e.target.value}`);
 				this._toggleInputState(inputElement);
-				// toggleBtnState(inputs, buttonSubmit, validationConfig);
+				this._toggleBtnState(inputs, buttonSubmit);
 			});
 
 		});
 
 		// делаем так, чтобы при загрузке страницы кнопка была неактивна (disabled)
-		// toggleBtnState(inputs, buttonSubmit, validationConfig);
+		this._toggleBtnState(inputs, buttonSubmit);
 	};
 
 	_toggleInputState = (inputElement) => {
@@ -102,6 +102,31 @@ export default class FormValidator {
 	_removeStateInputError = (inputElement) => {
 		const classes = this._classes;
 		inputElement.classList.remove(classes.inputErrorClass);
+	}
+
+	_toggleBtnState = (inputs, buttonSubmit) => {
+		const classes = this._classes;
+		const checkValid = inputs.every(el => {
+			return el.validity.valid;
+		});
+
+		if (!checkValid) {
+			this._disableButton(buttonSubmit);
+		} else {
+			this._enableButton(buttonSubmit);
+		}
+	};
+
+	_disableButton = (buttonSubmit) => {
+		const classes = this._classes;
+		buttonSubmit.classList.add(classes.inactiveButtonClass);
+		buttonSubmit.disabled = true;
+	}
+
+	_enableButton = (buttonSubmit) => {
+		const classes = this._classes;
+		buttonSubmit.classList.remove(classes.inactiveButtonClass);
+		buttonSubmit.disabled = false;
 	}
 
 
