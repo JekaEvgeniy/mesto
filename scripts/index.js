@@ -148,6 +148,8 @@ profileBtnEdit.addEventListener('click', () => {
 
 });
 
+profilePopupForm.addEventListener('submit', submitPopupFormProfile);
+
 /* Валидация формы */
 const enableValidation = (validationConfig) => {
 	const forms = Array.from(document.querySelectorAll(validationConfig.formSelector));
@@ -161,3 +163,20 @@ const enableValidation = (validationConfig) => {
 };
 enableValidation(validationConfig);
 
+function submitPopupFormProfile(e) {
+	e.preventDefault();
+
+	const popupInputNameValue = profilePopupInputName.value;
+	profileTitle.textContent = popupInputNameValue;
+
+	const popupInputStatusValue = profilePopupInputStatus.value;
+	profileSubTitle.textContent = popupInputStatusValue;
+
+	closePopup(profilePopup);
+}
+
+/*
+
+https://images.unsplash.com/photo-1678384979913-5a1007bc4a8a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80
+
+*/
