@@ -128,6 +128,8 @@ newCardBtnAdd.addEventListener('click', () => {
 	newCardPopupInputUrl.value = '';
 });
 
+newCardPopupForm.addEventListener('submit', submitPopupFormNewCard);
+
 // # popup profile
 profileBtnEdit.addEventListener('click', () => {
 
@@ -173,6 +175,31 @@ function submitPopupFormProfile(e) {
 	profileSubTitle.textContent = popupInputStatusValue;
 
 	closePopup(profilePopup);
+}
+
+function submitPopupFormNewCard(e) {
+	const thisForm = e.target;
+	e.preventDefault();
+
+	const popupInputTitleValue = newCardPopupInputTitle.value;
+	const popupInputUrlValue = newCardPopupInputUrl.value;
+
+	const newItem = {
+		'name': popupInputTitleValue,
+		'link': popupInputUrlValue,
+	}
+
+	// renderCardItem(cardsContainer, newItem);
+
+	const card = new Card(newItem, cardsContainer);
+	card.render();
+
+
+	// очищаем заполненные поля формы, чтобы при повторном открытии popup
+	// в инпутах не было предыдущих значений:
+	thisForm.reset();
+
+	closePopup(newCardPopup);
 }
 
 /*
