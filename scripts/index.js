@@ -65,10 +65,34 @@ initialCards.forEach((item) => {
 });
 
 export function openPopup(popupID) {
-	console.log(`>>> run function openPopup(${popupID})`);
+	console.log(`>>> run function openPopup()`);
 
 	// Открываем нужный нам popup по идишнику ${popupID}
 	popupID.classList.add(popupToggleClass);
 
 	document.addEventListener('keydown', closedPopupEsc);
 }
+
+function closedPopupEsc(e) {
+	if (e.key === 'Escape') {
+		const popupOpened = document.querySelector('.popup_opened');
+		if (popupOpened) {
+			closePopup(popupOpened);
+		}
+	}
+}
+
+function closePopup(el) {
+	el.classList.remove(popupToggleClass);
+
+	document.removeEventListener('keydown', closedPopupEsc);
+}
+
+// # Global all popup
+popupBtnsClose.forEach((el) => {
+	el.addEventListener('click', (e) => {
+		const el = e.target;
+		const parentPopup = el.closest('.popup');
+		closePopup(parentPopup);
+	}); // Global btn
+});

@@ -1,6 +1,7 @@
 console.warn(' >>> Card.js');
 import {
 	openPopup,
+
 	popupImage,
 	popupImageImage,
 	popupImageCaption
