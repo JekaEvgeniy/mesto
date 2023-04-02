@@ -2,7 +2,14 @@
 	* включение валидации вызовом enableValidation
 */
 
-const enableValidation = (validationConfig) => {
+export class FormValidator {
+		constructor(item, container) {
+		this._item = item;
+		this._container = container;
+	}
+}
+
+export const enableValidation = (validationConfig) => {
 	const forms = Array.from(document.querySelectorAll(validationConfig.formSelector));
 
 	forms.forEach( (form) => {
@@ -83,12 +90,12 @@ const disableButton = (buttonSubmit, validationConfig) => {
 	buttonSubmit.disabled = true;
 }
 
-const enableButton = (buttonSubmit, validationConfig) => {
+export const enableButton = (buttonSubmit, validationConfig) => {
 	buttonSubmit.classList.remove(validationConfig.inactiveButtonClass);
 	buttonSubmit.disabled = false;
 }
 
-const disableSubmitButton = (popupEl, validationConfig) => {
+export const disableSubmitButton = (popupEl, validationConfig) => {
 	// Блокируем кнопку при закрытии popup (в модалке fancybox кнопки нет!)
 
 	const buttonSubmit = popupEl.querySelector(validationConfig.submitButtonSelector);
@@ -97,7 +104,7 @@ const disableSubmitButton = (popupEl, validationConfig) => {
 	}
 }
 
-const hideErrors = (popupEl, validationConfig) => {
+export const hideErrors = (popupEl, validationConfig) => {
 	// Скрываем сообщения об ошибках при закрытии popup + Удаляем ошибки с input
 
 	const messagesError = popupEl.querySelectorAll('.' + validationConfig.errorClass);
@@ -113,7 +120,7 @@ const hideErrors = (popupEl, validationConfig) => {
 
 }
 
-const validationConfig = {
+export const validationConfig = {
 	formSelector: '.popup__form',
 	inputSelector: '.popup__input',
 	submitButtonSelector: '.popup__button',

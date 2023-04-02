@@ -1,4 +1,3 @@
-console.warn(' >>> Card.js');
 import {
 	openPopup,
 
@@ -24,9 +23,6 @@ export default class Card {
 	}
 
 	_fancybox = (e) => {
-		// Должно работать:
-		// закрытие по крестику
-		// Закрытие по пустому месту.
 		const el = e.target;
 		const elUrl = el.getAttribute('src');
 		const elTitle = el.getAttribute('alt');

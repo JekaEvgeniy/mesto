@@ -1,4 +1,13 @@
 import Card from './Card.js';
+import {
+	validationConfig,
+	FormValidator,
+	enableValidation,
+
+	enableButton,
+	disableSubmitButton,
+	hideErrors
+} from './FormValidator.js';
 
 const initialCards = [
 	{
@@ -88,11 +97,52 @@ function closePopup(el) {
 	document.removeEventListener('keydown', closedPopupEsc);
 }
 
-// # Global all popup
+// Закрываем popup при нажатии на крестик
 popupBtnsClose.forEach((el) => {
 	el.addEventListener('click', (e) => {
 		const el = e.target;
 		const parentPopup = el.closest('.popup');
 		closePopup(parentPopup);
 	}); // Global btn
+});
+
+// Закрываем popup по клику на overlay
+popups.forEach((el) => {
+	el.addEventListener('click', (e) => {
+		if (e.target === e.currentTarget) {
+			closePopup(e.target);
+		}
+	});
+});
+
+// # popup newcard
+newCardBtnAdd.addEventListener('click', () => {
+
+	disableSubmitButton(newCardPopup, validationConfig);
+	hideErrors(newCardPopup, validationConfig);
+
+	openPopup(newCardPopup);
+
+	newCardPopupInputTitle.value = '';
+	newCardPopupInputUrl.value = '';
+});
+
+// # popup profile
+profileBtnEdit.addEventListener('click', () => {
+
+	disableSubmitButton(profilePopup, validationConfig);
+	hideErrors(profilePopup, validationConfig);
+
+	openPopup(profilePopup);
+
+	const profileTitleText = profileTitle.textContent; // ФИО
+	if (profileTitleText) {
+		profilePopupInputName.value = profileTitleText;
+	}
+
+	const profileSubTitleText = profileSubTitle.textContent; // Статус
+	if (profileSubTitleText) {
+		profilePopupInputStatus.value = profileSubTitleText;
+	}
+
 });
