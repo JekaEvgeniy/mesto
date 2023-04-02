@@ -1,13 +1,29 @@
 /*
-	* включение валидации вызовом enableValidation
+* включение валидации вызовом enableValidation
+
+# Создайте класс FormValidator, который настраивает валидацию полей формы:
+* принимает в конструктор объект настроек с селекторами и классами формы;
+* принимает вторым параметром элемент той формы, которая валидируется;
+* имеет приватные методы, которые обрабатывают форму: проверяют валидность поля, изменяют состояние кнопки сабмита, устанавливают все обработчики;
+* имеет публичный метод enableValidation, который включает валидацию формы.
+* Для каждой проверяемой формы создайте экземпляр класса FormValidator.
+
 */
 
-export class FormValidator {
-		constructor(item, container) {
+export default class FormValidator {
+
+	constructor(item, container) {
 		this._item = item;
 		this._container = container;
 	}
+
+	enableValidation(){
+		console.log('enableValidation()');
+	}
+
 }
+
+/*
 
 export const enableValidation = (validationConfig) => {
 	const forms = Array.from(document.querySelectorAll(validationConfig.formSelector));
@@ -120,12 +136,6 @@ export const hideErrors = (popupEl, validationConfig) => {
 
 }
 
-export const validationConfig = {
-	formSelector: '.popup__form',
-	inputSelector: '.popup__input',
-	submitButtonSelector: '.popup__button',
-	inactiveButtonClass: 'popup__button_disabled',
-	inputErrorClass: 'popup__input_type_error',
-	errorClass: 'popup__error_visible'
-}
+
 enableValidation(validationConfig);
+*/

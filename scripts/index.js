@@ -1,13 +1,5 @@
 import Card from './Card.js';
-import {
-	validationConfig,
-	FormValidator,
-	enableValidation,
-
-	enableButton,
-	disableSubmitButton,
-	hideErrors
-} from './FormValidator.js';
+import FormValidator from './FormValidator.js';
 
 const initialCards = [
 	{
@@ -63,7 +55,16 @@ export const popupImage = document.querySelector('#popup-image');
 export const popupImageImage = popupImage.querySelector('.popup-figure__img');
 export const popupImageCaption = popupImage.querySelector('.popup-figure__figcaption');
 
-const cardTemplate = document.querySelector('#card');
+// const cardTemplate = document.querySelector('#card');
+
+export const validationConfig = {
+	formSelector: '.popup__form',
+	inputSelector: '.popup__input',
+	submitButtonSelector: '.popup__button',
+	inactiveButtonClass: 'popup__button_disabled',
+	inputErrorClass: 'popup__input_type_error',
+	errorClass: 'popup__error_visible'
+}
 
 
 initialCards.forEach((item) => {
@@ -118,8 +119,8 @@ popups.forEach((el) => {
 // # popup newcard
 newCardBtnAdd.addEventListener('click', () => {
 
-	disableSubmitButton(newCardPopup, validationConfig);
-	hideErrors(newCardPopup, validationConfig);
+	// disableSubmitButton(newCardPopup, validationConfig);
+	// hideErrors(newCardPopup, validationConfig);
 
 	openPopup(newCardPopup);
 
@@ -130,8 +131,8 @@ newCardBtnAdd.addEventListener('click', () => {
 // # popup profile
 profileBtnEdit.addEventListener('click', () => {
 
-	disableSubmitButton(profilePopup, validationConfig);
-	hideErrors(profilePopup, validationConfig);
+	// disableSubmitButton(profilePopup, validationConfig);
+	// hideErrors(profilePopup, validationConfig);
 
 	openPopup(profilePopup);
 
@@ -146,3 +147,17 @@ profileBtnEdit.addEventListener('click', () => {
 	}
 
 });
+
+/* Валидация формы */
+const enableValidation = (validationConfig) => {
+	const forms = Array.from(document.querySelectorAll(validationConfig.formSelector));
+
+	forms.forEach((el) => {
+		const thisform = new FormValidator(validationConfig, el);
+		thisform.enableValidation();
+		// Для каждой формы делаем свой EventListener
+		// setEventListeners(form, validationConfig);
+	});
+};
+enableValidation(validationConfig);
+
