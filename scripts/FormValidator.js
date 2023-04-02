@@ -42,15 +42,15 @@ export default class FormValidator {
 
 	_setEventListeners = () => {
 		const form = this._form;
-		const clases = this._classes;
-		const inputs = Array.from(form.querySelectorAll(clases.inputSelector));
-		const buttonSubmit = form.querySelector(clases.submitButtonSelector);
+		const classes = this._classes;
+		const inputs = Array.from(form.querySelectorAll(classes.inputSelector));
+		const buttonSubmit = form.querySelector(classes.submitButtonSelector);
 
 		inputs.forEach((inputElement) => {
 
 			inputElement.addEventListener('input', (e) => {
 				console.log(`addEventListener >>> input; val = ${e.target.value}`);
-				// toggleInputState(inputElement, validationConfig);
+				this._toggleInputState(inputElement);
 				// toggleBtnState(inputs, buttonSubmit, validationConfig);
 			});
 
@@ -59,6 +59,52 @@ export default class FormValidator {
 		// делаем так, чтобы при загрузке страницы кнопка была неактивна (disabled)
 		// toggleBtnState(inputs, buttonSubmit, validationConfig);
 	};
+
+	_toggleInputState = (inputElement) => {
+		const isValid = inputElement.validity.valid;
+		const inputElementId = inputElement.id;
+		const errorElement = document.querySelector(`#${inputElementId}-error`);
+
+		if (!isValid) {
+			console.error(`!isValid`);
+			this._addStateInputError(inputElement);
+
+			this._showMessageInputError(errorElement, inputElement);
+		} else {
+			console.log(`isValid`);
+			this._removeStateInputError(inputElement);
+
+			this._hideMessageInputError(errorElement, inputElement);
+		}
+	}
+
+
+	_showMessageInputError = (errorElement, inputElement) => {
+		const classes = this._classes;
+		if (errorElement) {
+			errorElement.textContent = inputElement.validationMessage;
+			errorElement.classList.add(classes.errorClass)
+		}
+	}
+
+	_hideMessageInputError = (errorElement) => {
+		const classes = this._classes;
+		if (errorElement) {
+			errorElement.textContent = '';
+			errorElement.classList.remove(classes.errorClass)
+		}
+	}
+
+	_addStateInputError = (inputElement) => {
+		const classes = this._classes;
+		inputElement.classList.add(classes.inputErrorClass);
+	}
+	_removeStateInputError = (inputElement) => {
+		const classes = this._classes;
+		inputElement.classList.remove(classes.inputErrorClass);
+	}
+
+
 }
 
 /*
