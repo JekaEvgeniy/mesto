@@ -12,15 +12,53 @@
 
 export default class FormValidator {
 
-	constructor(item, container) {
-		this._item = item;
-		this._container = container;
+	constructor(classes, form) {
+		this._classes = classes; // validationConfig
+		this._form = form; // Текущая форма
+
+		// export const validationConfig = {
+		// 	formSelector: '.popup__form',
+		// 	inputSelector: '.popup__input',
+		// 	submitButtonSelector: '.popup__button',
+		// 	inactiveButtonClass: 'popup__button_disabled',
+		// 	inputErrorClass: 'popup__input_type_error',
+		// 	errorClass: 'popup__error_visible'
+		// }
+
+		this._formSelector  = classes.formSelector;
+		this._inputSelector = classes.inputSelector;
+		this._submitButtonSelector = classes.submitButtonSelector;
+		this._inactiveButtonClass = classes.inactiveButtonClass;
+		this._inputErrorClass = classes.inputErrorClass;
+		this._errorClass = classes.errorClass;
 	}
 
 	enableValidation(){
 		console.log('enableValidation()');
+		console.warn(`this._inputSelector = ${this._inputSelector}`);
+
+		this._setEventListeners();
 	}
 
+	_setEventListeners = () => {
+		const form = this._form;
+		const clases = this._classes;
+		const inputs = Array.from(form.querySelectorAll(clases.inputSelector));
+		const buttonSubmit = form.querySelector(clases.submitButtonSelector);
+
+		inputs.forEach((inputElement) => {
+
+			inputElement.addEventListener('input', (e) => {
+				console.log(`addEventListener >>> input; val = ${e.target.value}`);
+				// toggleInputState(inputElement, validationConfig);
+				// toggleBtnState(inputs, buttonSubmit, validationConfig);
+			});
+
+		});
+
+		// делаем так, чтобы при загрузке страницы кнопка была неактивна (disabled)
+		// toggleBtnState(inputs, buttonSubmit, validationConfig);
+	};
 }
 
 /*

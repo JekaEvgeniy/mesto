@@ -153,8 +153,8 @@ const enableValidation = (validationConfig) => {
 	const forms = Array.from(document.querySelectorAll(validationConfig.formSelector));
 
 	forms.forEach((el) => {
-		const thisform = new FormValidator(validationConfig, el);
-		thisform.enableValidation();
+		const form = new FormValidator(validationConfig, el);
+		form.enableValidation();
 		// Для каждой формы делаем свой EventListener
 		// setEventListeners(form, validationConfig);
 	});
