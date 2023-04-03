@@ -10,22 +10,22 @@ const initialCards = [
 		name: 'Челябинская область',
 		link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
 	},
-	// {
-	// 	name: 'Иваново',
-	// 	link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-	// },
-	// {
-	// 	name: 'Камчатка',
-	// 	link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-	// },
-	// {
-	// 	name: 'Холмогорский район',
-	// 	link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-	// },
-	// {
-	// 	name: 'Байкал',
-	// 	link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-	// }
+	{
+		name: 'Иваново',
+		link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+	},
+	{
+		name: 'Камчатка',
+		link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+	},
+	{
+		name: 'Холмогорский район',
+		link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+	},
+	{
+		name: 'Байкал',
+		link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+	}
 ];
 
 const popups       = document.querySelectorAll('.popup');
@@ -68,15 +68,11 @@ export const validationConfig = {
 
 
 initialCards.forEach((item) => {
-	console.log(item);
-
 	const card = new Card(item, cardsContainer);
 	card.render();
 });
 
 export function openPopup(popupID) {
-	console.log(`>>> run function openPopup()`);
-
 	// Открываем нужный нам popup по идишнику ${popupID}
 	popupID.classList.add(popupToggleClass);
 
@@ -104,7 +100,7 @@ popupBtnsClose.forEach((el) => {
 		const el = e.target;
 		const parentPopup = el.closest('.popup');
 		closePopup(parentPopup);
-	}); // Global btn
+	});
 });
 
 // Закрываем popup по клику на overlay
@@ -119,8 +115,8 @@ popups.forEach((el) => {
 // # popup newcard
 newCardBtnAdd.addEventListener('click', () => {
 
-	// disableSubmitButton(newCardPopup, validationConfig);
-	// hideErrors(newCardPopup, validationConfig);
+	disableSubmitButton(newCardPopup, validationConfig);
+	hideErrors(newCardPopup, validationConfig);
 
 	openPopup(newCardPopup);
 
@@ -133,8 +129,8 @@ newCardPopupForm.addEventListener('submit', submitPopupFormNewCard);
 // # popup profile
 profileBtnEdit.addEventListener('click', () => {
 
-	// disableSubmitButton(profilePopup, validationConfig);
-	// hideErrors(profilePopup, validationConfig);
+	disableSubmitButton(profilePopup, validationConfig);
+	hideErrors(profilePopup, validationConfig);
 
 	openPopup(profilePopup);
 
@@ -159,10 +155,9 @@ const enableValidation = (validationConfig) => {
 	forms.forEach((el) => {
 		const form = new FormValidator(validationConfig, el);
 		form.enableValidation();
-		// Для каждой формы делаем свой EventListener
-		// setEventListeners(form, validationConfig);
 	});
 };
+
 enableValidation(validationConfig);
 
 function submitPopupFormProfile(e) {
@@ -189,11 +184,8 @@ function submitPopupFormNewCard(e) {
 		'link': popupInputUrlValue,
 	}
 
-	// renderCardItem(cardsContainer, newItem);
-
 	const card = new Card(newItem, cardsContainer);
 	card.render();
-
 
 	// очищаем заполненные поля формы, чтобы при повторном открытии popup
 	// в инпутах не было предыдущих значений:
@@ -202,8 +194,28 @@ function submitPopupFormNewCard(e) {
 	closePopup(newCardPopup);
 }
 
-/*
+const disableSubmitButton = (popupEl, validationConfig) => {
+	// Блокируем кнопку при закрытии popup (в модалке fancybox кнопки нет!)
 
-https://images.unsplash.com/photo-1678384979913-5a1007bc4a8a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80
+	const buttonSubmit = popupEl.querySelector(validationConfig.submitButtonSelector);
+	if (buttonSubmit) {
+		buttonSubmit.classList.add(validationConfig.inactiveButtonClass);
+		buttonSubmit.disabled = true;
+	}
+}
 
-*/
+const hideErrors = (popupEl, validationConfig) => {
+	// Скрываем сообщения об ошибках при закрытии popup + Удаляем ошибки с input
+
+	const messagesError = popupEl.querySelectorAll('.' + validationConfig.errorClass);
+	const inputsError = popupEl.querySelectorAll('.' + validationConfig.inputErrorClass);
+
+	messagesError.forEach((el) => {
+		el.classList.remove(validationConfig.errorClass);
+	});
+
+	inputsError.forEach((el) => {
+		el.classList.remove(validationConfig.inputErrorClass);
+	});
+
+}
