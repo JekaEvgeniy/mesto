@@ -1,34 +1,8 @@
+import { initialCards } from './Data.js';
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 
-const initialCards = [
-	{
-		name: 'Архыз',
-		link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-	},
-	{
-		name: 'Челябинская область',
-		link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-	},
-	{
-		name: 'Иваново',
-		link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-	},
-	{
-		name: 'Камчатка',
-		link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-	},
-	{
-		name: 'Холмогорский район',
-		link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-	},
-	{
-		name: 'Байкал',
-		link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-	}
-];
-
-const popups       = document.querySelectorAll('.popup');
+const popups = document.querySelectorAll('.popup');
 const profilePopup = document.querySelector('#popup-profile');
 const profilePopupForm = profilePopup.querySelector('.popup__form');
 const profilePopupInputName = profilePopup.querySelector('.popup__input_type_name');
@@ -72,9 +46,9 @@ initialCards.forEach((item) => {
 	card.render();
 });
 
-export function openPopup(popupID) {
-	// Открываем нужный нам popup по идишнику ${popupID}
-	popupID.classList.add(popupToggleClass);
+export function openPopup(popup) {
+	// Открываем нужный нам popup по идишнику ${popup}
+	popup.classList.add(popupToggleClass);
 
 	document.addEventListener('keydown', closedPopupEsc);
 }
@@ -115,8 +89,8 @@ popups.forEach((el) => {
 // # popup newcard
 newCardBtnAdd.addEventListener('click', () => {
 
-	disableSubmitButton(newCardPopup, validationConfig);
-	hideErrors(newCardPopup, validationConfig);
+	FormValidator.disableSubmitButton(newCardPopup, validationConfig);
+	FormValidator.hideErrors(newCardPopup, validationConfig);
 
 	openPopup(newCardPopup);
 
@@ -129,8 +103,8 @@ newCardPopupForm.addEventListener('submit', submitPopupFormNewCard);
 // # popup profile
 profileBtnEdit.addEventListener('click', () => {
 
-	disableSubmitButton(profilePopup, validationConfig);
-	hideErrors(profilePopup, validationConfig);
+	FormValidator.disableSubmitButton(profilePopup, validationConfig);
+	FormValidator.hideErrors(profilePopup, validationConfig);
 
 	openPopup(profilePopup);
 
@@ -192,30 +166,4 @@ function submitPopupFormNewCard(e) {
 	thisForm.reset();
 
 	closePopup(newCardPopup);
-}
-
-const disableSubmitButton = (popupEl, validationConfig) => {
-	// Блокируем кнопку при закрытии popup (в модалке fancybox кнопки нет!)
-
-	const buttonSubmit = popupEl.querySelector(validationConfig.submitButtonSelector);
-	if (buttonSubmit) {
-		buttonSubmit.classList.add(validationConfig.inactiveButtonClass);
-		buttonSubmit.disabled = true;
-	}
-}
-
-const hideErrors = (popupEl, validationConfig) => {
-	// Скрываем сообщения об ошибках при закрытии popup + Удаляем ошибки с input
-
-	const messagesError = popupEl.querySelectorAll('.' + validationConfig.errorClass);
-	const inputsError = popupEl.querySelectorAll('.' + validationConfig.inputErrorClass);
-
-	messagesError.forEach((el) => {
-		el.classList.remove(validationConfig.errorClass);
-	});
-
-	inputsError.forEach((el) => {
-		el.classList.remove(validationConfig.inputErrorClass);
-	});
-
 }

@@ -100,4 +100,30 @@ export default class FormValidator {
 		buttonSubmit.disabled = false;
 	}
 
+
+	static hideErrors = (popup, validationConfig) => {
+		// Скрываем сообщения об ошибках при закрытии/открытии popup + Удаляем ошибки с input
+		const messagesError = popup.querySelectorAll('.' + validationConfig.errorClass);
+		const inputsError = popup.querySelectorAll('.' + validationConfig.inputErrorClass);
+
+		messagesError.forEach((el) => {
+			el.classList.remove(validationConfig.errorClass);
+		});
+
+		inputsError.forEach((el) => {
+			el.classList.remove(validationConfig.inputErrorClass);
+		});
+	}
+
+	static disableSubmitButton = (popup, validationConfig) => {
+		// Блокируем кнопку при закрытии/открытии popup (в модалке fancybox кнопки нет!)
+
+		const buttonSubmit = popup.querySelector(validationConfig.submitButtonSelector);
+		if (buttonSubmit) {
+			buttonSubmit.classList.add(validationConfig.inactiveButtonClass);
+			buttonSubmit.disabled = true;
+		}
+	}
+
+
 }

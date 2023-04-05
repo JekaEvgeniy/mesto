@@ -22,10 +22,10 @@ export default class Card {
 		e.target.classList.toggle('card__button_active');
 	}
 
-	_fancybox = (e) => {
-		const el = e.target;
-		const elUrl = el.getAttribute('src');
-		const elTitle = el.getAttribute('alt');
+	_openFancybox = () => {
+		const el = this._item;
+		const elUrl = el.link;
+		const elTitle = el.name;
 
 		if (elUrl && popupImageImage) {
 			popupImageImage.src = elUrl;
@@ -66,7 +66,7 @@ export default class Card {
 
 		view.querySelector('.card__button').addEventListener('click', this._likeCard);
 
-		view.querySelector('.card__image').addEventListener('click', this._fancybox);
+		view.querySelector('.card__image').addEventListener('click', this._openFancybox);
 
 		this._container.append(this._view);
 	}
