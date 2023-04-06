@@ -9,13 +9,13 @@ import {
 export default class Card {
 	static _template = document.querySelector('#card').content;
 
-	constructor(item, container){
+	constructor(item, container) {
 		this._item = item;
 		this._container = container;
 	}
 
-	_removeCard = () => {
-		this._view.remove();
+	_removeCard = (e) => {
+		e.target.closest('.card').remove();
 	}
 
 	_likeCard = (e) => {
@@ -43,14 +43,18 @@ export default class Card {
 		openPopup(popupImage);
 	}
 
-	render(){
-		this._view = Card._template.cloneNode(true).children[0];
+
+	_cardTemplate() {
+		return Card._template.cloneNode(true).children[0];
+	}
+
+	renderNewCard() {
+		let newCard = this._cardTemplate();
 
 		const item = this._item;
-		const view = this._view;
 
-		const cardTitle = view.querySelector('.card__title');
-		const cardImg   = view.querySelector('.card__image');
+		const cardTitle = newCard.querySelector('.card__title');
+		const cardImg = newCard.querySelector('.card__image');
 
 		cardTitle.textContent = item.name;
 		// Если изображения нет - заменить на no-photo или скрывать изображение (в ТЗ нет)
@@ -62,12 +66,14 @@ export default class Card {
 
 		cardImg.setAttribute('alt', `${item.name}`);
 
-		view.querySelector('.card__button-remove').addEventListener('click', this._removeCard);
+		newCard.querySelector('.card__button-remove').addEventListener('click', this._removeCard);
 
-		view.querySelector('.card__button').addEventListener('click', this._likeCard);
+		newCard.querySelector('.card__button').addEventListener('click', this._likeCard);
 
-		view.querySelector('.card__image').addEventListener('click', this._openFancybox);
+		newCard.querySelector('.card__image').addEventListener('click', this._openFancybox);
 
-		this._container.append(this._view);
+		return newCard;
 	}
+
+
 }

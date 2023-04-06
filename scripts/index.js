@@ -43,7 +43,7 @@ export const validationConfig = {
 
 initialCards.forEach((item) => {
 	const card = new Card(item, cardsContainer);
-	card.render();
+	cardsContainer.append(card.renderNewCard());
 });
 
 export function openPopup(popup) {
@@ -159,7 +159,7 @@ function submitPopupFormNewCard(e) {
 	}
 
 	const card = new Card(newItem, cardsContainer);
-	card.render();
+	cardsContainer.append(card.renderNewCard());
 
 	// очищаем заполненные поля формы, чтобы при повторном открытии popup
 	// в инпутах не было предыдущих значений:
