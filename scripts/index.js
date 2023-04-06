@@ -40,6 +40,12 @@ export const validationConfig = {
 	errorClass: 'popup__error_visible'
 }
 
+// /* Валидация формы */
+const validationProfilePopup = new FormValidator(validationConfig, profilePopupForm);
+validationProfilePopup.enableValidation();
+
+const validationNewCardPopup = new FormValidator(validationConfig, newCardPopupForm);
+validationNewCardPopup.enableValidation();
 
 initialCards.forEach((item) => {
 	const card = new Card(item, cardsContainer);
@@ -89,8 +95,7 @@ popups.forEach((el) => {
 // # popup newcard
 newCardBtnAdd.addEventListener('click', () => {
 
-	FormValidator.disableSubmitButton(newCardPopup, validationConfig);
-	FormValidator.hideErrors(newCardPopup, validationConfig);
+	validationNewCardPopup.resetValidation();
 
 	openPopup(newCardPopup);
 
@@ -103,8 +108,7 @@ newCardPopupForm.addEventListener('submit', submitPopupFormNewCard);
 // # popup profile
 profileBtnEdit.addEventListener('click', () => {
 
-	// FormValidator.disableSubmitButton(profilePopup, validationConfig);
-	// FormValidator.hideErrors(profilePopup, validationConfig);
+	validationProfilePopup.resetValidation();
 
 	openPopup(profilePopup);
 
@@ -135,7 +139,6 @@ function submitPopupFormProfile(e) {
 }
 
 function submitPopupFormNewCard(e) {
-	const thisForm = e.target;
 	e.preventDefault();
 
 	const popupInputTitleValue = newCardPopupInputTitle.value;
@@ -151,24 +154,7 @@ function submitPopupFormNewCard(e) {
 
 	// очищаем заполненные поля формы, чтобы при повторном открытии popup
 	// в инпутах не было предыдущих значений:
-	thisForm.reset();
+	validationNewCardPopup.resetValidation();
 
 	closePopup(newCardPopup);
 }
-
-
-
-// /* Валидация формы */
-// const enableValidation = (validationConfig) => {
-// 	const forms = Array.from(document.querySelectorAll(validationConfig.formSelector));
-
-// 	forms.forEach((el) => {
-// 		// const form = new FormValidator(validationConfig, el);
-// 		// form.enableValidation();
-// 	});
-// };
-
-// enableValidation(validationConfig);
-
-const validationProfilePopup = new FormValidator(validationConfig, profilePopupForm);
-validationProfilePopup.enableValidation();

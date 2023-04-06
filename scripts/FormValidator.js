@@ -16,8 +16,6 @@ export default class FormValidator {
 	}
 
 	_setEventListeners = () => {
-		const form = this._form;
-		const classes = this._classes;
 		const inputs = this._inputs;
 
 		inputs.forEach((inputElement) => {
@@ -35,8 +33,7 @@ export default class FormValidator {
 
 	_toggleInputState = (inputElement) => {
 		const isValid = inputElement.validity.valid;
-		const inputElementId = inputElement.id;
-		const errorElement = this._form.querySelector(`#${inputElementId}-error`);
+		const errorElement = this._getErrorMessage(inputElement);
 
 		if (!isValid) {
 			this._addStateInputError(inputElement);
@@ -53,6 +50,7 @@ export default class FormValidator {
 		const classes = this._classes;
 		inputElement.classList.add(classes.inputErrorClass);
 	}
+
 	_removeStateInputError = (inputElement) => {
 		const classes = this._classes;
 		inputElement.classList.remove(classes.inputErrorClass);
@@ -65,21 +63,21 @@ export default class FormValidator {
 			errorElement.classList.add(classes.errorClass)
 		}
 	}
+
 	_hideMessageInputError = (errorElement) => {
 		const classes = this._classes;
+
 		if (errorElement) {
 			errorElement.textContent = '';
 			errorElement.classList.remove(classes.errorClass)
 		}
 	}
 
-
 	_toggleBtnState = () => {
 		const checkValid = this._inputs.every(el => {
 			return el.validity.valid;
 		});
 
-		console.log(`checkValid = ${checkValid}`)
 		if (!checkValid) {
 			this._disableButton();
 		} else {
@@ -99,7 +97,23 @@ export default class FormValidator {
 		this._btnSubmit.disabled = false;
 	}
 
+	_getErrorMessage(inputElement){
+		return this._form.querySelector(`#${inputElement.id}-error`);
+	}
 
+	resetValidation() {
+		// перед открытием модалки сбрасываем поля и кнопку.
+		const inputs = this._inputs;
+
+		inputs.forEach((inputElement) => {
+			const errorElement = this._getErrorMessage(inputElement);
+
+			this._removeStateInputError(inputElement);
+			this._hideMessageInputError(errorElement, inputElement);
+		});
+
+		this._disableButton();
+	}
 
 	enableValidation(){
 		this._setEventListeners();
