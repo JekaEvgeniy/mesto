@@ -29,8 +29,6 @@ export const popupImage = document.querySelector('#popup-image');
 export const popupImageImage = popupImage.querySelector('.popup-figure__img');
 export const popupImageCaption = popupImage.querySelector('.popup-figure__figcaption');
 
-// const cardTemplate = document.querySelector('#card');
-
 export const validationConfig = {
 	formSelector: '.popup__form',
 	inputSelector: '.popup__input',
@@ -40,7 +38,7 @@ export const validationConfig = {
 	errorClass: 'popup__error_visible'
 }
 
-// /* Валидация формы */
+// Валидация формы
 const validationProfilePopup = new FormValidator(validationConfig, profilePopupForm);
 validationProfilePopup.enableValidation();
 
