@@ -23,7 +23,7 @@ export default class FormValidator {
 		inputs.forEach((inputElement) => {
 
 			inputElement.addEventListener('input', (e) => {
-				// this._toggleInputState(inputElement);
+				this._toggleInputState(inputElement);
 				this._toggleBtnState();
 			});
 
@@ -33,21 +33,46 @@ export default class FormValidator {
 		this._toggleBtnState();
 	};
 
-	// _toggleInputState = (inputElement) => {
-	// 	const isValid = inputElement.validity.valid;
-	// 	const inputElementId = inputElement.id;
-	// 	const errorElement = document.querySelector(`#${inputElementId}-error`);
+	_toggleInputState = (inputElement) => {
+		const isValid = inputElement.validity.valid;
+		const inputElementId = inputElement.id;
+		const errorElement = this._form.querySelector(`#${inputElementId}-error`);
 
-	// 	if (!isValid) {
-	// 		this._addStateInputError(inputElement);
+		if (!isValid) {
+			this._addStateInputError(inputElement);
 
-	// 		this._showMessageInputError(errorElement, inputElement);
-	// 	} else {
-	// 		this._removeStateInputError(inputElement);
+			this._showMessageInputError(errorElement, inputElement);
+		} else {
+			this._removeStateInputError(inputElement);
 
-	// 		this._hideMessageInputError(errorElement, inputElement);
-	// 	}
-	// }
+			this._hideMessageInputError(errorElement, inputElement);
+		}
+	}
+
+	_addStateInputError = (inputElement) => {
+		const classes = this._classes;
+		inputElement.classList.add(classes.inputErrorClass);
+	}
+	_removeStateInputError = (inputElement) => {
+		const classes = this._classes;
+		inputElement.classList.remove(classes.inputErrorClass);
+	}
+
+	_showMessageInputError = (errorElement, inputElement) => {
+		const classes = this._classes;
+		if (errorElement) {
+			errorElement.textContent = inputElement.validationMessage;
+			errorElement.classList.add(classes.errorClass)
+		}
+	}
+	_hideMessageInputError = (errorElement) => {
+		const classes = this._classes;
+		if (errorElement) {
+			errorElement.textContent = '';
+			errorElement.classList.remove(classes.errorClass)
+		}
+	}
+
 
 	_toggleBtnState = () => {
 		const checkValid = this._inputs.every(el => {
