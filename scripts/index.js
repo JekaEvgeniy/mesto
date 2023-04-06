@@ -122,18 +122,6 @@ profileBtnEdit.addEventListener('click', () => {
 
 profilePopupForm.addEventListener('submit', submitPopupFormProfile);
 
-/* Валидация формы */
-const enableValidation = (validationConfig) => {
-	const forms = Array.from(document.querySelectorAll(validationConfig.formSelector));
-
-	forms.forEach((el) => {
-		// const form = new FormValidator(validationConfig, el);
-		// form.enableValidation();
-	});
-};
-
-enableValidation(validationConfig);
-
 function submitPopupFormProfile(e) {
 	e.preventDefault();
 
@@ -167,3 +155,20 @@ function submitPopupFormNewCard(e) {
 
 	closePopup(newCardPopup);
 }
+
+
+
+// /* Валидация формы */
+// const enableValidation = (validationConfig) => {
+// 	const forms = Array.from(document.querySelectorAll(validationConfig.formSelector));
+
+// 	forms.forEach((el) => {
+// 		// const form = new FormValidator(validationConfig, el);
+// 		// form.enableValidation();
+// 	});
+// };
+
+// enableValidation(validationConfig);
+
+const validationProfilePopup = new FormValidator(validationConfig, profilePopupForm);
+validationProfilePopup.enableValidation();
