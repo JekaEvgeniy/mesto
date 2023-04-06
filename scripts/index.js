@@ -103,8 +103,8 @@ newCardPopupForm.addEventListener('submit', submitPopupFormNewCard);
 // # popup profile
 profileBtnEdit.addEventListener('click', () => {
 
-	FormValidator.disableSubmitButton(profilePopup, validationConfig);
-	FormValidator.hideErrors(profilePopup, validationConfig);
+	// FormValidator.disableSubmitButton(profilePopup, validationConfig);
+	// FormValidator.hideErrors(profilePopup, validationConfig);
 
 	openPopup(profilePopup);
 
@@ -127,8 +127,8 @@ const enableValidation = (validationConfig) => {
 	const forms = Array.from(document.querySelectorAll(validationConfig.formSelector));
 
 	forms.forEach((el) => {
-		const form = new FormValidator(validationConfig, el);
-		form.enableValidation();
+		// const form = new FormValidator(validationConfig, el);
+		// form.enableValidation();
 	});
 };
 
