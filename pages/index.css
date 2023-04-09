@@ -62,8 +62,3 @@
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
-
-
-.wtf {
-	border: 1px solid red;
-}

@@ -18,8 +18,8 @@ export default class Card {
 		this._view.remove();
 	}
 
-	_likeCard = (e) => {
-		e.target.classList.toggle('card__button_active');
+	_likeCard = () => {
+		this._btnLike.classList.toggle('card__button_active');
 	}
 
 	_openFancybox = () => {
@@ -48,8 +48,6 @@ export default class Card {
 	}
 
 	_setEventListeners(){
-		const view = this._view;
-
 		this._btnRemove.addEventListener('click', this._removeCard);
 
 		this._btnLike.addEventListener('click', this._likeCard);
@@ -86,7 +84,6 @@ export default class Card {
 		}
 
 		cardImg.setAttribute('alt', `${item.name}`);
-
 
 		this._setEventListeners();
 
