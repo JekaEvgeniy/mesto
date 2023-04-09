@@ -110,7 +110,6 @@ newCardPopupForm.addEventListener('submit', submitPopupFormNewCard);
 
 // # popup profile
 profileBtnEdit.addEventListener('click', () => {
-
 	validationProfilePopup.resetValidation();
 
 	openPopup(profilePopup);
@@ -153,10 +152,6 @@ function submitPopupFormNewCard(e) {
 	}
 
 	prependNewCard(newItem);
-
-	// очищаем заполненные поля формы, чтобы при повторном открытии popup
-	// в инпутах не было предыдущих значений:
-	validationNewCardPopup.resetValidation();
 
 	closePopup(newCardPopup);
 }

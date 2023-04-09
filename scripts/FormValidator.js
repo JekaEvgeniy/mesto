@@ -102,7 +102,10 @@ export default class FormValidator {
 	}
 
 	resetValidation() {
-		// перед открытием модалки сбрасываем поля и кнопку.
+	// перед открытием модалки сбрасываем поля и кнопку.
+	// очищаем заполненные поля формы, чтобы при повторном открытии popup
+	// в инпутах не было предыдущих значений:
+
 		const inputs = this._inputs;
 
 		inputs.forEach((inputElement) => {
