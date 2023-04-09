@@ -50,7 +50,7 @@ export default class Card {
 	_setEventListeners(){
 		const view = this._view;
 
-		view.querySelector('.card__button-remove').addEventListener('click', this._removeCard);
+		this._btnRemove.addEventListener('click', this._removeCard);
 
 		this._btnLike.addEventListener('click', this._likeCard);
 
@@ -70,6 +70,8 @@ export default class Card {
 		const cardTitle = view.querySelector('.card__title');
 
 		this._btnLike = view.querySelector('.card__button');
+
+		this._btnRemove = view.querySelector('.card__button-remove');
 
 		this._cardImage = view.querySelector('.card__image');
 		const cardImg = this._cardImage;
