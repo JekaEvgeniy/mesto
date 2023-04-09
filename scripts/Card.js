@@ -14,8 +14,8 @@ export default class Card {
 		this._container = container;
 	}
 
-	_removeCard = (e) => {
-		e.target.closest('.card').remove();
+	_removeCard = () => {
+		this._view.remove();
 	}
 
 	_likeCard = (e) => {
@@ -43,20 +43,35 @@ export default class Card {
 		openPopup(popupImage);
 	}
 
-
 	_cardTemplate() {
 		return Card._template.cloneNode(true).children[0];
 	}
 
+	_setEventListeners(){
+		const view = this._view;
+
+		view.querySelector('.card__button-remove').addEventListener('click', this._removeCard);
+
+		view.querySelector('.card__button').addEventListener('click', this._likeCard);
+
+		this._cardImage.addEventListener('click', this._openFancybox);
+	}
+
 	renderNewCard() {
-		let newCard = this._cardTemplate();
+/*
+Следует вынести установку слушателей в отдельный метод (_setEventListeners), чтобы разделить код. При этом вам потребуется сохранить изображение карточки не в локальную переменную cardImg, а в свойство класса. Например this._cardImage
+*/
+
+		this._view = this._cardTemplate();
 
 		const item = this._item;
+		const view = this._view;
 
-		const cardTitle = newCard.querySelector('.card__title');
-		const cardImg = newCard.querySelector('.card__image');
-
+		const cardTitle = view.querySelector('.card__title');
 		cardTitle.textContent = item.name;
+
+		this._cardImage = view.querySelector('.card__image');
+		const cardImg = this._cardImage;
 		// Если изображения нет - заменить на no-photo или скрывать изображение (в ТЗ нет)
 		if (item.link) {
 			cardImg.src = item.link;
@@ -66,13 +81,9 @@ export default class Card {
 
 		cardImg.setAttribute('alt', `${item.name}`);
 
-		newCard.querySelector('.card__button-remove').addEventListener('click', this._removeCard);
+		this._setEventListeners();
 
-		newCard.querySelector('.card__button').addEventListener('click', this._likeCard);
-
-		newCard.querySelector('.card__image').addEventListener('click', this._openFancybox);
-
-		return newCard;
+		return view;
 	}
 
 
