@@ -47,7 +47,7 @@ export default class Card {
 		return Card._template.cloneNode(true).children[0];
 	}
 
-	_setEventListeners(){
+	_setEventListeners() {
 		this._btnRemove.addEventListener('click', this._removeCard);
 
 		this._btnLike.addEventListener('click', this._likeCard);
@@ -56,10 +56,6 @@ export default class Card {
 	}
 
 	renderNewCard() {
-/*
-Следует вынести установку слушателей в отдельный метод (_setEventListeners), чтобы разделить код. При этом вам потребуется сохранить изображение карточки не в локальную переменную cardImg, а в свойство класса. Например this._cardImage
-*/
-
 		this._view = this._cardTemplate();
 
 		const item = this._item;

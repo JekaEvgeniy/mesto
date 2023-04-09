@@ -45,9 +45,14 @@ validationProfilePopup.enableValidation();
 const validationNewCardPopup = new FormValidator(validationConfig, newCardPopupForm);
 validationNewCardPopup.enableValidation();
 
-initialCards.forEach((item) => {
+const newCard = (item) => {
 	const card = new Card(item, cardsContainer);
-	cardsContainer.append(card.renderNewCard());
+
+	return card.renderNewCard();
+}
+
+initialCards.forEach((item) => {
+	prependNewCard(item);
 });
 
 export function openPopup(popup) {
@@ -147,12 +152,16 @@ function submitPopupFormNewCard(e) {
 		'link': popupInputUrlValue,
 	}
 
-	const card = new Card(newItem, cardsContainer);
-	cardsContainer.append(card.renderNewCard());
+	prependNewCard(newItem);
 
 	// очищаем заполненные поля формы, чтобы при повторном открытии popup
 	// в инпутах не было предыдущих значений:
 	validationNewCardPopup.resetValidation();
 
 	closePopup(newCardPopup);
+}
+
+function prependNewCard(item) {
+	// Добавляем новую карточку в DOM
+	return cardsContainer.append(newCard(item));
 }
