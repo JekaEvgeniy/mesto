@@ -52,7 +52,7 @@ export default class Card {
 
 		view.querySelector('.card__button-remove').addEventListener('click', this._removeCard);
 
-		view.querySelector('.card__button').addEventListener('click', this._likeCard);
+		this._btnLike.addEventListener('click', this._likeCard);
 
 		this._cardImage.addEventListener('click', this._openFancybox);
 	}
@@ -68,10 +68,14 @@ export default class Card {
 		const view = this._view;
 
 		const cardTitle = view.querySelector('.card__title');
-		cardTitle.textContent = item.name;
+
+		this._btnLike = view.querySelector('.card__button');
 
 		this._cardImage = view.querySelector('.card__image');
 		const cardImg = this._cardImage;
+
+		cardTitle.textContent = item.name;
+
 		// Если изображения нет - заменить на no-photo или скрывать изображение (в ТЗ нет)
 		if (item.link) {
 			cardImg.src = item.link;
@@ -80,6 +84,7 @@ export default class Card {
 		}
 
 		cardImg.setAttribute('alt', `${item.name}`);
+
 
 		this._setEventListeners();
 
