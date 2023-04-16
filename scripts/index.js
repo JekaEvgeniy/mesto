@@ -1,3 +1,4 @@
+import Section from './Section.js';
 import { initialCards } from './Data.js';
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
@@ -17,7 +18,8 @@ const popupToggleClass = 'popup_opened';
 
 // # Cards
 
-const cardsContainer = document.querySelector('#cards');
+const cardsSelector  = '#cards';
+const cardsContainer = document.querySelector(cardsSelector);
 
 const newCardBtnAdd = document.querySelector('.profile__button_type_add');
 const newCardPopup = document.querySelector('#popup-newcard');
@@ -45,15 +47,33 @@ validationProfilePopup.enableValidation();
 const validationNewCardPopup = new FormValidator(validationConfig, newCardPopupForm);
 validationNewCardPopup.enableValidation();
 
-const newCard = (item) => {
-	const card = new Card(item, cardsContainer);
+// const newCard = (item) => {
+// 	const card = new Card(item, cardsContainer);
 
-	return card.renderNewCard();
-}
+// 	return card.renderNewCard();
+// }
 
-initialCards.forEach((item) => {
-	prependNewCard(item);
-});
+// initialCards.forEach((item) => {
+// 	prependNewCard(item);
+// });
+
+const cardList = new Section(
+	{
+		items: initialCards,
+
+		renderer: ( data ) => {
+			const card = new Card(data, cardsContainer);
+
+			return card.renderNewCard();
+
+		}
+	},
+
+	// Второй параметр конструктора — селектор контейнера, в который нужно добавлять созданные элементы.
+	cardsSelector
+);
+
+cardList.renderItems();
 
 export function openPopup(popup) {
 	// Открываем нужный нам popup по идишнику ${popup}
