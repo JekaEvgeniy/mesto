@@ -47,11 +47,11 @@ validationProfilePopup.enableValidation();
 const validationNewCardPopup = new FormValidator(validationConfig, newCardPopupForm);
 validationNewCardPopup.enableValidation();
 
-// const newCard = (item) => {
-// 	const card = new Card(item, cardsContainer);
+const newCard = (item) => {
+	const card = new Card(item, cardsContainer);
 
-// 	return card.renderNewCard();
-// }
+	return card.renderNewCard();
+}
 
 // initialCards.forEach((item) => {
 // 	prependNewCard(item);
@@ -171,6 +171,8 @@ function submitPopupFormNewCard(e) {
 		'link': popupInputUrlValue,
 	}
 
+
+
 	prependNewCard(newItem);
 
 	closePopup(newCardPopup);
@@ -178,5 +180,11 @@ function submitPopupFormNewCard(e) {
 
 function prependNewCard(item) {
 	// Добавляем новую карточку в DOM
-	return cardsContainer.append(newCard(item));
+
+	return cardsContainer.append(newCard(item) );
 }
+
+
+/*
+https://images.unsplash.com/photo-1661956603025-8310b2e3036d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=700&q=60
+*/
