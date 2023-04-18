@@ -1,58 +1,25 @@
-import {
-	openPopup,
+/*
 
-	popupImage,
-	popupImageImage,
-	popupImageCaption
-} from './index.js';
+Преобразуйте класс Card
+
+Свяжите класс Card c попапом. Сделайте так, чтобы Card принимал в конструктор функцию handleCardClick. Эта функция должна открывать попап с картинкой при клике на карточку.
+
+*/
+
+
 
 export default class Card {
 	static _template = document.querySelector('#card').content;
 
-	constructor(item, container) {
-		this._item = item;
+	constructor({ name, link }, container, handleCardClick) {
+		this._name = name;
+		this._link = link;
 		this._container = container;
-	}
-
-	_removeCard = () => {
-		this._view.remove();
-	}
-
-	_likeCard = () => {
-		this._btnLike.classList.toggle('card__button_active');
-	}
-
-	_openFancybox = () => {
-		const el = this._item;
-		const elUrl = el.link;
-		const elTitle = el.name;
-
-		if (elUrl && popupImageImage) {
-			popupImageImage.src = elUrl;
-		}
-
-		if (elTitle) {
-			if (popupImageImage) {
-				popupImageImage.alt = elTitle;
-			}
-			if (popupImageCaption) {
-				popupImageCaption.textContent = elTitle;
-			}
-		}
-
-		openPopup(popupImage);
+		this._handleCardClick = handleCardClick;
 	}
 
 	_cardTemplate() {
 		return Card._template.cloneNode(true).children[0];
-	}
-
-	_setEventListeners() {
-		this._btnRemove.addEventListener('click', this._removeCard);
-
-		this._btnLike.addEventListener('click', this._likeCard);
-
-		this._cardImage.addEventListener('click', this._openFancybox);
 	}
 
 	renderNewCard() {
@@ -70,21 +37,67 @@ export default class Card {
 		this._cardImage = view.querySelector('.card__image');
 		const cardImg = this._cardImage;
 
-		cardTitle.textContent = item.name;
+		cardTitle.textContent = this._name;
 
 		// Если изображения нет - заменить на no-photo или скрывать изображение (в ТЗ нет)
-		if (item.link) {
-			cardImg.src = item.link;
+		if (this._link) {
+			cardImg.src = this._link;
 		} else {
 			cardImg.src = '#';
 		}
 
-		cardImg.setAttribute('alt', `${item.name}`);
+		cardImg.setAttribute('alt', `${this._name}`);
 
 		this._setEventListeners();
 
 		return view;
 	}
+
+	_setEventListeners() {
+		// this._btnRemove.addEventListener('click', this._removeCard);
+
+		// this._btnLike.addEventListener('click', this._likeCard);
+
+		// this._cardImage.addEventListener('click', this._handleCardClick());
+		// this._cardImage.addEventListener('click', () => this._handleCardClick(this._link, this._name));
+		this._cardImage.addEventListener('click', () => this._handleCardClick(this._link, this._name));
+	}
+
+
+	_removeCard = () => {
+		this._view.remove();
+	}
+
+	_likeCard = () => {
+		this._btnLike.classList.toggle('card__button_active');
+	}
+
+	// _openFancybox = () => {
+	// 	console.log('_openFancybox');
+	// 	// const el = this._item;
+	// 	// const elUrl = el.link;
+	// 	// const elTitle = el.name;
+
+	// 	// if (elUrl && popupFigure) {
+	// 	// 	popupFigure.src = elUrl;
+	// 	// }
+
+	// 	// if (elTitle) {
+	// 	// 	if (popupFigure) {
+	// 	// 		popupFigure.alt = elTitle;
+	// 	// 	}
+	// 	// 	if (popupImageCaption) {
+	// 	// 		popupImageCaption.textContent = elTitle;
+	// 	// 	}
+	// 	// }
+
+	// 	// openPopup(popupImage);
+	// }
+
+
+
+
+
 
 
 }

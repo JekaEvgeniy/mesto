@@ -1,6 +1,12 @@
-import Section from './Section.js';
 import { initialCards } from './Data.js';
+
+import Section from './Section.js';
 import Card from './Card.js';
+
+import Popup from './Popup.js';
+import PopupWithImage from './PopupWithImage.js';
+// import PopupWithForm from './PopupWithForm.js';
+
 import FormValidator from './FormValidator.js';
 
 const popups = document.querySelectorAll('.popup');
@@ -14,7 +20,7 @@ const profileSubTitle = document.querySelector('.profile__subtitle');
 const profileBtnEdit = document.querySelector('.profile__button_type_edit');
 
 const popupBtnsClose = document.querySelectorAll('.popup__close');
-const popupToggleClass = 'popup_opened';
+export const popupToggleClass = 'popup_opened';
 
 // # Cards
 
@@ -28,7 +34,8 @@ const newCardPopupInputTitle = newCardPopup.querySelector('.popup__input_type_ti
 const newCardPopupInputUrl = newCardPopup.querySelector('.popup__input_type_url');
 
 export const popupImage = document.querySelector('#popup-image');
-export const popupImageImage = popupImage.querySelector('.popup-figure__img');
+export const popupImageSelector = '#popup-image';
+export const popupFigure = popupImage.querySelector('.popup-figure__img');
 export const popupImageCaption = popupImage.querySelector('.popup-figure__figcaption');
 
 export const validationConfig = {
@@ -47,22 +54,23 @@ validationProfilePopup.enableValidation();
 const validationNewCardPopup = new FormValidator(validationConfig, newCardPopupForm);
 validationNewCardPopup.enableValidation();
 
-const newCard = (item) => {
-	const card = new Card(item, cardsContainer);
+// const newCard = (item) => {
+// 	const card = new Card(item, cardsContainer);
 
-	return card.renderNewCard();
-}
+// 	return card.renderNewCard();
+// }
 
 // initialCards.forEach((item) => {
 // 	prependNewCard(item);
 // });
+
 
 const cardList = new Section(
 	{
 		items: initialCards,
 
 		renderer: ( data ) => {
-			const card = new Card(data, cardsContainer);
+			const card = new Card(data, cardsContainer, handleCardClick);
 
 			return card.renderNewCard();
 
@@ -75,45 +83,58 @@ const cardList = new Section(
 
 cardList.renderItems();
 
-export function openPopup(popup) {
-	// Открываем нужный нам popup по идишнику ${popup}
-	popup.classList.add(popupToggleClass);
+// export function openPopup(popup) {
+// 	// Открываем нужный нам popup по идишнику ${popup}
+// 	popup.classList.add(popupToggleClass);
+// 	document.addEventListener('keydown', closedPopupEsc);
+// }
 
-	document.addEventListener('keydown', closedPopupEsc);
+const openFancybox = new PopupWithImage(popupImageSelector);
+
+
+function handleCardClick(link, name) {
+	console.log('!!!!! >>> handleCardClick()');
+	console.log(`link = ${link}`);
+	console.log(`name = ${name}`);
+	openFancybox.open(link, name);
 }
 
-function closedPopupEsc(e) {
-	if (e.key === 'Escape') {
-		const popupOpened = document.querySelector('.popup_opened');
-		if (popupOpened) {
-			closePopup(popupOpened);
-		}
-	}
-}
+// openFancybox.setEventListeners();
 
-function closePopup(el) {
-	el.classList.remove(popupToggleClass);
 
-	document.removeEventListener('keydown', closedPopupEsc);
-}
+
+// function closedPopupEsc(e) {
+// 	if (e.key === 'Escape') {
+// 		const popupOpened = document.querySelector('.popup_opened');
+// 		if (popupOpened) {
+// 			closePopup(popupOpened);
+// 		}
+// 	}
+// }
+
+// function closePopup(el) {
+// 	el.classList.remove(popupToggleClass);
+
+// 	document.removeEventListener('keydown', closedPopupEsc);
+// }
 
 // Закрываем popup при нажатии на крестик
-popupBtnsClose.forEach((el) => {
-	el.addEventListener('click', (e) => {
-		const el = e.target;
-		const parentPopup = el.closest('.popup');
-		closePopup(parentPopup);
-	});
-});
+// popupBtnsClose.forEach((el) => {
+// 	el.addEventListener('click', (e) => {
+// 		const el = e.target;
+// 		const parentPopup = el.closest('.popup');
+// 		closePopup(parentPopup);
+// 	});
+// });
 
 // Закрываем popup по клику на overlay
-popups.forEach((el) => {
-	el.addEventListener('click', (e) => {
-		if (e.target === e.currentTarget) {
-			closePopup(e.target);
-		}
-	});
-});
+// popups.forEach((el) => {
+// 	el.addEventListener('click', (e) => {
+// 		if (e.target === e.currentTarget) {
+// 			closePopup(e.target);
+// 		}
+// 	});
+// });
 
 // # popup newcard
 newCardBtnAdd.addEventListener('click', () => {
