@@ -5,7 +5,7 @@ import Card from './Card.js';
 
 import Popup from './Popup.js';
 import PopupWithImage from './PopupWithImage.js';
-// import PopupWithForm from './PopupWithForm.js';
+import PopupWithForm from './PopupWithForm.js';
 
 import FormValidator from './FormValidator.js';
 
@@ -29,6 +29,7 @@ const cardsContainer = document.querySelector(cardsSelector);
 
 const newCardBtnAdd = document.querySelector('.profile__button_type_add');
 const newCardPopup = document.querySelector('#popup-newcard');
+const newCardPopupSelector = '#popup-newcard';
 const newCardPopupForm = newCardPopup.querySelector('.popup__form');
 const newCardPopupInputTitle = newCardPopup.querySelector('.popup__input_type_title');
 const newCardPopupInputUrl = newCardPopup.querySelector('.popup__input_type_url');
@@ -128,11 +129,22 @@ popupBtnsClose.forEach((el) => {
 // });
 
 // # popup newcard
+// https://repl.it/@praktikum/post#script.js
+const cardPopup = new PopupWithForm({
+	selector: newCardPopupSelector,
+	handleFormSubmit: (data) => {
+
+	}
+});
+cardPopup.setEventListeners();
+
+
+
 newCardBtnAdd.addEventListener('click', () => {
 
 	validationNewCardPopup.resetValidation();
 
-	openPopup(newCardPopup);
+	cardPopup.open();
 
 	newCardPopupInputTitle.value = '';
 	newCardPopupInputUrl.value = '';

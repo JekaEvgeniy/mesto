@@ -14,5 +14,24 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
+	constructor({ selector, data }) {
+		super(selector); // pupWithForm.js: 20 Uncaught ReferenceError: Must call super constructor in derived class before accessing 'this' or returning from derived constructor
+
+
+		this._selector = document.querySelector(selector);
+	}
+
+	_getInputValues(){
+
+	}
+
+	close(){
+		super.close();
+	}
+
+	setEventListeners() {
+		console.log('>>> PopupWithForm setEventListeners()');
+
+	}
 
 }
