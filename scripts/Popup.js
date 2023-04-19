@@ -18,6 +18,7 @@ export default class Popup {
 	constructor(selector){
 		this._selector = document.querySelector(selector);
 		this._handleEscClose = this._handleEscClose.bind(this);
+		this._btnClose = this._selector.querySelector('.popup__close');
 	}
 
 	open(){
@@ -46,6 +47,12 @@ export default class Popup {
 
 		this._selector.addEventListener('click', (e) => {
 			// Закрываем popup по клику на overlay
+			if (e.target === e.currentTarget) {
+				this.close();
+			}
+		});
+
+		this._btnClose.addEventListener('click', (e) => {
 			if (e.target === e.currentTarget) {
 				this.close();
 			}

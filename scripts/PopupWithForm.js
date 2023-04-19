@@ -31,7 +31,7 @@ export default class PopupWithForm extends Popup {
 
 	setEventListeners() {
 		console.log('>>> PopupWithForm setEventListeners()');
-
+		super.setEventListeners();
 	}
 
 }

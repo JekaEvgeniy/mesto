@@ -113,11 +113,12 @@ openFancybox.setEventListeners();
 // }
 
 // Закрываем popup при нажатии на крестик
-popupBtnsClose.forEach((el) => {
-	el.addEventListener('click', () => {
-		openFancybox.close();
-	});
-});
+// popupBtnsClose.forEach((el) => {
+// 	el.addEventListener('click', () => {
+	// Добавил в  popup.setEventListeners();
+// 		openFancybox.close();
+// 	});
+// });
 
 // Закрываем popup по клику на overlay
 // popups.forEach((el) => {
