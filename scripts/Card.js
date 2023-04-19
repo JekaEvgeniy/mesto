@@ -25,7 +25,6 @@ export default class Card {
 	renderNewCard() {
 		this._view = this._cardTemplate();
 
-		const item = this._item;
 		const view = this._view;
 
 		const cardTitle = view.querySelector('.card__title');
@@ -54,12 +53,10 @@ export default class Card {
 	}
 
 	_setEventListeners() {
-		// this._btnRemove.addEventListener('click', this._removeCard);
+		this._btnRemove.addEventListener('click', this._removeCard);
 
-		// this._btnLike.addEventListener('click', this._likeCard);
+		this._btnLike.addEventListener('click', this._likeCard);
 
-		// this._cardImage.addEventListener('click', this._handleCardClick());
-		// this._cardImage.addEventListener('click', () => this._handleCardClick(this._link, this._name));
 		this._cardImage.addEventListener('click', () => this._handleCardClick(this._link, this._name));
 	}
 
@@ -71,34 +68,6 @@ export default class Card {
 	_likeCard = () => {
 		this._btnLike.classList.toggle('card__button_active');
 	}
-
-	// _openFancybox = () => {
-	// 	console.log('_openFancybox');
-	// 	// const el = this._item;
-	// 	// const elUrl = el.link;
-	// 	// const elTitle = el.name;
-
-	// 	// if (elUrl && popupFigure) {
-	// 	// 	popupFigure.src = elUrl;
-	// 	// }
-
-	// 	// if (elTitle) {
-	// 	// 	if (popupFigure) {
-	// 	// 		popupFigure.alt = elTitle;
-	// 	// 	}
-	// 	// 	if (popupImageCaption) {
-	// 	// 		popupImageCaption.textContent = elTitle;
-	// 	// 	}
-	// 	// }
-
-	// 	// openPopup(popupImage);
-	// }
-
-
-
-
-
-
 
 }
 

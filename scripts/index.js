@@ -99,18 +99,11 @@ function handleCardClick(link, name) {
 	openFancybox.open(link, name);
 }
 
-// openFancybox.setEventListeners();
+openFancybox.setEventListeners();
 
 
 
-// function closedPopupEsc(e) {
-// 	if (e.key === 'Escape') {
-// 		const popupOpened = document.querySelector('.popup_opened');
-// 		if (popupOpened) {
-// 			closePopup(popupOpened);
-// 		}
-// 	}
-// }
+
 
 // function closePopup(el) {
 // 	el.classList.remove(popupToggleClass);

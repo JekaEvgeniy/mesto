@@ -26,23 +26,24 @@ export default class Popup {
 		// document.addEventListener('keydown', closedPopupEsc);
 	}
 
-	// close(){
-	// 	console.warn(`===> close()`);
+	close(){
+		console.warn(`===> close()`);
+		this._selector.classList.remove(popupToggleClass);
+	}
 
-	// 	this._selector.classList.remove(popupToggleClass);
-	// }
 
-	// setEventListeners(){
-	// 	console.log('>>> setEventListeners()')
-	// 	this._selector.addEventListener('click', (e) => {
-	// 		// Закрываем popup по клику на overlay
+	setEventListeners(){
+		console.log('>>> setEventListeners()');
 
-	// 		if (e.target === e.currentTarget) {
-	// 			// closePopup(e.target);
-	// 			this.close();
-	// 		}
-	// 	});
-	// }
-
-	// _handleEscClose(){}
+		this._selector.addEventListener('click', (e) => {
+			// Закрываем popup по клику на overlay
+			if (e.target === e.currentTarget) {
+				this.close();
+			}
+		});
+	}
 }
+
+// function closedPopupEsc(e) {
+
+// }

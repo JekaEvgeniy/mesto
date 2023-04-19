@@ -13,19 +13,11 @@ import Popup from "./Popup.js";
 
 export default class PopupWithImage extends Popup {
 	open(link, name){
-
-		console.log(this);
-		// console.log(link);
-		// console.log(name);
-
-
-
 		const elUrl = link;
 		const elTitle = name;
 
 		if (elUrl && popupFigure) {
 			popupFigure.src = elUrl;
-
 		}
 
 		if (elTitle) {
@@ -38,7 +30,5 @@ export default class PopupWithImage extends Popup {
 		}
 
 		super.open();
-		// openPopup(popupImage);
-
 	}
 }
