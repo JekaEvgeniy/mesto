@@ -17,6 +17,7 @@ import {
 export default class Popup {
 	constructor(selector){
 		this._selector = document.querySelector(selector);
+		this._handleEscClose = this._handleEscClose.bind(this);
 	}
 
 	open(){
@@ -24,11 +25,19 @@ export default class Popup {
 		this._selector.classList.add(popupToggleClass);
 
 		// document.addEventListener('keydown', closedPopupEsc);
+		document.addEventListener('keydown', this._handleEscClose);
 	}
 
 	close(){
 		console.warn(`===> close()`);
 		this._selector.classList.remove(popupToggleClass);
+	}
+
+	_handleEscClose(e){
+			console.log('Escape');
+			if (e.key === 'Escape') {
+				this.close();
+			}
 	}
 
 
