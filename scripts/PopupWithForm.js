@@ -14,11 +14,13 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
-	constructor({ selector, data }) {
+	constructor({ selector, handleFormSubmit }) {
 		super(selector); // pupWithForm.js: 20 Uncaught ReferenceError: Must call super constructor in derived class before accessing 'this' or returning from derived constructor
 
 
 		this._selector = document.querySelector(selector);
+		this._form = this._selector.querySelector('.popup__form');
+		this._handleFormSubmit = handleFormSubmit;
 	}
 
 	_getInputValues(){
@@ -27,11 +29,21 @@ export default class PopupWithForm extends Popup {
 
 	close(){
 		super.close();
+
+		if ( this._form) {
+			this._form.reset();
+		}
 	}
 
 	setEventListeners() {
 		console.log('>>> PopupWithForm setEventListeners()');
 		super.setEventListeners();
+
+		this._form.addEventListener('submit', (e) => {
+			e.preventDefault();
+
+			console.log('>>> Popup.js submit');
+		});
 	}
 
 }

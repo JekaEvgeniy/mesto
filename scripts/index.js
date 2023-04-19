@@ -147,11 +147,11 @@ newCardBtnAdd.addEventListener('click', () => {
 
 	cardPopup.open();
 
-	newCardPopupInputTitle.value = '';
-	newCardPopupInputUrl.value = '';
+	// newCardPopupInputTitle.value = '';
+	// newCardPopupInputUrl.value = '';
 });
 
-newCardPopupForm.addEventListener('submit', submitPopupFormNewCard);
+// newCardPopupForm.addEventListener('submit', submitPopupFormNewCard);
 
 // # popup profile
 profileBtnEdit.addEventListener('click', () => {
