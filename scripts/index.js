@@ -100,9 +100,7 @@ const cardPopup = new PopupWithForm({
 	handleFormSubmit: (data) => {
 		console.warn(data);
 
-		const card = new Card(data, newCardPopupSelector, handleCardClick);
-
-		cardList.addItem( card.renderNewCard() );
+		prependNewCard(data);
 
 		cardPopup.close();
 	}
