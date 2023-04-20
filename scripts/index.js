@@ -84,14 +84,7 @@ const cardList = new Section(
 
 cardList.renderItems();
 
-// export function openPopup(popup) {
-// 	// Открываем нужный нам popup по идишнику ${popup}
-// 	popup.classList.add(popupToggleClass);
-// 	document.addEventListener('keydown', closedPopupEsc);
-// }
-
 const openFancybox = new PopupWithImage(popupImageSelector);
-
 
 function handleCardClick(link, name) {
 	console.log('!!!!! >>> handleCardClick()');
@@ -102,7 +95,19 @@ function handleCardClick(link, name) {
 
 openFancybox.setEventListeners();
 
+const cardPopup = new PopupWithForm({
+	selector: newCardPopupSelector,
+	handleFormSubmit: (data) => {
+		console.warn(data);
 
+		const card = new Card(data, newCardPopupSelector, handleCardClick);
+
+		cardList.addItem( card.renderNewCard() );
+
+		cardPopup.close();
+	}
+});
+cardPopup.setEventListeners();
 
 
 
@@ -131,13 +136,6 @@ openFancybox.setEventListeners();
 
 // # popup newcard
 // https://repl.it/@praktikum/post#script.js
-const cardPopup = new PopupWithForm({
-	selector: newCardPopupSelector,
-	handleFormSubmit: (data) => {
-
-	}
-});
-cardPopup.setEventListeners();
 
 
 

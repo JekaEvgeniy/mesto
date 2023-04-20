@@ -21,9 +21,20 @@ export default class PopupWithForm extends Popup {
 		this._selector = document.querySelector(selector);
 		this._form = this._selector.querySelector('.popup__form');
 		this._handleFormSubmit = handleFormSubmit;
+
+		this._inputs = this._form.querySelectorAll('.popup__input');
+		// this._inputsValuesArray = [];
+		this._inputsValuesArray = {};
 	}
 
 	_getInputValues(){
+		this._inputs.forEach( (input)=>{
+			// this._inputsValuesArray.push( input.value );
+			this._inputsValuesArray[input.name] = input.value;
+		});
+		// console.warn(this._inputsValuesArray);
+
+		return this._inputsValuesArray;
 
 	}
 
@@ -41,6 +52,8 @@ export default class PopupWithForm extends Popup {
 
 		this._form.addEventListener('submit', (e) => {
 			e.preventDefault();
+
+			this._handleFormSubmit( this._getInputValues() );
 
 			console.log('>>> Popup.js submit');
 		});
