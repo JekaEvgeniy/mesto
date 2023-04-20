@@ -23,7 +23,6 @@ export default class PopupWithForm extends Popup {
 		this._handleFormSubmit = handleFormSubmit;
 
 		this._inputs = this._form.querySelectorAll('.popup__input');
-		// this._inputsValuesArray = [];
 		this._inputsValuesArray = {};
 	}
 
@@ -31,11 +30,10 @@ export default class PopupWithForm extends Popup {
 		this._inputs.forEach( (input)=>{
 			// this._inputsValuesArray.push( input.value );
 			this._inputsValuesArray[input.name] = input.value;
+
 		});
-		// console.warn(this._inputsValuesArray);
 
 		return this._inputsValuesArray;
-
 	}
 
 	close(){
