@@ -10,22 +10,17 @@ export default class PopupWithImage extends Popup {
 	}
 
 	open(link, name){
-		const elUrl = link;
-		const elTitle = name;
 
-		const popupFigure = this._popupFigure;
-		const popupImageCaption = this._popupImageCaption;
-
-		if (elUrl && popupFigure) {
-			this._popupFigure.src = elUrl;
+		if (link && this._popupFigure) {
+			this._popupFigure.src = link;
 		}
 
-		if (elTitle) {
-			if (popupFigure) {
-				this._popupFigure.alt = elTitle;
+		if (name) {
+			if (this._popupFigure) {
+				this._popupFigure.alt = name;
 			}
-			if (popupImageCaption) {
-				this._popupImageCaption.textContent = elTitle;
+			if (this._popupImageCaption) {
+				this._popupImageCaption.textContent = name;
 			}
 		}
 
