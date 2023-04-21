@@ -41,7 +41,7 @@ validationProfilePopup.enableValidation();
 const validationNewCardPopup = new FormValidator(validationConfig, newCardPopupForm);
 validationNewCardPopup.enableValidation();
 
-const newCard = (item) => {
+const addNewCard = (item) => {
 	const card = new Card(item, cardTemplateSelector, handleCardClick);
 
 	return card.renderNewCard();
@@ -75,7 +75,7 @@ openFancybox.setEventListeners();
 const cardPopup = new PopupWithForm({
 	selector: newCardPopupSelector,
 	handleFormSubmit: (data) => {
-		cardList.addItem(newCard(data) );
+		cardList.addItem(addNewCard(data) );
 
 		cardPopup.close();
 	}
@@ -93,7 +93,7 @@ newCardBtnAdd.addEventListener('click', () => {
 function prependNewCard(item) {
 	// Добавляем новую карточку в DOM
 
-	return cardsContainer.append(newCard(item) );
+	return cardsContainer.append(addNewCard(item) );
 }
 
 
