@@ -1,17 +1,3 @@
-/*
-
-Создайте класс Popup, который отвечает за открытие и закрытие попапа. Этот класс:
-Принимает в конструктор единственный параметр — селектор попапа.
-Содержит публичные методы open и close, которые отвечают за открытие и закрытие попапа.
-Содержит приватный метод _handleEscClose, который содержит логику закрытия попапа клавишей Esc.
-Содержит публичный метод setEventListeners, который добавляет слушатель клика иконке закрытия попапа. Модальное окно также закрывается при клике на затемнённую область вокруг формы.
-
-*/
-
-import {
-	popupToggleClass,
-} from '../pages/index.js';
-
 export default class Popup {
 	constructor(selector){
 		this._selector = document.querySelector(selector);
@@ -19,13 +5,13 @@ export default class Popup {
 	}
 
 	open(){
-		this._selector.classList.add(popupToggleClass);
+		this._selector.classList.add('popup_opened');
 
 		document.addEventListener('keydown', this._handleEscClose);
 	}
 
 	close(){
-		this._selector.classList.remove(popupToggleClass);
+		this._selector.classList.remove('popup_opened');
 	}
 
 	_handleEscClose(e){
@@ -35,7 +21,6 @@ export default class Popup {
 			}
 
 	}
-
 
 	setEventListeners(){
 

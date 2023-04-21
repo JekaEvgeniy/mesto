@@ -14,15 +14,15 @@ export default class PopupWithImage extends Popup {
 		const elTitle = name;
 
 		if (elUrl && popupFigure) {
-			popupFigure.src = elUrl;
+			this._popupFigure.src = elUrl;
 		}
 
 		if (elTitle) {
 			if (popupFigure) {
-				popupFigure.alt = elTitle;
+				this._popupFigure.alt = elTitle;
 			}
 			if (popupImageCaption) {
-				popupImageCaption.textContent = elTitle;
+				this._popupImageCaption.textContent = elTitle;
 			}
 		}
 
