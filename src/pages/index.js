@@ -62,13 +62,13 @@ const cardList = new Section(
 
 cardList.renderItems();
 
-const openFancybox = new PopupWithImage(popupImageSelector);
+const imageFancybox = new PopupWithImage(popupImageSelector);
 
 function handleCardClick(link, name) {
-	openFancybox.open(link, name);
+	imageFancybox.open(link, name);
 }
 
-openFancybox.setEventListeners();
+imageFancybox.setEventListeners();
 
 const cardPopup = new PopupWithForm({
 	selector: newCardPopupSelector,
