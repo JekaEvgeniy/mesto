@@ -1,37 +1,22 @@
-
-/*
-
-Создайте класс PopupWithForm
-Создайте класс PopupWithForm, который наследует от Popup. Этот класс:
-Кроме селектора попапа принимает в конструктор колбэк сабмита формы.
-Содержит приватный метод _getInputValues, который собирает данные всех полей формы.
-Перезаписывает родительский метод setEventListeners. Метод setEventListeners класса PopupWithForm должен не только добавлять обработчик клика иконке закрытия, но и добавлять обработчик сабмита формы.
-Перезаписывает родительский метод close, так как при закрытии попапа форма должна ещё и сбрасываться.
-Для каждого попапа создавайте свой экземпляр класса PopupWithForm.
-
-*/
-
 import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
 	constructor({ selector, handleFormSubmit }) {
-		super(selector); // pupWithForm.js: 20 Uncaught ReferenceError: Must call super constructor in derived class before accessing 'this' or returning from derived constructor
-		console.log(this._selector);
+		super(selector);
+
 		this._form = this._selector.querySelector('.popup__form');
 		this._handleFormSubmit = handleFormSubmit;
 
 		this._inputs = this._form.querySelectorAll('.popup__input');
-		this._inputsValuesArray = {};
+		this._inputsValuesObj = {};
 	}
 
 	_getInputValues(){
 		this._inputs.forEach( (input)=>{
-			// this._inputsValuesArray.push( input.value );
-			this._inputsValuesArray[input.name] = input.value;
-
+			this._inputsValuesObj[input.name] = input.value;
 		});
 
-		return this._inputsValuesArray;
+		return this._inputsValuesObj;
 	}
 
 	close(){

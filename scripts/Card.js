@@ -1,13 +1,3 @@
-/*
-
-Преобразуйте класс Card
-
-Свяжите класс Card c попапом. Сделайте так, чтобы Card принимал в конструктор функцию handleCardClick. Эта функция должна открывать попап с картинкой при клике на карточку.
-
-*/
-
-
-
 export default class Card {
 	static _template = document.querySelector('#card').content;
 
@@ -70,9 +60,3 @@ export default class Card {
 	}
 
 }
-
-/*
-
-https://images.unsplash.com/photo-1661956603025-8310b2e3036d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=700&q=60
-
-*/

@@ -7,8 +7,6 @@ export default class Section {
 
 	renderItems() {
 		this._items.forEach( (item) => {
-			// console.log(item)
-
 			const el = this._renderer(item);
 			this.addItem(el);
 		});
@@ -16,7 +14,6 @@ export default class Section {
 
 	addItem(el) {
 		// Содержит публичный метод addItem, который принимает DOM-элемент и добавляет его в контейнер.
-		// console.log(el);
 		let container = this._container;
 		container.prepend(el)
 	}
