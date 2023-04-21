@@ -10,8 +10,6 @@ export default class Card {
 
 	_cardTemplate() {
 		// return Card._template.cloneNode(true).children[0];
-		console.log(this._container );
-		console.log(document.querySelector(this._container));
 
 		const item = document.querySelector(this._container).content
 			.querySelector('.card')
@@ -57,10 +55,7 @@ export default class Card {
 
 		this._view.querySelector('.card__button-remove').addEventListener('click', () => this._removeCard() );
 
-		this._view
-			.querySelector('.card__image')
-			.addEventListener('click', () => this._handleCardClick(this._link, this._name));
-
+		this._view.querySelector('.card__image').addEventListener('click', () => this._handleCardClick(this._link, this._name));
 
 	}
 

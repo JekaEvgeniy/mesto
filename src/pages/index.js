@@ -1,11 +1,9 @@
 import {
 	profilePopup,
-	profilePopupSelector,
 	profilePopupForm,
 	profilePopupInputName,
 	profilePopupInputStatus,
 	profileBtnEdit,
-	popupToggleClass,
 
 	cardsSelector,
 	cardTemplateSelector,
@@ -23,16 +21,7 @@ import {
 
 import initialCards from '../vars/initialCards.js';
 
-// import validationConfig from '../vars/validationConfig.js';
-const validationConfig = {
-	formSelector: '.popup__form',
-	inputSelector: '.popup__input',
-	submitButtonSelector: '.popup__button',
-	inactiveButtonClass: 'popup__button_disabled',
-	inputErrorClass: 'popup__input_type_error',
-	errorClass: 'popup__error_visible'
-}
-
+import validationConfig from '../vars/validationConfig.js';
 
 import UserInfo from '../components/UserInfo.js';
 import Section from '../components/Section.js';
@@ -63,11 +52,9 @@ const cardList = new Section(
 		items: initialCards,
 
 		renderer: ( data ) => {
-			console.log(data);
 			const card = new Card(data, cardTemplateSelector, handleCardClick);
 
 			return card.renderNewCard();
-
 		}
 	},
 
