@@ -52,9 +52,7 @@ const cardList = new Section(
 		items: initialCards,
 
 		renderer: ( data ) => {
-			const card = new Card(data, cardTemplateSelector, handleCardClick);
-
-			return card.renderNewCard();
+			return addNewCard(data);
 		}
 	},
 
