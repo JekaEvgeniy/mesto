@@ -13,6 +13,9 @@ export default class PopupWithImage extends Popup {
 		const elUrl = link;
 		const elTitle = name;
 
+		const popupFigure = this._popupFigure;
+		const popupImageCaption = this._popupImageCaption;
+
 		if (elUrl && popupFigure) {
 			this._popupFigure.src = elUrl;
 		}

@@ -1,8 +1,4 @@
-
-import './index.css'; // добавьте импорт главного файла стилей
-
 import {
-	initialCards,
 	profilePopup,
 	profilePopupSelector,
 	profilePopupForm,
@@ -10,8 +6,11 @@ import {
 	profilePopupInputStatus,
 	profileBtnEdit,
 	popupToggleClass,
+
 	cardsSelector,
+	cardTemplateSelector,
 	cardsContainer,
+
 	newCardBtnAdd,
 	newCardPopup,
 	newCardPopupSelector,
@@ -20,8 +19,20 @@ import {
 	popupImageSelector,
 	popupFigure,
 	popupImageCaption,
-	validationConfig,
 } from '../vars/Data.js';
+
+import initialCards from '../vars/initialCards.js';
+
+// import validationConfig from '../vars/validationConfig.js';
+const validationConfig = {
+	formSelector: '.popup__form',
+	inputSelector: '.popup__input',
+	submitButtonSelector: '.popup__button',
+	inactiveButtonClass: 'popup__button_disabled',
+	inputErrorClass: 'popup__input_type_error',
+	errorClass: 'popup__error_visible'
+}
+
 
 import UserInfo from '../components/UserInfo.js';
 import Section from '../components/Section.js';
@@ -32,6 +43,8 @@ import PopupWithForm from '../components/PopupWithForm.js';
 
 import FormValidator from '../components/FormValidator.js';
 
+import './index.css'; // добавьте импорт главного файла стилей
+
 // Валидация формы
 const validationProfilePopup = new FormValidator(validationConfig, profilePopupForm);
 validationProfilePopup.enableValidation();
@@ -40,7 +53,7 @@ const validationNewCardPopup = new FormValidator(validationConfig, newCardPopupF
 validationNewCardPopup.enableValidation();
 
 const newCard = (item) => {
-	const card = new Card(item, cardsSelector, handleCardClick);
+	const card = new Card(item, cardTemplateSelector, handleCardClick);
 
 	return card.renderNewCard();
 }
@@ -50,7 +63,8 @@ const cardList = new Section(
 		items: initialCards,
 
 		renderer: ( data ) => {
-			const card = new Card(data, cardsSelector, handleCardClick);
+			console.log(data);
+			const card = new Card(data, cardTemplateSelector, handleCardClick);
 
 			return card.renderNewCard();
 
