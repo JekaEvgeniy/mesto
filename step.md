@@ -30,5 +30,42 @@ npm i webpack-dev-server --save-dev
 
 
 
-npm run dev
-npm run build
+```npm run dev``` - Браузер с адресом localhost:8080 откроется автоматически.
+
+
+
+```npm run build``` - Проверьте, что в папке /dist появился JS-код (скорее всего, с дополнительными комментариями и обёртками от «Вебпака»).
+
+
+
+
+```
+// теперь картинки можно импортировать,
+// вебпак добавит в переменные правильные пути
+import jordanImage from './images/jordan.jpg';
+import jamesImage from './images/james.jpg';
+import bryantImage from './images/bryant.jpg';
+
+const whoIsTheGoat = [
+  // меняем исходные пути на переменные
+  { name: 'Michael Jordan', image: jordanImage },
+  { name: 'Lebron James', link: jamesImage },
+  { name: 'Kobe Bryant', link: bryantImage },
+];
+```
+## Есть и второй способ работать с такими изображениями. Этот способ отличается от первого только тем, что работает и без запуска «Вебпака». Свойство import.meta.url — служебный параметр, указывающий на адрес файла. :
+```
+// теперь картинки можно импортировать,
+// вебпак добавит в переменные правильные пути
+const jordanImage = new URL('./images/jordan.jpg', import.meta.url);
+const jamesImage = new URL('./images/james.jpg', import.meta.url);
+const bryantImage = new URL('./images/bryant.jpg', import.meta.url)
+
+const whoIsTheGoat = [
+  // меняем исходные пути на переменные
+  { name: 'Michael Jordan', image: jordanImage },
+  { name: 'Lebron James', link: jamesImage },
+  { name: 'Kobe Bryant', link: bryantImage },
+];
+
+```

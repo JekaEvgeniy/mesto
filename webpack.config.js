@@ -7,7 +7,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // подклю�
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-	entry: { main: './src/scripts/index.js' },
+	entry: { main: './src/pages/index.js' },
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		filename: 'main.js',
@@ -15,10 +15,10 @@ module.exports = {
 	},
 	mode: 'development',
 	devServer: {
-		static: path.resolve(__dirname, './dist'),
-		compress: true,
+		static: path.resolve(__dirname, './dist'),  // путь, куда "смотрит" режим разработчика
+		compress: true, // это ускорит загрузку в режиме разработки
 		port: 3000,
-		open: true
+		open: true // сайт будет открываться сам при запуске npm run dev
 	},
 	module: {
 		rules: [ // rules — это массив правил
@@ -35,7 +35,7 @@ module.exports = {
 			// добавили правило для обработки файлов
 			{
 				// регулярное выражение, которое ищет все файлы с такими расширениями
-				test: /\.(png|svg|jpg|gif|woff(2)?|eot|ttf|otf)$/,
+				test: /\.(png|webp|webm|svg|jpg|gif|woff(2)?|eot|ttf|otf)$/,
 				type: 'asset/resource'
 			},
 
@@ -62,5 +62,6 @@ module.exports = {
 		}),
 		new CleanWebpackPlugin(), // использовали плагин
 		new MiniCssExtractPlugin() // подключение плагина для объединения файлов
-	]
+	],
+	devtool: 'source-map'
 };

@@ -10,7 +10,7 @@
 
 import {
 	popupToggleClass,
-} from './index.js';
+} from '../pages/index.js';
 
 export default class Popup {
 	constructor(selector){
