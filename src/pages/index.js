@@ -88,18 +88,10 @@ newCardBtnAdd.addEventListener('click', () => {
 	cardPopup.open();
 });
 
-function prependNewCard(item) {
-	// Добавляем новую карточку в DOM
-
-	return cardsContainer.append(addNewCard(item) );
-}
-
-
 const profileInfo = new UserInfo({
 	nameSelector: '.profile__header',
 	statusSelector: '.profile__subtitle',
 });
-
 
 const popupEditorProfile = new PopupWithForm({
 	selector: '#popup-profile',
@@ -121,14 +113,14 @@ profileBtnEdit.addEventListener('click', () => {
 
 	popupEditorProfile.open();
 
-	const getDefaultValues = profileInfo.getUserInfo();
+	const defaultValues = profileInfo.getUserInfo();
 
-	const profileTitleText = getDefaultValues.name; // ФИО
+	const profileTitleText = defaultValues.name; // ФИО
 	if (profileTitleText) {
 		profilePopupInputName.value = profileTitleText;
 	}
 
-	const profileSubTitleText = getDefaultValues.status; // Статус
+	const profileSubTitleText = defaultValues.status; // Статус
 	if (profileSubTitleText) {
 		profilePopupInputStatus.value = profileSubTitleText;
 	}
