@@ -1,5 +1,6 @@
 import { initialCards } from './Data.js';
 
+import UserInfo from './UserInfo.js';
 import Section from './Section.js';
 import Card from './Card.js';
 
@@ -11,6 +12,8 @@ import FormValidator from './FormValidator.js';
 
 const popups = document.querySelectorAll('.popup');
 const profilePopup = document.querySelector('#popup-profile');
+const profilePopupSelector = '#popup-profile';
+
 const profilePopupForm = profilePopup.querySelector('.popup__form');
 const profilePopupInputName = profilePopup.querySelector('.popup__input_type_name');
 const profilePopupInputStatus = profilePopup.querySelector('.popup__input_type_status');
@@ -153,55 +156,39 @@ newCardBtnAdd.addEventListener('click', () => {
 
 // newCardPopupForm.addEventListener('submit', submitPopupFormNewCard);
 
-// # popup profile
-profileBtnEdit.addEventListener('click', () => {
-	validationProfilePopup.resetValidation();
 
-	openPopup(profilePopup);
 
-	const profileTitleText = profileTitle.textContent; // ФИО
-	if (profileTitleText) {
-		profilePopupInputName.value = profileTitleText;
-	}
+// profilePopupForm.addEventListener('submit', submitPopupFormProfile);
 
-	const profileSubTitleText = profileSubTitle.textContent; // Статус
-	if (profileSubTitleText) {
-		profilePopupInputStatus.value = profileSubTitleText;
-	}
+// function submitPopupFormProfile(e) {
+// 	e.preventDefault();
 
-});
+// 	const popupInputNameValue = profilePopupInputName.value;
+// 	profileTitle.textContent = popupInputNameValue;
 
-profilePopupForm.addEventListener('submit', submitPopupFormProfile);
+// 	const popupInputStatusValue = profilePopupInputStatus.value;
+// 	profileSubTitle.textContent = popupInputStatusValue;
 
-function submitPopupFormProfile(e) {
-	e.preventDefault();
+// 	closePopup(profilePopup);
+// }
 
-	const popupInputNameValue = profilePopupInputName.value;
-	profileTitle.textContent = popupInputNameValue;
+// function submitPopupFormNewCard(e) {
+// 	e.preventDefault();
 
-	const popupInputStatusValue = profilePopupInputStatus.value;
-	profileSubTitle.textContent = popupInputStatusValue;
+// 	const popupInputTitleValue = newCardPopupInputTitle.value;
+// 	const popupInputUrlValue = newCardPopupInputUrl.value;
 
-	closePopup(profilePopup);
-}
-
-function submitPopupFormNewCard(e) {
-	e.preventDefault();
-
-	const popupInputTitleValue = newCardPopupInputTitle.value;
-	const popupInputUrlValue = newCardPopupInputUrl.value;
-
-	const newItem = {
-		'name': popupInputTitleValue,
-		'link': popupInputUrlValue,
-	}
+// 	const newItem = {
+// 		'name': popupInputTitleValue,
+// 		'link': popupInputUrlValue,
+// 	}
 
 
 
-	prependNewCard(newItem);
+// 	prependNewCard(newItem);
 
-	closePopup(newCardPopup);
-}
+// 	closePopup(newCardPopup);
+// }
 
 function prependNewCard(item) {
 	// Добавляем новую карточку в DOM
@@ -209,6 +196,55 @@ function prependNewCard(item) {
 	return cardsContainer.append(newCard(item) );
 }
 
+
+const profileInfo = new UserInfo({
+	nameSelector: '.profile__header',
+	statusSelector: '.profile__subtitle',
+});
+
+
+const popupEditorProfile = new PopupWithForm({
+	selector: '#popup-profile',
+	handleFormSubmit: (data) => {
+		profileInfo.setUserInfo({
+			name: data.name,
+			status: data.status
+		});
+
+		popupEditorProfile.close();
+	}
+});
+
+popupEditorProfile.setEventListeners();
+
+// # popup profile
+profileBtnEdit.addEventListener('click', () => {
+	validationProfilePopup.resetValidation();
+
+	popupEditorProfile.open();
+
+	const getDefaultValues = profileInfo.getUserInfo();
+
+	const profileTitleText = getDefaultValues.name; // ФИО
+	if (profileTitleText) {
+		profilePopupInputName.value = profileTitleText;
+	}
+
+	const profileSubTitleText = getDefaultValues.status; // Статус
+	if (profileSubTitleText) {
+		profilePopupInputStatus.value = profileSubTitleText;
+	}
+
+});
+
+
+
+
+
+
+// const popupEditorProfile = new PopupWithForm('#popup-profile', ({ name, status }) => {
+// 	userInfo.setUserInfo({ name, status })
+// });
 
 /*
 https://images.unsplash.com/photo-1661956603025-8310b2e3036d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=700&q=60
