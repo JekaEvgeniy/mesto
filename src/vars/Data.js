@@ -18,3 +18,8 @@ export const popupImage = document.querySelector('#popup-image');
 export const popupImageSelector = '#popup-image';
 export const popupFigure = popupImage.querySelector('.popup-figure__img');
 export const popupImageCaption = popupImage.querySelector('.popup-figure__figcaption');
+
+export const avatarBtnEdit = document.querySelector('.profile__button_type_avatar');
+export const avatarPopupSelector = '#popup-avatar';
+export const avatarPopup = document.querySelector(avatarPopupSelector);
+export const avatarPopupForm = avatarPopup.querySelector('.popup__form');

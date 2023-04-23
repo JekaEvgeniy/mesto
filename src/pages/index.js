@@ -17,6 +17,11 @@ import {
 	popupImageSelector,
 	popupFigure,
 	popupImageCaption,
+
+	avatarBtnEdit,
+	avatarPopup,
+	avatarPopupSelector,
+	avatarPopupForm
 } from '../vars/Data.js';
 
 import initialCards from '../vars/initialCards.js';
@@ -40,6 +45,9 @@ validationProfilePopup.enableValidation();
 
 const validationNewCardPopup = new FormValidator(validationConfig, newCardPopupForm);
 validationNewCardPopup.enableValidation();
+
+const validationAvatarPopup = new FormValidator(validationConfig, avatarPopupForm);
+validationAvatarPopup.enableValidation();
 
 const addNewCard = (item) => {
 	const card = new Card(item, cardTemplateSelector, handleCardClick);
@@ -91,6 +99,7 @@ newCardBtnAdd.addEventListener('click', () => {
 const profileInfo = new UserInfo({
 	nameSelector: '.profile__header',
 	statusSelector: '.profile__subtitle',
+	avatarSelector: '.profile__avatar',
 });
 
 const popupEditorProfile = new PopupWithForm({
@@ -127,4 +136,34 @@ profileBtnEdit.addEventListener('click', () => {
 
 });
 
+/* ================================= */
 
+const popupEditorAvatar = new PopupWithForm({
+	selector: '#popup-avatar',
+	handleFormSubmit: (data) => {
+		console.log('=========');
+		console.log(data);
+		console.log('=========');
+
+		profileInfo.setUserInfo({
+			avatar: data.avatar
+		});
+
+		popupEditorAvatar.close();
+	}
+});
+
+popupEditorAvatar.setEventListeners();
+
+// # popup avatar
+avatarBtnEdit.addEventListener('click', () => {
+	validationAvatarPopup.resetValidation();
+
+	popupEditorAvatar.open();
+});
+
+/*
+
+https://images.unsplash.com/photo-1640951613773-54706e06851d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjZ8fGF2YXRhcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60
+
+*/

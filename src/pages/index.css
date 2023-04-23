@@ -24,6 +24,7 @@
 @import url(../blocks/profile/__button/profile__button.css);
 @import url(../blocks/profile/__button/_type/profile__button_type_add.css);
 @import url(../blocks/profile/__button/_type/profile__button_type_edit.css);
+@import url(../blocks/profile/__button/_type/profile__button_type_avatar.css);
 
 @import url(../blocks/cards/cards.css);
 @import url(../blocks/card/card.css);

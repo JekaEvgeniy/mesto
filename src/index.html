@@ -15,9 +15,11 @@
 		</header>
 		<main class="content">
 			<section class="profile">
-				<figure class="profile__figure">
-					<img class="profile__avatar" src="<%=require('./images/profile/photo.webp')%>" alt="Фотография французского исследователя Жак-Ив Кусто">
-				</figure>
+				<div class="profile__figure">
+					<img class="profile__avatar" src="<%=require('./images/profile/photo.webp')%>" alt="Фотография">
+					<button class="profile__button profile__button_type_avatar" type="button" name="button"
+						aria-label="Обновить фотографию"></button>
+				</div>
 
 				<div class="profile__description">
 					<div class="profile__info">
@@ -122,6 +124,35 @@
 							<span class="popup__error" id="newcard-url-input-error"></span>
 
 							<button class="popup__button" type="submit">Создать</button>
+						</form>
+					</div>
+					<button class="popup__close" type="button" aria-label="Закрыть"></button>
+
+				</div>
+
+			</section>
+
+
+			<section class="popup" id="popup-avatar">
+
+				<div class="popup__inside">
+					<div class="popup__container">
+						<h2 class="popup__title">Обновить аватар</h2>
+
+						<form action="#" name="avatar" class="popup__form" novalidate>
+
+							<input
+								required
+								id="avatar-url-input"
+								class="popup__input popup__input_type_url"
+								type="url"
+								name="avatar"
+								placeholder="Ссылка на картинку"
+								autocomplete="off"
+							>
+							<span class="popup__error" id="avatar-url-input-error"></span>
+
+							<button class="popup__button" type="submit">Сохранить</button>
 						</form>
 					</div>
 					<button class="popup__close" type="button" aria-label="Закрыть"></button>
