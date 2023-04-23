@@ -1,5 +1,4 @@
 export default class Card {
-	// static _template = document.querySelector('#card').content;
 
 	constructor({ name, link }, container, handleCardClick) {
 		this._name = name;
@@ -9,12 +8,9 @@ export default class Card {
 	}
 
 	_cardTemplate() {
-		// return Card._template.cloneNode(true).children[0];
-
 		const item = document.querySelector(this._container).content
 			.querySelector('.card')
 			.cloneNode(true);
-			// .children[0];
 
 		return item;
 	}
@@ -22,27 +18,21 @@ export default class Card {
 	renderNewCard() {
 		this._view = this._cardTemplate();
 
-		const view = this._view;
+		this._btnLike = this._view.querySelector('.card__button');
+		this._btnRemove = this._view.querySelector('.card__button-remove');
+		this._cardImage = this._view.querySelector('.card__image');
+		this._cardTitle = this._view.querySelector('.card__title');
 
-		this._btnLike = view.querySelector('.card__button');
-
-		this._btnRemove = view.querySelector('.card__button-remove');
-
-		this._cardImage = view.querySelector('.card__image');
-
-		const cardImg = this._view.querySelector('.card__image');
-		const cardTitle = this._view.querySelector('.card__title');
-
-		cardTitle.textContent = this._name;
+		this._cardTitle.textContent = this._name;
 
 		// Если изображения нет - заменить на no-photo или скрывать изображение (в ТЗ нет)
 		if (this._link) {
-			cardImg.src = this._link;
+			this._cardImage.src = this._link;
 		} else {
-			cardImg.src = '#';
+			this._cardImage.src = '#';
 		}
 
-		cardImg.setAttribute('alt', `${this._name}`);
+		this._cardImage.setAttribute('alt', `${this._name}`);
 
 		this._setEventListeners();
 
@@ -51,9 +41,9 @@ export default class Card {
 
 	_setEventListeners() {
 
-		this._view.querySelector('.card__button').addEventListener('click', this._likeCard );
+		this._view.querySelector('.card__button').addEventListener('click', this._likeCard);
 
-		this._view.querySelector('.card__button-remove').addEventListener('click', () => this._removeCard() );
+		this._view.querySelector('.card__button-remove').addEventListener('click', () => this._removeCard());
 
 		this._view.querySelector('.card__image').addEventListener('click', () => this._handleCardClick(this._link, this._name));
 
