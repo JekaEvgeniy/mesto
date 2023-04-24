@@ -23,3 +23,9 @@ export const avatarBtnEdit = document.querySelector('.profile__button_type_avata
 export const avatarPopupSelector = '#popup-avatar';
 export const avatarPopup = document.querySelector(avatarPopupSelector);
 export const avatarPopupForm = avatarPopup.querySelector('.popup__form');
+
+
+export const qustionBtnSelector = '.card__button-remove';
+export const qustionPopupSelector = '#popup-question';
+export const qustionPopup = document.querySelector(avatarPopupSelector);
+export const qustionPopupForm = avatarPopup.querySelector('.popup__form');

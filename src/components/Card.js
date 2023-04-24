@@ -43,7 +43,7 @@ export default class Card {
 
 		this._view.querySelector('.card__button').addEventListener('click', this._likeCard);
 
-		this._view.querySelector('.card__button-remove').addEventListener('click', () => this._removeCard());
+		// this._view.querySelector('.card__button-remove').addEventListener('click', () => this._removeCard());
 
 		this._view.querySelector('.card__image').addEventListener('click', () => this._handleCardClick(this._link, this._name));
 

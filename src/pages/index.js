@@ -21,7 +21,13 @@ import {
 	avatarBtnEdit,
 	avatarPopup,
 	avatarPopupSelector,
-	avatarPopupForm
+	avatarPopupForm,
+
+	qustionBtnSelector,
+	qustionPopupSelector,
+	qustionPopup,
+	qustionPopupForm,
+
 } from '../vars/Data.js';
 
 import initialCards from '../vars/initialCards.js';
@@ -161,6 +167,34 @@ avatarBtnEdit.addEventListener('click', () => {
 
 	popupEditorAvatar.open();
 });
+
+
+/* ================================= */
+
+const popupQuestion = new PopupWithForm({
+	selector: qustionPopupSelector,
+	handleFormSubmit: (data) => {
+		console.log('=========');
+		console.log(data);
+		console.log('=========');
+
+		// profileInfo.setUserInfo({
+		// 	avatar: data.avatar
+		// });
+
+		popupQuestion.close();
+	}
+});
+
+popupQuestion.setEventListeners();
+
+document.querySelector(qustionBtnSelector).addEventListener('click', () => {
+	console.log('click >>>> qustionBtnSelector');
+	popupQuestion.open();
+});
+
+
+
 
 /*
 
