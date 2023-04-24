@@ -130,15 +130,15 @@ const cardPopup = new PopupWithForm({
 		// api.addNewCard(data);
 		api.addNewCard(data)
 			.then( (res) => {
-				console.log('1');
-				cardList.addItem(addNewCard(data));
+				// cardList.addItem(addNewCard(data));
 			})
 			.catch((err)=>{
 				console.error('Ошибка! Ошибка добавлении новой карточки');
 			})
 			.finally((res) => {
-				console.log('2');
-				cardList.addItem(addNewCard(data) );
+
+				// cardList.addItem(addNewCard(data), reverse =  true);
+				cardList.addItem(addNewCard(data), true);
 			})
 
 		cardPopup.close();
