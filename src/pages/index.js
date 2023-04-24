@@ -2,7 +2,7 @@ import {
 	profilePopup,
 	profilePopupForm,
 	profilePopupInputName,
-	profilePopupInputStatus,
+	profilePopupInputAbout,
 	profileBtnEdit,
 
 	cardsSelector,
@@ -126,7 +126,6 @@ const cardPopup = new PopupWithForm({
 		console.warn('>>>>>> cardPopup ');
 		console.log(data);
 
-		// api.addNewCard(data);
 		api.addNewCard(data)
 			.then( (res) => {
 				// cardList.addItem(addNewCard(data));
@@ -135,8 +134,6 @@ const cardPopup = new PopupWithForm({
 				console.error('Ошибка! Ошибка добавлении новой карточки');
 			})
 			.finally((res) => {
-
-				// cardList.addItem(addNewCard(data), reverse =  true);
 				cardList.addItem(addNewCard(data), true);
 			})
 
@@ -172,15 +169,16 @@ newCardBtnAdd.addEventListener('click', () => {
 */
 const profileInfo = new UserInfo({
 	nameSelector: '.profile__header',
-	statusSelector: '.profile__subtitle',
+	aboutSelector: '.profile__subtitle',
 	avatarSelector: '.profile__avatar',
 });
 
 api.getUserInfo()
 	.then((res) => {
+		console.log(res);
 		profileInfo.setUserInfo({
 			name: res.name,
-			status: res.about,
+			about: res.about,
 			avatar: res.avatar
 		});
 	});
@@ -190,8 +188,21 @@ const popupEditorProfile = new PopupWithForm({
 	handleFormSubmit: (data) => {
 		profileInfo.setUserInfo({
 			name: data.name,
-			status: data.status
+			about: data.about
 		});
+
+		api.setUserInfo(data)
+			.then((res) => {
+				console.warn('>>> api.setUserInfo ');
+				console.log(data);
+
+				profileInfo.setUserInfo({
+					name: data.name,
+					about: data.about,
+					avatar: data.avatar
+				});
+
+			})
 
 		popupEditorProfile.close();
 	}
@@ -215,9 +226,9 @@ profileBtnEdit.addEventListener('click', () => {
 		profilePopupInputName.value = profileTitleText;
 	}
 
-	const profileSubTitleText = defaultValues.status; // Статус
+	const profileSubTitleText = defaultValues.about; // Статус
 	if (profileSubTitleText) {
-		profilePopupInputStatus.value = profileSubTitleText;
+		profilePopupInputAbout.value = profileSubTitleText;
 	}
 
 });

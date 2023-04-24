@@ -8,7 +8,7 @@ export default class Api {
 
 		// console.log(this._url);
 		// console.warn(this._cardsUrl);
-		console.warn(this._userUrl);
+		// console.warn(this._userUrl);
 	}
 
 	/*
@@ -54,13 +54,28 @@ export default class Api {
 			headers: this._headers
 		})
 			.then((res) => {
-				console.warn('API.JS >>> getUserInfo >>> ');
-				console.log(res);
 				if (res.ok) return res.json();
-				// return Promise.reject('Ошибка при выводе карточек');
 			})
 			.catch((err) => {
 				console.error('Ошибка! Ошибка при получении данных о пользователе');
+			})
+	}
+
+	setUserInfo(data) {
+
+		return fetch(this._userUrl, {
+			method: 'PATCH',
+			headers: this._headers,
+			body: JSON.stringify(data),
+		})
+			.then((res) => {
+				console.warn('>>> API.JS >>> setUserInfo ');
+				console.log(data);
+
+				if (res.ok) return res.json();
+			})
+			.catch((err) => {
+				console.error('Ошибка! Ошибка при Добавлении новых данных о пользователе');
 			})
 	}
 

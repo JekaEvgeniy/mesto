@@ -2,7 +2,7 @@ export const profilePopup = document.querySelector('#popup-profile');
 // export const profilePopupSelector = '#popup-profile';
 export const profilePopupForm = profilePopup.querySelector('.popup__form');
 export const profilePopupInputName = profilePopup.querySelector('.popup__input_type_name');
-export const profilePopupInputStatus = profilePopup.querySelector('.popup__input_type_status');
+export const profilePopupInputAbout = profilePopup.querySelector('.popup__input_type_status');
 export const profileBtnEdit = document.querySelector('.profile__button_type_edit');
 
 export const cardsSelector = '#cards';
