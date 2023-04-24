@@ -28,9 +28,12 @@ import {
 	qustionPopup,
 	qustionPopupForm,
 
+	token,
+	cohortID
 } from '../vars/Data.js';
 
-import initialCards from '../vars/initialCards.js';
+
+// import initialCards from '../vars/initialCards.js';
 
 import validationConfig from '../vars/validationConfig.js';
 
@@ -42,8 +45,30 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 
 import FormValidator from '../components/FormValidator.js';
+import Api from '../components/Api.js';
 
 import './index.css'; // добавьте импорт главного файла стилей
+
+
+// fetch(`https://mesto.nomoreparties.co/v1/${cohortID}/cards`, {
+// 	headers: {
+// 		authorization: token,
+// 		'Content-Type': 'application/json'
+// 	}
+// })
+// 	.then(res => res.json())
+// 	.then((result) => {
+// 		console.log(result);
+// 	});
+
+
+const api = new Api({
+	url: `https://mesto.nomoreparties.co/v1/cohort-64`,
+	headers: {
+		authorization: token,
+		'Content-Type': 'application/json'
+	}
+});
 
 // Валидация формы
 const validationProfilePopup = new FormValidator(validationConfig, profilePopupForm);
@@ -63,7 +88,8 @@ const addNewCard = (item) => {
 
 const cardList = new Section(
 	{
-		items: initialCards,
+		// items: initialCards,
+		items: [],
 
 		renderer: ( data ) => {
 			return addNewCard(data);
@@ -73,8 +99,19 @@ const cardList = new Section(
 	// Второй параметр конструктора — селектор контейнера, в который нужно добавлять созданные элементы.
 	cardsSelector
 );
+// cardList.renderItems();
 
-cardList.renderItems();
+api.getCards()
+	.then((res) => {
+		console.log('getCards res >>> ');
+		console.table(res[0]);
+
+		res.forEach((item) => {
+			cardList.addItem(addNewCard(item));
+		})
+	});
+
+
 
 const imageFancybox = new PopupWithImage(popupImageSelector);
 
@@ -187,13 +224,13 @@ const popupQuestion = new PopupWithForm({
 });
 
 popupQuestion.setEventListeners();
-
+/*
 document.querySelector(qustionBtnSelector).addEventListener('click', () => {
 	console.log('click >>>> qustionBtnSelector');
 	popupQuestion.open();
 });
 
-
+*/
 
 
 /*

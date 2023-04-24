@@ -29,3 +29,5 @@ export const qustionBtnSelector = '.card__button-remove';
 export const qustionPopupSelector = '#popup-question';
 export const qustionPopup = document.querySelector(avatarPopupSelector);
 export const qustionPopupForm = avatarPopup.querySelector('.popup__form');
+
+export const token = '3d7a6b3d-0c4e-42b2-9c9f-9a1fd7b681b9';
