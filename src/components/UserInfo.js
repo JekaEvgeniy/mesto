@@ -9,6 +9,14 @@ export default class UserInfo {
 		const data = {
 			name: this._name.textContent,
 			about: this._about.textContent,
+			// avatar: this._avatar.textContent,
+		}
+
+		return data;
+	}
+
+	getUserAvatar(){
+		const data = {
 			avatar: this._avatar.textContent,
 		}
 
@@ -17,9 +25,7 @@ export default class UserInfo {
 
 	setUserInfo({name, about, avatar}){
 		// Делаем проверку, чтобы случайно не отправить undefined
-		console.log(name);
-		console.log(about);
-		console.log(avatar);
+
 		if (name){
 			this._name.textContent = name;
 		}
@@ -28,9 +34,17 @@ export default class UserInfo {
 			this._about.textContent = about;
 		}
 
-		if ( avatar ) {
+		if (avatar) {
 			this._avatar.src = avatar;
 		}
 
 	}
+
+
+	// setUserAvatar({avatar}){
+	// 	// Делаем проверку, чтобы случайно не отправить undefined
+	// 	if ( avatar ) {
+	// 		this._avatar.src = avatar;
+	// 	}
+	// }
 }

@@ -5,6 +5,7 @@ export default class Api {
 
 		this._cardsUrl = this._url + '/cards';
 		this._userUrl  = this._url + '/users/me';
+		this._userAvatarUrl = this._url + '/users/me/avatar';
 
 		// console.log(this._url);
 		// console.warn(this._cardsUrl);
@@ -61,6 +62,18 @@ export default class Api {
 			})
 	}
 
+	// getUserAvatar() {
+	// 	return fetch(this._userUrl, {
+	// 		headers: this._headers
+	// 	})
+	// 		.then((res) => {
+	// 			if (res.ok) return res.json();
+	// 		})
+	// 		.catch((err) => {
+	// 			console.error('Ошибка! Ошибка при получении аватарки');
+	// 		})
+	// }
+
 	setUserInfo(data) {
 
 		return fetch(this._userUrl, {
@@ -70,6 +83,24 @@ export default class Api {
 		})
 			.then((res) => {
 				console.warn('>>> API.JS >>> setUserInfo ');
+				console.log(data);
+
+				if (res.ok) return res.json();
+			})
+			.catch((err) => {
+				console.error('Ошибка! Ошибка при Добавлении новых данных о пользователе');
+			})
+	}
+
+	setUserAvatar(data) {
+
+		return fetch(this._userAvatarUrl, {
+			method: 'PATCH',
+			headers: this._headers,
+			body: JSON.stringify(data),
+		})
+			.then((res) => {
+				console.warn('>>> API.JS >>> setUserAvatar ');
 				console.log(data);
 
 				if (res.ok) return res.json();

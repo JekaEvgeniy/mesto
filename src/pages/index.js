@@ -142,18 +142,6 @@ const cardPopup = new PopupWithForm({
 });
 cardPopup.setEventListeners();
 
-/*
-https://images.unsplash.com/photo-1454496522488-7a8e488e8606?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80
-
-https://images.unsplash.com/photo-1564416437164-e2d131e7ec07?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bGlrZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60
-
-cat
-https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2F0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60
-
-cat2
-
-https://plus.unsplash.com/premium_photo-1667030474693-6d0632f97029?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8Y2F0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=60
-*/
 
 
 newCardBtnAdd.addEventListener('click', () => {
@@ -175,33 +163,37 @@ const profileInfo = new UserInfo({
 
 api.getUserInfo()
 	.then((res) => {
-		console.log(res);
+		console.table(res);
 		profileInfo.setUserInfo({
 			name: res.name,
 			about: res.about,
-			avatar: res.avatar
+			avatar: res.avatar,
 		});
 	});
 
-const popupEditorProfile = new PopupWithForm({
+	const popupEditorProfile = new PopupWithForm({
 	selector: '#popup-profile',
 	handleFormSubmit: (data) => {
+
 		profileInfo.setUserInfo({
 			name: data.name,
 			about: data.about
 		});
 
 		api.setUserInfo(data)
+
 			.then((res) => {
 				console.warn('>>> api.setUserInfo ');
 				console.log(data);
-
+			})
+			.catch((err) => {
+				console.error('Ошибка! Ошибка добавления информации');
+			})
+			.finally((res) => {
 				profileInfo.setUserInfo({
 					name: data.name,
 					about: data.about,
-					avatar: data.avatar
 				});
-
 			})
 
 		popupEditorProfile.close();
@@ -238,19 +230,46 @@ profileBtnEdit.addEventListener('click', () => {
 const popupEditorAvatar = new PopupWithForm({
 	selector: '#popup-avatar',
 	handleFormSubmit: (data) => {
-		console.log('=========');
-		console.log(data);
-		console.log('=========');
 
-		profileInfo.setUserInfo({
-			avatar: data.avatar
-		});
+		console.warn(data);
+
+		api.setUserAvatar(data)
+			.then((res) => {
+				console.log(`===========>`);
+				console.log(res);
+			})
+			.catch((err) => {
+				console.error(err);
+				console.error('Ошибка! Ошибка добавлении новой фотографии');
+			})
+			.finally((res) => {
+
+				profileInfo.setUserInfo({
+					avatar: data.avatar
+				});
+
+			})
 
 		popupEditorAvatar.close();
 	}
 });
 
 popupEditorAvatar.setEventListeners();
+
+
+/*
+https://images.unsplash.com/photo-1454496522488-7a8e488e8606?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80
+
+https://images.unsplash.com/photo-1564416437164-e2d131e7ec07?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bGlrZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60
+
+cat
+https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2F0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+cat2
+
+https://plus.unsplash.com/premium_photo-1667030474693-6d0632f97029?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8Y2F0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=60
+*/
+
 
 // # popup avatar
 avatarBtnEdit.addEventListener('click', () => {
