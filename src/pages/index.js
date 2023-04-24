@@ -124,12 +124,40 @@ imageFancybox.setEventListeners();
 const cardPopup = new PopupWithForm({
 	selector: newCardPopupSelector,
 	handleFormSubmit: (data) => {
-		cardList.addItem(addNewCard(data) );
+		console.warn('>>>>>> cardPopup ');
+		console.log(data);
+
+		// api.addNewCard(data);
+		api.addNewCard(data)
+			.then( (res) => {
+				console.log('1');
+				cardList.addItem(addNewCard(data));
+			})
+			.catch((err)=>{
+				console.error('Ошибка! Ошибка добавлении новой карточки');
+			})
+			.finally((res) => {
+				console.log('2');
+				cardList.addItem(addNewCard(data) );
+			})
 
 		cardPopup.close();
 	}
 });
 cardPopup.setEventListeners();
+
+/*
+https://images.unsplash.com/photo-1454496522488-7a8e488e8606?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80
+
+https://images.unsplash.com/photo-1564416437164-e2d131e7ec07?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bGlrZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60
+
+cat
+https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2F0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+cat2
+
+https://plus.unsplash.com/premium_photo-1667030474693-6d0632f97029?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8Y2F0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=60
+*/
 
 
 newCardBtnAdd.addEventListener('click', () => {
@@ -236,5 +264,7 @@ document.querySelector(qustionBtnSelector).addEventListener('click', () => {
 /*
 
 https://images.unsplash.com/photo-1640951613773-54706e06851d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjZ8fGF2YXRhcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60
+
+
 
 */

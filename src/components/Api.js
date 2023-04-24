@@ -22,5 +22,22 @@ export default class Api {
 			})
 	}
 
+	addNewCard(data){
+		return fetch(this._cardsUrl, {
+			method:'POST',
+			headers: this._headers,
+			body: JSON.stringify(data),
+		})
+		.then((data) => {
+			console.warn('APi.js >>> addNewCard() ');
+			console.log(data);
+
+			if ( data.ok ) return data.json();
+		})
+		.catch((err) => {
+			console.error('Ошибка! Ошибка добавлении новой карточки');
+		})
+	}
+
 
 }
