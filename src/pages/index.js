@@ -103,8 +103,7 @@ const cardList = new Section(
 
 api.getCards()
 	.then((res) => {
-		console.log('getCards res >>> ');
-		console.table(res[0]);
+		//console.table(res[0]);
 
 		res.forEach((item) => {
 			cardList.addItem(addNewCard(item));
@@ -167,11 +166,24 @@ newCardBtnAdd.addEventListener('click', () => {
 	cardPopup.open();
 });
 
+
+/*
+* Работаем с инфополем
+*/
 const profileInfo = new UserInfo({
 	nameSelector: '.profile__header',
 	statusSelector: '.profile__subtitle',
 	avatarSelector: '.profile__avatar',
 });
+
+api.getUserInfo()
+	.then((res) => {
+		profileInfo.setUserInfo({
+			name: res.name,
+			status: res.about,
+			avatar: res.avatar
+		});
+	});
 
 const popupEditorProfile = new PopupWithForm({
 	selector: '#popup-profile',
@@ -186,6 +198,9 @@ const popupEditorProfile = new PopupWithForm({
 });
 
 popupEditorProfile.setEventListeners();
+
+
+
 
 // # popup profile
 profileBtnEdit.addEventListener('click', () => {

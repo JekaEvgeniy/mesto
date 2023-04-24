@@ -1,11 +1,10 @@
 export default class Card {
 
-	constructor({ name, link }, container, handleCardClick, reverse) {
+	constructor({ name, link }, container, handleCardClick) {
 		this._name = name;
 		this._link = link;
 		this._container = container;
 		this._handleCardClick = handleCardClick;
-		this._reverse = reverse;
 	}
 
 	_cardTemplate() {
@@ -27,8 +26,6 @@ export default class Card {
 		this._cardTitle.textContent = this._name;
 
 		// Если изображения нет - заменить на no-photo или скрывать изображение (в ТЗ нет)
-		// console.log(this._link);
-		console.log(`this._reverse1 = ${this._reverse}` );
 
 		if (this._link) {
 			this._cardImage.src = this._link;

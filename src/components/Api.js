@@ -4,11 +4,16 @@ export default class Api {
 		this._headers = headers;
 
 		this._cardsUrl = this._url + '/cards';
+		this._userUrl  = this._url + '/users/me';
 
-		console.log(this._url);
-		console.warn(this._cardsUrl);
+		// console.log(this._url);
+		// console.warn(this._cardsUrl);
+		console.warn(this._userUrl);
 	}
 
+	/*
+	* Работаем с карточками
+	*/
 	getCards() {
 		return fetch(this._cardsUrl, {
 			headers: this._headers
@@ -38,6 +43,27 @@ export default class Api {
 			console.error('Ошибка! Ошибка добавлении новой карточки');
 		})
 	}
+
+
+	/*
+	* Работаем с инфополем
+	*/
+
+	getUserInfo() {
+		return fetch(this._userUrl, {
+			headers: this._headers
+		})
+			.then((res) => {
+				console.warn('API.JS >>> getUserInfo >>> ');
+				console.log(res);
+				if (res.ok) return res.json();
+				// return Promise.reject('Ошибка при выводе карточек');
+			})
+			.catch((err) => {
+				console.error('Ошибка! Ошибка при получении данных о пользователе');
+			})
+	}
+
 
 
 }

@@ -15,7 +15,6 @@ export default class Section {
 	addItem(el, reverse) {
 		// Содержит публичный метод addItem, который принимает DOM-элемент и добавляет его в контейнер.
 		// this._container.prepend(el)
-		console.log(`this._reverse 2 = ${reverse}`);
 
 		(reverse) ? this._container.prepend(el) : this._container.append(el);
 	}
