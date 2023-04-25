@@ -9,7 +9,7 @@ export default class PopupWithImage extends Popup {
 		this._popupImageCaption = this._popup.querySelector('.popup-figure__figcaption');
 	}
 
-	open(link, name){
+	open(link, name) {
 
 		if (link && this._popupFigure) {
 			this._popupFigure.src = link;

@@ -1,14 +1,16 @@
 export default class Card {
 
-	constructor({ name, link }, container, handleCardClick, api, id, likes) {
+	constructor({ name, link }, container, handleCardClick, id, author, likes, myID, handleRemoveClick) {
 		this._name = name;
 		this._link = link;
 		this._container = container;
 		this._handleCardClick = handleCardClick;
+		this._handleRemoveClick = handleRemoveClick;
 
-		this._api = api;
 		this._id = id;
+		this._author = author;
 		this._likes = likes;
+		this._myID = myID;
 	}
 
 	_cardTemplate() {
@@ -20,6 +22,7 @@ export default class Card {
 	}
 
 	renderNewCard() {
+
 		this._view = this._cardTemplate();
 
 		this._btnLike = this._view.querySelector('.card__button');
@@ -40,7 +43,9 @@ export default class Card {
 
 		this._cardImage.setAttribute('alt', `${this._name}`);
 
-		console.log('=============')
+
+		//console.warn(`!!!!!! this._cardID = ${this._id}`);
+		//console.warn(`!!!!!! this._myID = ${this._myID}`);
 		// console.table(this._api);
 		// console.table(this._api.likes);
 		// console.log(this._id);
@@ -48,6 +53,12 @@ export default class Card {
 
 		this._cardCounter.textContent = this._likes;
 
+
+		const checkMyCard = (this._myID === this._author) ? true : false;
+
+		if (! checkMyCard ){
+			this._btnRemove.remove()
+		}
 
 		this._setEventListeners();
 
@@ -58,7 +69,14 @@ export default class Card {
 
 		this._view.querySelector('.card__button').addEventListener('click', this._likeCard);
 
-		// this._view.querySelector('.card__button-remove').addEventListener('click', () => this._removeCard());
+		if ( this._view.querySelector('.card__button-remove') ){
+			// this._view.querySelector('.card__button-remove').addEventListener('click', () => this._removeCard());
+			this._view.querySelector('.card__button-remove').addEventListener('click', () => {
+				console.log(`>>> Card.js >>> _setEventListeners >>> this._id = ${this._id}`);
+				// this._removeCard();
+				this._handleRemoveClick(this._id);
+			});
+		}
 
 		this._view.querySelector('.card__image').addEventListener('click', () => this._handleCardClick(this._link, this._name));
 
@@ -66,7 +84,13 @@ export default class Card {
 
 
 	_removeCard = () => {
+		console.log('>>> card.js _removeCard')
 		this._view.remove();
+	}
+
+	_handleRemoveClick = () => {
+		console.warn(`>>> card.js _handleRemoveClick  + ID = ${this._id}`);
+		// this._handleRemoveCard(this._id);
 	}
 
 	_likeCard = () => {
