@@ -49,19 +49,6 @@ import Api from '../components/Api.js';
 
 import './index.css'; // добавьте импорт главного файла стилей
 
-
-// fetch(`https://mesto.nomoreparties.co/v1/${cohortID}/cards`, {
-// 	headers: {
-// 		authorization: token,
-// 		'Content-Type': 'application/json'
-// 	}
-// })
-// 	.then(res => res.json())
-// 	.then((result) => {
-// 		console.log(result);
-// 	});
-
-
 const api = new Api({
 	url: `https://mesto.nomoreparties.co/v1/cohort-64`,
 	headers: {
@@ -69,6 +56,8 @@ const api = new Api({
 		'Content-Type': 'application/json'
 	}
 });
+
+let userId; // 2c209b6a35c5ecd4a6566de9
 
 // Валидация формы
 const validationProfilePopup = new FormValidator(validationConfig, profilePopupForm);
@@ -80,8 +69,8 @@ validationNewCardPopup.enableValidation();
 const validationAvatarPopup = new FormValidator(validationConfig, avatarPopupForm);
 validationAvatarPopup.enableValidation();
 
-const addNewCard = (item) => {
-	const card = new Card(item, cardTemplateSelector, handleCardClick);
+const addNewCard = (item, api, id, likes) => {
+	const card = new Card(item, cardTemplateSelector, handleCardClick, api, id, likes);
 
 	return card.renderNewCard();
 }
@@ -101,12 +90,45 @@ const cardList = new Section(
 );
 // cardList.renderItems();
 
+/*
+https://images.unsplash.com/photo-1454496522488-7a8e488e8606?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80
+
+https://images.unsplash.com/photo-1564416437164-e2d131e7ec07?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bGlrZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60
+
+cat
+https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2F0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60
+
+cat2
+
+https://plus.unsplash.com/premium_photo-1667030474693-6d0632f97029?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8Y2F0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=60
+*/
+
+
 api.getCards()
 	.then((res) => {
-		//console.table(res[0]);
+		let testItem = res[0];
+		// console.table(testItem);
+		console.log('***********************************')
+		console.log(`testItem._id = ${testItem._id} Это ID карточки`);
 
-		res.forEach((item) => {
-			cardList.addItem(addNewCard(item));
+		console.log(`OWNER.NANE = ${testItem.owner.name}`);
+		console.log(`OWNER.ID = ${testItem.owner._id}`);
+		// console.warn(api.getUserInfo())
+		// console.table(res[0].owner);
+
+		// console.log(`card LIKES = ${res[0].likes.length}`);
+		// console.log(`card ID = ${res[0]._id}`);
+
+		res.forEach((item, res) => {
+			const itemAPI = item.api;
+			const itemID = item._id;
+			const itemLikes = item.likes.length;
+			// console.table(itemAPI); // undefined
+			// console.table(itemAPI);
+			// console.log(`card LIKES = ${itemLikes}`);
+
+
+			cardList.addItem(addNewCard(item, itemAPI, itemID, itemLikes));
 		})
 	});
 
@@ -257,18 +279,6 @@ const popupEditorAvatar = new PopupWithForm({
 popupEditorAvatar.setEventListeners();
 
 
-/*
-https://images.unsplash.com/photo-1454496522488-7a8e488e8606?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80
-
-https://images.unsplash.com/photo-1564416437164-e2d131e7ec07?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bGlrZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60
-
-cat
-https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2F0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60
-
-cat2
-
-https://plus.unsplash.com/premium_photo-1667030474693-6d0632f97029?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8Y2F0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=60
-*/
 
 
 // # popup avatar

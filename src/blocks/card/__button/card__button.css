@@ -1,7 +1,7 @@
 .card__button {
 	flex: 0 0 auto;
 
-	margin : 0 0 0 32px;
+	margin : 0;
 	padding: 0;
 
 	width : 23px;

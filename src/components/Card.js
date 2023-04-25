@@ -1,10 +1,14 @@
 export default class Card {
 
-	constructor({ name, link }, container, handleCardClick) {
+	constructor({ name, link }, container, handleCardClick, api, id, likes) {
 		this._name = name;
 		this._link = link;
 		this._container = container;
 		this._handleCardClick = handleCardClick;
+
+		this._api = api;
+		this._id = id;
+		this._likes = likes;
 	}
 
 	_cardTemplate() {
@@ -22,6 +26,7 @@ export default class Card {
 		this._btnRemove = this._view.querySelector('.card__button-remove');
 		this._cardImage = this._view.querySelector('.card__image');
 		this._cardTitle = this._view.querySelector('.card__title');
+		this._cardCounter = this._view.querySelector('.card__counter');
 
 		this._cardTitle.textContent = this._name;
 
@@ -34,6 +39,15 @@ export default class Card {
 		}
 
 		this._cardImage.setAttribute('alt', `${this._name}`);
+
+		console.log('=============')
+		// console.table(this._api);
+		// console.table(this._api.likes);
+		// console.log(this._id);
+		// console.log(this._api);
+
+		this._cardCounter.textContent = this._likes;
+
 
 		this._setEventListeners();
 

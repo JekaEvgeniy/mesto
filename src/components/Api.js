@@ -4,12 +4,16 @@ export default class Api {
 		this._headers = headers;
 
 		this._cardsUrl = this._url + '/cards';
+		// this._cardID   = this._url + '/cards/cardId/likes';
+		this._cardLikes = this._url + '/cards/cardId/likes';
+
 		this._userUrl  = this._url + '/users/me';
 		this._userAvatarUrl = this._url + '/users/me/avatar';
 
 		// console.log(this._url);
 		// console.warn(this._cardsUrl);
 		// console.warn(this._userUrl);
+		// console.warn(this._cardLikes);
 	}
 
 	/*
@@ -44,6 +48,43 @@ export default class Api {
 			console.error('Ошибка! Ошибка добавлении новой карточки');
 		})
 	}
+
+	// addLike(data){
+	// 	return fetch(this._cardLikes, {
+	// 		method:'PUT',
+	// 		headers: this._headers,
+	// 		body: JSON.stringify(data),
+	// 	})
+	// 	.then((data) => {
+	// 		console.warn('APi.js >>> addLike() ');
+	// 		console.log(data);
+
+	// 		if ( data.ok ) return data.json();
+	// 	})
+	// 	.catch((err) => {
+	// 		console.error('Ошибка! Ошибка Like карточки');
+	// 	})
+	// }
+
+	getLikes(data){
+		// Получаем список лайков
+		return fetch(this._cardLikes, {
+			headers: this._headers,
+			body: JSON.stringify(data),
+		})
+		.then((data) => {
+			console.warn('APi.js >>> getLikes() ');
+			console.log(data);
+
+			if ( data.ok ) return data.json();
+		})
+		.catch((err) => {
+			console.error('Ошибка! Ошибка getLikes карточки');
+		})
+	}
+
+
+
 
 
 	/*
