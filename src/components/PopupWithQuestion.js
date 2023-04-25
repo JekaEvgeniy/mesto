@@ -9,14 +9,10 @@ export default class PopupWithQuestion extends Popup {
 		this._btnRemove = this._popup.querySelector('.popup__button');
 	}
 
-	open(id) {
-		console.warn('id => ' + id);
-		super.open();
-	}
   setTarget(target) {
     this._target = target;
-		console.log(`this._target = ${this._target}`);
   }
+
 	setEventListeners() {
 		super.setEventListeners();
 

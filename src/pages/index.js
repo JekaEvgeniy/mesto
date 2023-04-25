@@ -283,9 +283,51 @@ function handleRemoveClick(id){
 const popupQuestion = new PopupWithQuestion({
 	selector: qustionPopupSelector,
 	handleFormSubmit: (id) => {
-		console.warn(`>>>>>> popupQuestion. Нажали на кпопку удаления карточки = ${id}`);
+		console.warn(`>>>>>> В модалке нажали на кпопку удаления карточки = ${id}`);
+
+		api.removeCard(id)
+			.then(() => {
+				console.log('(1) removeCard');
+			})
+			.catch(() => {
+				console.error('Ошибка! Ошибка удаления карточки');
+			})
+			.finally(() => {
+				console.warn('success: remove card');
+
+				// card.removeThisCard();
+
+				popupQuestion.close();
+			})
 	},
 });
+
+/*
+
+https://images.unsplash.com/photo-1640951613773-54706e06851d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjZ8fGF2YXRhcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 popupQuestion.setEventListeners();
 
 function handleRemoveClick(id){
@@ -293,11 +335,11 @@ function handleRemoveClick(id){
 	// qustionPopup.open();
 	// document.querySelector('#popup-question').open()
 	popupQuestion.setTarget(id);
-	popupQuestion.open(id)
+	popupQuestion.open()
 }
 
 /*
-https://images.unsplash.com/photo-1564416437164-e2d131e7ec07?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bGlrZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60
+https://images.unsplash.com/photo-1674574124475-16dd78234342?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=700&q=60
 */
 
 
@@ -397,10 +439,3 @@ document.querySelector(qustionBtnSelector).addEventListener('click', () => {
 */
 
 
-/*
-
-https://images.unsplash.com/photo-1640951613773-54706e06851d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjZ8fGF2YXRhcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60
-
-
-
-*/

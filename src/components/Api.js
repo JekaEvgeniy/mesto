@@ -4,14 +4,16 @@ export default class Api {
 		this._headers = headers;
 
 		this._cardsUrl = this._url + '/cards';
-		// this._cardID   = this._url + '/cards/cardId/likes';
+		this._cardID   = this._url + '/cards/';
 		this._cardLikes = this._url + '/cards/cardId/likes';
 
 		this._userUrl  = this._url + '/users/me';
 		this._userAvatarUrl = this._url + '/users/me/avatar';
 
 		// console.log(this._url);
-		// console.warn(this._cardsUrl);
+		console.log(this._cardsUrl);
+		console.log(this._cardID);
+
 		// console.warn(this._userUrl);
 		// console.warn(this._cardLikes);
 	}
@@ -46,6 +48,28 @@ export default class Api {
 		})
 		.catch((err) => {
 			console.error('Ошибка! Ошибка добавлении новой карточки');
+		})
+	}
+
+
+	removeCard(id){
+		/*
+		Чтобы удалить карточку, отправьте DELETE - запрос:
+		DELETE https://mesto.nomoreparties.co/v1/cohortId/cards/cardId
+		*/
+		console.warn(`${this._cardsUrl}/${id}`);
+
+		return fetch(`${this._cardsUrl}/${id}`, {
+			method: 'DELETE',
+			headers: this._headers,
+		})
+
+		.then( (res) => {
+			if (res.ok) return res.json()
+		})
+		.catch( (err) => {
+			// card.removeThisCard();
+			console.error('Ошибка! Ошибка удаления карточки');
 		})
 	}
 

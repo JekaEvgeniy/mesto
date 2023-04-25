@@ -21,6 +21,13 @@ export default class Card {
 		return item;
 	}
 
+
+	removeThisCard() {
+		console.log('>>> card.js >>>  removeThisCard');
+		this._view.remove();
+		this._view = null;
+	}
+
 	renderNewCard() {
 
 		this._view = this._cardTemplate();
@@ -70,9 +77,11 @@ export default class Card {
 		this._view.querySelector('.card__button').addEventListener('click', this._likeCard);
 
 		if ( this._view.querySelector('.card__button-remove') ){
-			// this._view.querySelector('.card__button-remove').addEventListener('click', () => this._removeCard());
+			// Добавляем кнопку удаления только у тех карточек, где она есть
+
 			this._view.querySelector('.card__button-remove').addEventListener('click', () => {
 				console.log(`>>> Card.js >>> _setEventListeners >>> this._id = ${this._id}`);
+
 				// this._removeCard();
 				this._handleRemoveClick(this._id);
 			});
@@ -87,6 +96,16 @@ export default class Card {
 		console.log('>>> card.js _removeCard')
 		this._view.remove();
 	}
+
+
+
+
+
+
+
+
+
+
 
 	_handleRemoveClick = () => {
 		console.warn(`>>> card.js _handleRemoveClick  + ID = ${this._id}`);
