@@ -70,39 +70,36 @@ validationNewCardPopup.enableValidation();
 const validationAvatarPopup = new FormValidator(validationConfig, avatarPopupForm);
 validationAvatarPopup.enableValidation();
 
-const addNewCard = (item, api, id, likes, myID) => {
-	const card = new Card(item, cardTemplateSelector, handleCardClick, api, id, likes, myID, handleRemoveClick);
 
-	return card.renderNewCard();
-}
 
-const cardList = new Section(
-	{
-		// items: initialCards,
-		items: [],
-
-		renderer: ( data ) => {
-			return addNewCard(data);
-		}
-	},
-
-	// Второй параметр конструктора — селектор контейнера, в который нужно добавлять созданные элементы.
-	cardsSelector
-);
-// cardList.renderItems();
-
-/*
-https://images.unsplash.com/photo-1454496522488-7a8e488e8606?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80
-
-https://images.unsplash.com/photo-1564416437164-e2d131e7ec07?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bGlrZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60
-
-cat
-https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2F0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60
-
-cat2
-
-https://plus.unsplash.com/premium_photo-1667030474693-6d0632f97029?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8Y2F0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=60
+/* Переписываем. Плохо работает удаление карточек.
+	1. При добавлении карточки и удаления нет доступа к ID
+	2. При обновлении страницы карточка удаляется из базы, но  при удалении со страницы - ошибка.
 */
+
+
+
+// const addNewCard = (item, api, id, likes, myID) => {
+// 	const card = new Card(item, cardTemplateSelector, handleCardClick, api, id, likes, myID, handleRemoveClick);
+
+// 	return card.renderNewCard();
+// }
+
+// const cardList = new Section(
+// 	{
+// 		// items: initialCards,
+// 		items: [],
+
+// 		renderer: ( data ) => {
+// 			return addNewCard(data);
+// 		}
+// 	},
+
+// 	// Второй параметр конструктора — селектор контейнера, в который нужно добавлять созданные элементы.
+// 	cardsSelector
+// );
+// // cardList.renderItems();
+
 
 const profileInfo = new UserInfo({
 	nameSelector: '.profile__header',
@@ -111,109 +108,80 @@ const profileInfo = new UserInfo({
 });
 
 
-api.getUserInfo()
-	.then((res) => {
-		// console.table(res);
-		profileInfo.setUserInfo({
-			name: res.name,
-			about: res.about,
-			avatar: res.avatar,
-		});
-	});
-
-	const popupEditorProfile = new PopupWithForm({
-	selector: '#popup-profile',
-	handleFormSubmit: (data) => {
-
-		profileInfo.setUserInfo({
-			name: data.name,
-			about: data.about
-		});
-
-		api.setUserInfo(data)
-
-			.then((res) => {
-				console.warn('>>> api.setUserInfo ');
-				console.log(data);
-			})
-			.catch((err) => {
-				console.error('Ошибка! Ошибка добавления информации');
-			})
-			.finally((res) => {
-				profileInfo.setUserInfo({
-					name: data.name,
-					about: data.about,
-				});
-			})
-
-		popupEditorProfile.close();
-	}
-});
-
-Promise.all([api.getUserInfo(), api.getCards() ])
-	.then(( data ) => {
-		myID = data[0]._id;
-
-		// console.warn('START Promise.all >>>')
-		// console.warn(`myID = ${myID}`);
-		// console.log(`OWNER.ID = ${data[1].owner._id}`);
-		// console.log(data[1]);
-
-		// cardList.addItem(addNewCard(data[1]), myID );
-		const items = data[1];
-
-		items.forEach((item) => {
-
-			const itemID = item._id;
-			const itemAuthor = item.owner._id;
-
-			const itemLikes = item.likes.length;
-
-			// console.table(itemAuthor);
-			// console.log(`card LIKES = ${itemLikes}`);
-
-
-			cardList.addItem(addNewCard(item, itemID, itemAuthor, itemLikes, myID));
-		})
-
-	})
-	.catch((err) => {
-			console.error(err);
-	})
-	.finally(() => {
-		// console.warn('END Promise.all <<<');
-	})
-
-
-
-// api.getCards()
+// api.getUserInfo()
 // 	.then((res) => {
+// 		// console.table(res);
+// 		profileInfo.setUserInfo({
+// 			name: res.name,
+// 			about: res.about,
+// 			avatar: res.avatar,
+// 		});
+// 	});
 
-// 		let testItem = res[0];
-// 		// console.table(testItem);
-// 		console.log('***********************************')
-// 		console.log(`testItem._id = ${testItem._id} Это ID карточки`);
+// 	const popupEditorProfile = new PopupWithForm({
+// 	selector: '#popup-profile',
+// 	handleFormSubmit: (data) => {
 
-// 		console.log(`OWNER.NANE = ${testItem.owner.name}`);
-// 		console.log(`OWNER.ID = ${testItem.owner._id}`);
-// 		// console.warn(api.getUserInfo())
-// 		// console.table(res[0].owner);
+// 		profileInfo.setUserInfo({
+// 			name: data.name,
+// 			about: data.about
+// 		});
 
-// 		// console.log(`card LIKES = ${res[0].likes.length}`);
-// 		// console.log(`card ID = ${res[0]._id}`);
+// 		api.setUserInfo(data)
 
-// 		res.forEach((item, res) => {
-// 			const itemAPI = item.api;
+// 			.then((res) => {
+// 				console.warn('>>> api.setUserInfo ');
+// 				console.log(data);
+// 			})
+// 			.catch((err) => {
+// 				console.error('Ошибка! Ошибка добавления информации');
+// 			})
+// 			.finally((res) => {
+// 				profileInfo.setUserInfo({
+// 					name: data.name,
+// 					about: data.about,
+// 				});
+// 			})
+
+// 		popupEditorProfile.close();
+// 	}
+// });
+
+
+
+// Promise.all([api.getUserInfo(), api.getCards() ])
+// 	.then(( data ) => {
+// 		myID = data[0]._id;
+
+// 		// console.warn('START Promise.all >>>')
+// 		// console.warn(`myID = ${myID}`);
+// 		// console.log(`OWNER.ID = ${data[1].owner._id}`);
+// 		// console.log(data[1]);
+
+// 		// cardList.addItem(addNewCard(data[1]), myID );
+// 		const items = data[1];
+
+// 		items.forEach((item) => {
+
 // 			const itemID = item._id;
+// 			const itemAuthor = item.owner._id;
+
 // 			const itemLikes = item.likes.length;
-// 			// console.table(itemAPI); // undefined
-// 			// console.table(itemAPI);
+
+// 			// console.table(itemAuthor);
 // 			// console.log(`card LIKES = ${itemLikes}`);
 
 
-// 			cardList.addItem(addNewCard(item, itemAPI, itemID, itemLikes));
+// 			cardList.addItem(addNewCard(item, itemID, itemAuthor, itemLikes, myID));
 // 		})
-// 	});
+
+// 	})
+// 	.catch((err) => {
+// 			console.error(err);
+// 	})
+// 	.finally(() => {
+// 		// console.warn('END Promise.all <<<');
+// 	})
 
 
 
@@ -221,10 +189,7 @@ Promise.all([api.getUserInfo(), api.getCards() ])
 
 
 
-
-
-
-
+/*
 
 const imageFancybox = new PopupWithImage(popupImageSelector);
 
@@ -300,31 +265,6 @@ function handleRemoveClick(id) {
 	popupQuestion.open()
 }
 
-/*
-
-https://images.unsplash.com/photo-1640951613773-54706e06851d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjZ8fGF2YXRhcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60
-
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // # popup profile
 profileBtnEdit.addEventListener('click', () => {
@@ -346,7 +286,6 @@ profileBtnEdit.addEventListener('click', () => {
 
 });
 
-/* ================================= */
 
 const popupEditorAvatar = new PopupWithForm({
 	selector: '#popup-avatar',
@@ -387,16 +326,4 @@ avatarBtnEdit.addEventListener('click', () => {
 	popupEditorAvatar.open();
 });
 
-
-/* ================================= */
-
-
-/*
-document.querySelector(qustionBtnSelector).addEventListener('click', () => {
-	console.log('click >>>> qustionBtnSelector');
-	popupQuestion.open();
-});
-
 */
-
-
