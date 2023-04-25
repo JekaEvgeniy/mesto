@@ -265,20 +265,6 @@ newCardBtnAdd.addEventListener('click', () => {
 	cardPopup.open();
 });
 
-/*
-const popupQuestion = new PopupWithQuestion(qustionPopupSelector, () => {
-
-});
-popupQuestion.setEventListeners();
-
-function handleRemoveClick(id){
-	console.log('Давай удалим карточку');
-	// qustionPopup.open();
-	// document.querySelector('#popup-question').open()
-
-	popupQuestion.open()
-}
-*/
 
 const popupQuestion = new PopupWithQuestion({
 	selector: qustionPopupSelector,
@@ -295,42 +281,18 @@ const popupQuestion = new PopupWithQuestion({
 			.finally(() => {
 				console.warn('success: remove card');
 
-				// card.removeThisCard();
+				Card.removeThisCard();
 
 				popupQuestion.close();
 			})
 	},
 });
 
-/*
-
-https://images.unsplash.com/photo-1640951613773-54706e06851d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjZ8fGF2YXRhcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60
-
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 popupQuestion.setEventListeners();
 
-function handleRemoveClick(id){
+
+function handleRemoveClick(id) {
 	console.log(`Давай удалим карточку = ${id}`);
 	// qustionPopup.open();
 	// document.querySelector('#popup-question').open()
@@ -339,11 +301,10 @@ function handleRemoveClick(id){
 }
 
 /*
-https://images.unsplash.com/photo-1674574124475-16dd78234342?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=700&q=60
+
+https://images.unsplash.com/photo-1640951613773-54706e06851d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjZ8fGF2YXRhcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60
+
 */
-
-
-
 
 
 

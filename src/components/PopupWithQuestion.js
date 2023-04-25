@@ -18,6 +18,7 @@ export default class PopupWithQuestion extends Popup {
 
 		this._btnRemove.addEventListener('click', (e) => {
 			e.preventDefault();
+			console.log(`${this._target = target}`);
 			console.log(`>>> PopupWithQuestion.js REMOVE = ${this._target}`);
 
 			this._handleFormSubmit(this._target);
@@ -25,10 +26,3 @@ export default class PopupWithQuestion extends Popup {
 	}
 
 }
-
-/*
-
-https://images.unsplash.com/photo-1564416437164-e2d131e7ec07?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bGlrZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60
-
-
-*/

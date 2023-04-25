@@ -11,8 +11,6 @@ export default class Api {
 		this._userAvatarUrl = this._url + '/users/me/avatar';
 
 		// console.log(this._url);
-		console.log(this._cardsUrl);
-		console.log(this._cardID);
 
 		// console.warn(this._userUrl);
 		// console.warn(this._cardLikes);
@@ -41,8 +39,8 @@ export default class Api {
 			body: JSON.stringify(data),
 		})
 		.then((data) => {
-			console.warn('APi.js >>> addNewCard() ');
-			console.log(data);
+			//console.warn('APi.js >>> addNewCard() ');
+			//console.log(data);
 
 			if ( data.ok ) return data.json();
 		})
@@ -66,6 +64,8 @@ export default class Api {
 
 		.then( (res) => {
 			if (res.ok) return res.json()
+
+			return Promise.reject('Promise reject error');
 		})
 		.catch( (err) => {
 			// card.removeThisCard();

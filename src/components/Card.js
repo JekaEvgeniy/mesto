@@ -21,13 +21,6 @@ export default class Card {
 		return item;
 	}
 
-
-	removeThisCard() {
-		console.log('>>> card.js >>>  removeThisCard');
-		this._view.remove();
-		this._view = null;
-	}
-
 	renderNewCard() {
 
 		this._view = this._cardTemplate();
@@ -51,7 +44,7 @@ export default class Card {
 		this._cardImage.setAttribute('alt', `${this._name}`);
 
 
-		//console.warn(`!!!!!! this._cardID = ${this._id}`);
+		//console.warn(`!!!!!! this._id = ${this._id}`);
 		//console.warn(`!!!!!! this._myID = ${this._myID}`);
 		// console.table(this._api);
 		// console.table(this._api.likes);
@@ -82,8 +75,7 @@ export default class Card {
 			this._view.querySelector('.card__button-remove').addEventListener('click', () => {
 				console.log(`>>> Card.js >>> _setEventListeners >>> this._id = ${this._id}`);
 
-				// this._removeCard();
-				this._handleRemoveClick(this._id);
+				this._handleRemove();
 			});
 		}
 
@@ -105,12 +97,17 @@ export default class Card {
 
 
 
-
-
-	_handleRemoveClick = () => {
+	_handleRemove() {
 		console.warn(`>>> card.js _handleRemoveClick  + ID = ${this._id}`);
-		// this._handleRemoveCard(this._id);
+		this._handleRemoveClick(this._id);
 	}
+
+	removeThisCard() {
+		console.log('>>> card.js >>>  removeThisCard');
+		this._view.remove();
+		this._view = null;
+	}
+
 
 	_likeCard = () => {
 		this._btnLike.classList.toggle('card__button_active');
