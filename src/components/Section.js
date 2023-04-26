@@ -6,7 +6,7 @@ export default class Section {
 
 	renderItems(items) {
 		items.forEach( (item, counter) => {
-			if (counter < 3){
+			if (counter < 10){
 				this._renderer(item);
 			}
 		});

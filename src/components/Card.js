@@ -2,22 +2,31 @@ export default class Card {
 
 // { name, link },
 // , handleCardClick, id, author, likes, myID, handleRemoveClick
-constructor( container, {data} ) {
+	constructor(container, { data, handleRemoveClick } ) {
 		this._container = container;
 		this._data = data;
 
-		console.log(this._data);
+		// console.log(data);
 
-		this._name = data.name;
-		this._link = data.link;
-		this._id   = data.id;
-		this._author = data.author;
-		this._likes = data.likes.length;
+		this._name = this._data.name;
+		this._link = this._data.link;
+		this._likes = this._data.likes;
+
+		// this._id     = data._id;
+		// this._author = data.owner._id;
 
 		// this._myID = myID;
 
+		// console.log(`this._name    = ${this._name   }`);
+		// console.log(`this._link    = ${this._link   }`);
+		// console.log(`this._likes   = ${this._likes  }`);
+
+		// console.log(`this._id      = ${this._id     }`);
+		// console.log(`this._author  = ${this._author }`);
+
+
 		// this._handleCardClick = handleCardClick;
-		// this._handleRemoveClick = handleRemoveClick;
+		this._handleRemoveClick = handleRemoveClick;
 
 	}
 
@@ -58,7 +67,7 @@ constructor( container, {data} ) {
 		// console.log(this._id);
 		// console.log(this._api);
 
-		this._cardCounter.textContent = this._likes;
+		this._cardCounter.textContent = (this._likes) ? this._likes.length : 0;
 
 
 		const checkMyCard = (this._myID === this._author) ? true : false;
@@ -67,28 +76,30 @@ constructor( container, {data} ) {
 			this._btnRemove.remove()
 		}
 
-		// this._setEventListeners();
+		this._setEventListeners();
 
 		return this._view;
 	}
 
-	// _setEventListeners() {
+	_setEventListeners() {
 
-	// 	this._view.querySelector('.card__button').addEventListener('click', this._likeCard);
+		// this._view.querySelector('.card__button').addEventListener('click', this._likeCard);
 
-	// 	if ( this._view.querySelector('.card__button-remove') ){
-	// 		// Добавляем кнопку удаления только у тех карточек, где она есть
+		// this._view.querySelector('.card__image').addEventListener('click', () => this._handleCardClick(this._link, this._name));
 
-	// 		this._view.querySelector('.card__button-remove').addEventListener('click', () => {
-	// 			console.log(`>>> Card.js >>> _setEventListeners >>> this._id = ${this._id}`);
+		// if ( this._view.querySelector('.card__button-remove') ){
+			// Добавляем кнопку удаления только у тех карточек, где она есть
 
-	// 			this._handleRemove();
-	// 		});
-	// 	}
+			this._btnRemove.addEventListener('click', () => {
+				console.warn(`>>> Card.js >>> _setEventListeners >>> this._id = ${this._id}`);
 
-	// 	this._view.querySelector('.card__image').addEventListener('click', () => this._handleCardClick(this._link, this._name));
+				this._handleRemoveClick(this);
+			});
+		// }
 
-	// }
+
+
+	}
 
 
 	// _removeCard = () => {
@@ -103,11 +114,11 @@ constructor( container, {data} ) {
 	// 	this._handleRemoveClick(this._id);
 	// }
 
-	// removeThisCard() {
-	// 	console.log('>>> card.js >>>  removeThisCard');
-	// 	this._view.remove();
-	// 	this._view = null;
-	// }
+	removeThisCard() {
+		console.log('>>> card.js >>>  removeThisCard');
+		// this._view.remove();
+		// this._view = null;
+	}
 
 
 	// _likeCard = () => {

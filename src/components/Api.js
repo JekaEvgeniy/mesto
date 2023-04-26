@@ -39,8 +39,8 @@ export default class Api {
 			body: JSON.stringify(data),
 		})
 		.then((data) => {
-			//console.warn('APi.js >>> addNewCard() ');
-			//console.log(data);
+			console.warn('APi.js >>> addNewCard() ');
+			console.log(data);
 
 			if ( data.ok ) return data.json();
 		})

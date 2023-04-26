@@ -16,6 +16,8 @@ export default class PopupWithForm extends Popup {
 			this._inputsValuesObj[input.name] = input.value;
 		});
 
+		console.log(this._inputsValuesObj);
+
 		return this._inputsValuesObj;
 	}
 

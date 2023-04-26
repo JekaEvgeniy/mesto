@@ -32,6 +32,7 @@ import {
 	cohortID
 } from '../vars/Data.js';
 
+console.clear();
 
 // import initialCards from '../vars/initialCards.js';
 
@@ -103,16 +104,60 @@ const cardList = new Section(
 function addNewCard(item) {
 
 	const card = new Card(cardTemplateSelector, {
-		data: item
+		data: item,
+		handleRemoveClick: () => {
+			console.log(`Давай удалим карточку id=${card._id}`);
+
+			popupQuestion.open();
+
+			api.removeCard()
+				.then(() => {
+					console.log('(1) removeCard');
+				})
+				.catch(() => {
+					console.error('Ошибка! Ошибка удаления карточки');
+				})
+				.finally(() => {
+					console.warn('success: remove card');
+
+					// card.removeThisCard();
+
+					popupQuestion.close();
+				})
+
+		}
 	});
 
 	return card.renderNewCard();
 }
 
 
+const popupQuestion = new PopupWithQuestion({
+	selector: qustionPopupSelector,
+	handleFormSubmit: (id) => {
+		console.warn(`>>>>>> В модалке нажали на кпопку удаления карточки = ${id}`);
+
+		api.removeCard(id)
+			.then(() => {
+				console.log('(1) removeCard');
+			})
+			.catch(() => {
+				console.error('Ошибка! Ошибка удаления карточки');
+			})
+			.finally(() => {
+				console.warn('success: remove card');
+
+				// Card.removeThisCard();
+
+				popupQuestion.close();
+			})
+	},
+});
+
+
+popupQuestion.setEventListeners();
+
 // // cardList.renderItems();
-
-
 
 
 // api.getUserInfo()
@@ -166,7 +211,7 @@ Promise.all([api.getUserInfo(), api.getCards() ])
 
 		// cardList.addItem(addNewCard(data[1]), myID );
 		const items = data[1];
-		console.log( items[0] );
+		// console.log( items[0] );
 		cardList.renderItems(items);
 
 		// items.forEach((item) => {
@@ -190,10 +235,44 @@ Promise.all([api.getUserInfo(), api.getCards() ])
 	.finally(() => {
 		// console.warn('END Promise.all <<<');
 	})
+;
 
 
 
+const cardPopup = new PopupWithForm({
+	selector: newCardPopupSelector,
+	handleFormSubmit: (data) => {
+		console.warn('>>>index.js >>> const = cardPopup : handleFormSubmit');
+		console.log(data);
 
+
+
+		api.addNewCard(data)
+			.then((res) => {
+				console.log(`>>> res >>>`);
+				console.log(res);
+				console.log(`<<< res <<<`);
+			})
+			.catch((err) => {
+				console.error('Ошибка! Ошибка добавлении новой карточки');
+			})
+			.finally((res) => {
+				cardList.addItem(addNewCard(data), true);
+			})
+
+		cardPopup.close();
+	}
+});
+
+cardPopup.setEventListeners();
+
+
+newCardBtnAdd.addEventListener('click', () => {
+
+	validationNewCardPopup.resetValidation();
+
+	cardPopup.open();
+});
 
 
 
@@ -239,30 +318,7 @@ newCardBtnAdd.addEventListener('click', () => {
 });
 
 
-const popupQuestion = new PopupWithQuestion({
-	selector: qustionPopupSelector,
-	handleFormSubmit: (id) => {
-		console.warn(`>>>>>> В модалке нажали на кпопку удаления карточки = ${id}`);
 
-		api.removeCard(id)
-			.then(() => {
-				console.log('(1) removeCard');
-			})
-			.catch(() => {
-				console.error('Ошибка! Ошибка удаления карточки');
-			})
-			.finally(() => {
-				console.warn('success: remove card');
-
-				Card.removeThisCard();
-
-				popupQuestion.close();
-			})
-	},
-});
-
-
-popupQuestion.setEventListeners();
 
 
 function handleRemoveClick(id) {
@@ -335,3 +391,5 @@ avatarBtnEdit.addEventListener('click', () => {
 });
 
 */
+
+
