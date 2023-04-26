@@ -55,6 +55,8 @@ export default class Api {
 		Чтобы удалить карточку, отправьте DELETE - запрос:
 		DELETE https://mesto.nomoreparties.co/v1/cohortId/cards/cardId
 		*/
+		console.log(`>>> API.js >>> id = ${id}`);
+
 		console.warn(`${this._cardsUrl}/${id}`);
 
 		return fetch(`${this._cardsUrl}/${id}`, {

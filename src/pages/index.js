@@ -104,26 +104,34 @@ const cardList = new Section(
 function addNewCard(item) {
 
 	const card = new Card(cardTemplateSelector, {
-		data: item,
+		data: { ...item, myID },
 		handleRemoveClick: () => {
 			console.log(`Давай удалим карточку id=${card._id}`);
 
-			popupQuestion.open();
+			popupQuestion.open(card._id);
 
-			api.removeCard()
-				.then(() => {
-					console.log('(1) removeCard');
-				})
-				.catch(() => {
-					console.error('Ошибка! Ошибка удаления карточки');
-				})
-				.finally(() => {
-					console.warn('success: remove card');
 
-					// card.removeThisCard();
 
-					popupQuestion.close();
-				})
+			popupQuestion.formSubmit( () => {
+				console.warn('popupQuestion.formSubmit');
+
+				api.removeCard(card._id)
+					.then((res) => {
+						console.log('(1) removeCard');
+
+						card.removeThisCard(res);
+					})
+					.catch((res) => {
+						console.error('Ошибка! Ошибка удаления карточки');
+					})
+					.finally(() => {
+						console.warn('success: remove card');
+						popupQuestion.close();
+					})
+			});
+
+
+
 
 		}
 	});
@@ -134,24 +142,24 @@ function addNewCard(item) {
 
 const popupQuestion = new PopupWithQuestion({
 	selector: qustionPopupSelector,
-	handleFormSubmit: (id) => {
-		console.warn(`>>>>>> В модалке нажали на кпопку удаления карточки = ${id}`);
+	// handleFormSubmit: (id) => {
+	// 	console.warn(`>>>>>> В модалке нажали на кпопку удаления карточки = ${id}`);
 
-		api.removeCard(id)
-			.then(() => {
-				console.log('(1) removeCard');
-			})
-			.catch(() => {
-				console.error('Ошибка! Ошибка удаления карточки');
-			})
-			.finally(() => {
-				console.warn('success: remove card');
+	// 	api.removeCard(id)
+	// 		.then(() => {
+	// 			console.log('(1) removeCard');
+	// 		})
+	// 		.catch(() => {
+	// 			console.error('Ошибка! Ошибка удаления карточки');
+	// 		})
+	// 		.finally(() => {
+	// 			console.warn('success: remove card');
 
-				// Card.removeThisCard();
+	// 			// Card.removeThisCard();
 
-				popupQuestion.close();
-			})
-	},
+	// 			popupQuestion.close();
+	// 		})
+	// },
 });
 
 
@@ -206,7 +214,7 @@ Promise.all([api.getUserInfo(), api.getCards() ])
 		myID = data[0]._id;
 
 		console.warn('START Promise.all >>>')
-		console.warn(`myID = ${myID}`);
+		console.warn(`>>> myID = ${myID}`);
 		// console.log(`OWNER.ID = ${data[1].owner._id}`);
 
 		// cardList.addItem(addNewCard(data[1]), myID );
@@ -251,13 +259,17 @@ const cardPopup = new PopupWithForm({
 			.then((res) => {
 				console.log(`>>> res >>>`);
 				console.log(res);
+				// cardList.addItem(addNewCard(data), true);
+				cardList.addItem(addNewCard(res), true);
 				console.log(`<<< res <<<`);
 			})
 			.catch((err) => {
 				console.error('Ошибка! Ошибка добавлении новой карточки');
+				console.error(err);
 			})
 			.finally((res) => {
-				cardList.addItem(addNewCard(data), true);
+
+
 			})
 
 		cardPopup.close();
