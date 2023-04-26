@@ -58,12 +58,6 @@ const api = new Api({
 	}
 });
 
-const profileInfo = new UserInfo({
-	nameSelector: '.profile__header',
-	aboutSelector: '.profile__subtitle',
-	avatarSelector: '.profile__avatar',
-});
-
 let myID; // 2c209b6a35c5ecd4a6566de9
 
 // Валидация формы
@@ -76,116 +70,115 @@ validationNewCardPopup.enableValidation();
 const validationAvatarPopup = new FormValidator(validationConfig, avatarPopupForm);
 validationAvatarPopup.enableValidation();
 
-
-
-/* Переписываем. Плохо работает удаление карточек.
-	1. При добавлении карточки и удаления нет доступа к ID
-	2. При обновлении страницы карточка удаляется из базы, но  при удалении со страницы - ошибка.
-*/
-
-const cardList = new Section(
-	{
-		// items: initialCards,
-		// items: [],
-
-		renderer: (item) => {
-			cardList.addItem(addNewCard(item));
-		}
-	},
-
-	// Второй параметр конструктора — селектор контейнера, в который нужно добавлять созданные элементы.
-	// cardsSelector
-	'#cards'
-);
-
-
-
-function addNewCard(item) {
-
-	const card = new Card(cardTemplateSelector, {
-		data: item
-	});
+const addNewCard = (item, api, id, likes, myID) => {
+	const card = new Card(item, cardTemplateSelector, handleCardClick, api, id, likes, myID, handleRemoveClick);
 
 	return card.renderNewCard();
 }
 
+const cardList = new Section(
+	{
+		// items: initialCards,
+		items: [],
 
-// // cardList.renderItems();
+		renderer: (data) => {
+			return addNewCard(data);
+		}
+	},
 
+	// Второй параметр конструктора — селектор контейнера, в который нужно добавлять созданные элементы.
+	cardsSelector
+);
+// cardList.renderItems();
 
+/*
+https://images.unsplash.com/photo-1454496522488-7a8e488e8606?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80
 
+https://images.unsplash.com/photo-1564416437164-e2d131e7ec07?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bGlrZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60
 
-// api.getUserInfo()
-// 	.then((res) => {
-// 		// console.table(res);
-// 		profileInfo.setUserInfo({
-// 			name: res.name,
-// 			about: res.about,
-// 			avatar: res.avatar,
-// 		});
-// 	});
+cat
+https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2F0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60
 
-// 	const popupEditorProfile = new PopupWithForm({
-// 	selector: '#popup-profile',
-// 	handleFormSubmit: (data) => {
+cat2
 
-// 		profileInfo.setUserInfo({
-// 			name: data.name,
-// 			about: data.about
-// 		});
+https://plus.unsplash.com/premium_photo-1667030474693-6d0632f97029?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8Y2F0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=400&q=60
+*/
 
-// 		api.setUserInfo(data)
-
-// 			.then((res) => {
-// 				console.warn('>>> api.setUserInfo ');
-// 				console.log(data);
-// 			})
-// 			.catch((err) => {
-// 				console.error('Ошибка! Ошибка добавления информации');
-// 			})
-// 			.finally((res) => {
-// 				profileInfo.setUserInfo({
-// 					name: data.name,
-// 					about: data.about,
-// 				});
-// 			})
-
-// 		popupEditorProfile.close();
-// 	}
-// });
+const profileInfo = new UserInfo({
+	nameSelector: '.profile__header',
+	aboutSelector: '.profile__subtitle',
+	avatarSelector: '.profile__avatar',
+});
 
 
+api.getUserInfo()
+	.then((res) => {
+		// console.table(res);
+		profileInfo.setUserInfo({
+			name: res.name,
+			about: res.about,
+			avatar: res.avatar,
+		});
+	});
 
-Promise.all([api.getUserInfo(), api.getCards() ])
-	.then(( data ) => {
+const popupEditorProfile = new PopupWithForm({
+	selector: '#popup-profile',
+	handleFormSubmit: (data) => {
+
+		profileInfo.setUserInfo({
+			name: data.name,
+			about: data.about
+		});
+
+		api.setUserInfo(data)
+
+			.then((res) => {
+				console.warn('>>> api.setUserInfo ');
+				console.log(data);
+			})
+			.catch((err) => {
+				console.error('Ошибка! Ошибка добавления информации');
+			})
+			.finally((res) => {
+				profileInfo.setUserInfo({
+					name: data.name,
+					about: data.about,
+				});
+			})
+
+		popupEditorProfile.close();
+	}
+});
+
+Promise.all([api.getUserInfo(), api.getCards()])
+	.then((data) => {
 		myID = data[0]._id;
 
-		console.warn('START Promise.all >>>')
-		console.warn(`myID = ${myID}`);
+		// console.warn('START Promise.all >>>')
+		// console.warn(`myID = ${myID}`);
 		// console.log(`OWNER.ID = ${data[1].owner._id}`);
+		// console.log(data[1]);
 
 		// cardList.addItem(addNewCard(data[1]), myID );
 		const items = data[1];
-		console.log( items[0] );
-		cardList.renderItems(items);
 
-		// items.forEach((item) => {
+		items.forEach((item) => {
 
-		// 	const itemID = item._id;
-		// 	const itemAuthor = item.owner._id;
+			const itemID = item._id;
+			const itemAuthor = item.owner._id;
 
-		// 	const itemLikes = item.likes.length;
+			const itemLikes = item.likes.length;
 
-		// 	// console.table(itemAuthor);
-		// 	// console.log(`card LIKES = ${itemLikes}`);
+			// console.table(itemAuthor);
+			// console.log(`card LIKES = ${itemLikes}`);
 
 
-		// 	cardList.addItem(addNewCard(item, itemID, itemAuthor, itemLikes, myID));
-		// })
+			cardList.addItem(addNewCard(item, itemID, itemAuthor, itemLikes, myID));
+		})
 
 	})
 	.catch((err) => {
-			console.error(err);
+		console.error(err);
 	})
 	.finally(() => {
 		// console.warn('END Promise.all <<<');
@@ -193,11 +186,45 @@ Promise.all([api.getUserInfo(), api.getCards() ])
 
 
 
+// api.getCards()
+// 	.then((res) => {
+
+// 		let testItem = res[0];
+// 		// console.table(testItem);
+// 		console.log('***********************************')
+// 		console.log(`testItem._id = ${testItem._id} Это ID карточки`);
+
+// 		console.log(`OWNER.NANE = ${testItem.owner.name}`);
+// 		console.log(`OWNER.ID = ${testItem.owner._id}`);
+// 		// console.warn(api.getUserInfo())
+// 		// console.table(res[0].owner);
+
+// 		// console.log(`card LIKES = ${res[0].likes.length}`);
+// 		// console.log(`card ID = ${res[0]._id}`);
+
+// 		res.forEach((item, res) => {
+// 			const itemAPI = item.api;
+// 			const itemID = item._id;
+// 			const itemLikes = item.likes.length;
+// 			// console.table(itemAPI); // undefined
+// 			// console.table(itemAPI);
+// 			// console.log(`card LIKES = ${itemLikes}`);
+
+
+// 			cardList.addItem(addNewCard(item, itemAPI, itemID, itemLikes));
+// 		})
+// 	});
 
 
 
 
-/*
+
+
+
+
+
+
+
 
 const imageFancybox = new PopupWithImage(popupImageSelector);
 
@@ -238,6 +265,20 @@ newCardBtnAdd.addEventListener('click', () => {
 	cardPopup.open();
 });
 
+/*
+const popupQuestion = new PopupWithQuestion(qustionPopupSelector, () => {
+
+});
+popupQuestion.setEventListeners();
+
+function handleRemoveClick(id){
+	console.log('Давай удалим карточку');
+	// qustionPopup.open();
+	// document.querySelector('#popup-question').open()
+
+	popupQuestion.open()
+}
+*/
 
 const popupQuestion = new PopupWithQuestion({
 	selector: qustionPopupSelector,
@@ -254,16 +295,40 @@ const popupQuestion = new PopupWithQuestion({
 			.finally(() => {
 				console.warn('success: remove card');
 
-				Card.removeThisCard();
+				// card.removeThisCard();
 
 				popupQuestion.close();
 			})
 	},
 });
 
+/*
+
+https://images.unsplash.com/photo-1640951613773-54706e06851d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjZ8fGF2YXRhcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 popupQuestion.setEventListeners();
-
 
 function handleRemoveClick(id) {
 	console.log(`Давай удалим карточку = ${id}`);
@@ -272,6 +337,32 @@ function handleRemoveClick(id) {
 	popupQuestion.setTarget(id);
 	popupQuestion.open()
 }
+
+/*
+https://images.unsplash.com/photo-1674574124475-16dd78234342?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=700&q=60
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // # popup profile
@@ -294,6 +385,7 @@ profileBtnEdit.addEventListener('click', () => {
 
 });
 
+/* ================================= */
 
 const popupEditorAvatar = new PopupWithForm({
 	selector: '#popup-avatar',
@@ -334,4 +426,15 @@ avatarBtnEdit.addEventListener('click', () => {
 	popupEditorAvatar.open();
 });
 
+
+/* ================================= */
+
+
+/*
+document.querySelector(qustionBtnSelector).addEventListener('click', () => {
+	console.log('click >>>> qustionBtnSelector');
+	popupQuestion.open();
+});
+
 */
+
