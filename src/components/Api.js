@@ -9,11 +9,6 @@ export default class Api {
 
 		this._userUrl  = this._url + '/users/me';
 		this._userAvatarUrl = this._url + '/users/me/avatar';
-
-		// console.log(this._url);
-
-		// console.warn(this._userUrl);
-		// console.warn(this._cardLikes);
 	}
 
 	/*
@@ -25,7 +20,6 @@ export default class Api {
 		})
 			.then( (res) => {
 				if (res.ok) return res.json();
-				// return Promise.reject('Ошибка при выводе карточек');
 			})
 			.catch((err) => {
 				console.error('Ошибка! Ошибка при выводе карточек');
@@ -39,9 +33,6 @@ export default class Api {
 			body: JSON.stringify(data),
 		})
 		.then((data) => {
-			console.warn('APi.js >>> addNewCard() ');
-			console.log(data);
-
 			if ( data.ok ) return data.json();
 		})
 		.catch((err) => {
@@ -51,14 +42,6 @@ export default class Api {
 
 
 	removeCard(id){
-		/*
-		Чтобы удалить карточку, отправьте DELETE - запрос:
-		DELETE https://mesto.nomoreparties.co/v1/cohortId/cards/cardId
-		*/
-		console.log(`>>> API.js >>> id = ${id}`);
-
-		console.warn(`${this._cardsUrl}/${id}`);
-
 		return fetch(`${this._cardsUrl}/${id}`, {
 			method: 'DELETE',
 			headers: this._headers,
@@ -70,7 +53,6 @@ export default class Api {
 			return Promise.reject('Promise reject error');
 		})
 		.catch( (err) => {
-			// card.removeThisCard();
 			console.error('Ошибка! Ошибка удаления карточки');
 		})
 	}
@@ -100,9 +82,6 @@ export default class Api {
 			body: JSON.stringify(data),
 		})
 		.then((data) => {
-			console.warn('APi.js >>> getLikes() ');
-			console.log(data);
-
 			if ( data.ok ) return data.json();
 		})
 		.catch((err) => {
@@ -121,8 +100,6 @@ export default class Api {
 			method: 'PUT',
 		})
 			.then((res) => {
-				// console.warn('APi.js >>> addLike() ');
-
 				if (res.ok) return res.json();
 			})
 			.catch((err) => {
@@ -136,8 +113,6 @@ export default class Api {
 			method: 'DELETE',
 		})
 			.then((res) => {
-				// console.warn('APi.js >>> removeLike() ');
-
 				if (res.ok) return res.json();
 			})
 			.catch((err) => {
@@ -162,18 +137,6 @@ export default class Api {
 				console.error('Ошибка! Ошибка при получении данных о пользователе');
 			})
 	}
-
-	// getUserAvatar() {
-	// 	return fetch(this._userUrl, {
-	// 		headers: this._headers
-	// 	})
-	// 		.then((res) => {
-	// 			if (res.ok) return res.json();
-	// 		})
-	// 		.catch((err) => {
-	// 			console.error('Ошибка! Ошибка при получении аватарки');
-	// 		})
-	// }
 
 	setUserInfo(data) {
 
@@ -210,7 +173,4 @@ export default class Api {
 				console.error('Ошибка! Ошибка при Добавлении новых данных о пользователе');
 			})
 	}
-
-
-
 }

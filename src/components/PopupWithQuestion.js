@@ -6,6 +6,7 @@ export default class PopupWithQuestion extends Popup {
 		super(selector);
 
 		this._form = this._popup.querySelector('.popup__form');
+		this._button = this._popup.querySelector('.popup__button');
 
 		this._handleFormSubmit = handleFormSubmit;
 		// this._btnRemove = this._popup.querySelector('.popup__button');
@@ -26,6 +27,10 @@ export default class PopupWithQuestion extends Popup {
 
 			this._handleFormSubmit();
 		});
+	}
+
+	replaceBtnText(defaultText, replaceText, value) {
+		super.replaceBtnText(defaultText, replaceText, value);
 	}
 
 	formSubmit(action){

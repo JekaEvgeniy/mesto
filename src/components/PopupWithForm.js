@@ -8,6 +8,7 @@ export default class PopupWithForm extends Popup {
 		this._handleFormSubmit = handleFormSubmit;
 
 		this._inputs = this._form.querySelectorAll('.popup__input');
+		this._button = this._popup.querySelector('.popup__button');
 		this._inputsValuesObj = {};
 	}
 
@@ -27,6 +28,10 @@ export default class PopupWithForm extends Popup {
 		if ( this._form) {
 			this._form.reset();
 		}
+	}
+
+	replaceBtnText(defaultText, replaceText, value){
+		super.replaceBtnText(defaultText, replaceText, value);
 	}
 
 	setEventListeners() {

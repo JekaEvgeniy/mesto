@@ -2,6 +2,7 @@ export default class Popup {
 	constructor(selector){
 		this._popup = document.querySelector(selector);
 		this._handleEscClose = this._handleEscClose.bind(this);
+		this._button = this._popup.querySelector('.popup__button');
 	}
 
 	open(){
@@ -23,6 +24,24 @@ export default class Popup {
 			}
 
 	}
+
+	replaceBtnText(defaultText, replaceText, value) {
+		// replaceBtnText('Создать', 'Сохранение...', true);
+		console.log(`defaultText = ${defaultText}; replaceText = ${replaceText}; value = ${value}`);
+
+		if (value) {
+			console.log('1');
+			this._button.textContent = replaceText;
+		} else {
+			console.log('2');
+			this._button.textContent = defaultText;
+		}
+
+		// (value) ?
+		// 	this._button.textContent = replaceText :
+		// 	this._button.textContent = defaultText;
+	}
+
 
 	setEventListeners(){
 

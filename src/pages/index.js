@@ -113,6 +113,8 @@ function addNewCard(item) {
 			popupQuestion.formSubmit( () => {
 				console.warn('popupQuestion.formSubmit');
 
+				popupQuestion.replaceBtnText('Да', 'Сохранение...', true);
+
 				api.removeCard(card._id)
 					.then((res) => {
 						console.log('(1) removeCard');
@@ -125,6 +127,7 @@ function addNewCard(item) {
 					.finally(() => {
 						console.warn('success: remove card');
 						popupQuestion.close();
+						popupQuestion.replaceBtnText('Да', 'Сохранение...', false);
 					})
 			});
 		},
@@ -211,6 +214,8 @@ api.getUserInfo()
 	selector: '#popup-profile',
 	handleFormSubmit: (data) => {
 
+		popupEditorProfile.replaceBtnText('Сохранить', 'Сохранение...', true);
+
 		profileInfo.setUserInfo({
 			name: data.name,
 			about: data.about
@@ -230,6 +235,8 @@ api.getUserInfo()
 					name: data.name,
 					about: data.about,
 				});
+
+				popupEditorProfile.replaceBtnText('Сохранить', 'Сохранение...', false);
 			})
 
 		popupEditorProfile.close();
@@ -282,26 +289,23 @@ const cardPopup = new PopupWithForm({
 		console.warn('>>>index.js >>> const = cardPopup : handleFormSubmit');
 		console.log(data);
 
-
+		cardPopup.replaceBtnText('Создать', 'Сохранение...', true);
 
 		api.addNewCard(data)
 			.then((res) => {
-				console.log(`>>> res >>>`);
-				console.log(res);
-				// cardList.addItem(addNewCard(data), true);
+
 				cardList.addItem(addNewCard(res), true);
-				console.log(`<<< res <<<`);
+
 			})
 			.catch((err) => {
 				console.error('Ошибка! Ошибка добавлении новой карточки');
 				console.error(err);
 			})
 			.finally((res) => {
-
-
+				cardPopup.replaceBtnText('Создать', 'Сохранение...', false);
+				cardPopup.close();
 			})
 
-		cardPopup.close();
 	}
 });
 
@@ -356,7 +360,7 @@ const popupEditorAvatar = new PopupWithForm({
 	selector: '#popup-avatar',
 	handleFormSubmit: (data) => {
 
-		console.warn(data);
+		popupEditorAvatar.replaceBtnText('Сохранить', 'Сохранение...', true);
 
 		api.setUserAvatar(data)
 			.then((res) => {
@@ -373,9 +377,12 @@ const popupEditorAvatar = new PopupWithForm({
 					avatar: data.avatar
 				});
 
+				popupEditorAvatar.close();
+
+				popupEditorAvatar.replaceBtnText('Сохранить', 'Сохранение...', false);
+
 			})
 
-		popupEditorAvatar.close();
 	}
 });
 
