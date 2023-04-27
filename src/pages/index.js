@@ -130,19 +130,8 @@ function addNewCard(item) {
 		},
 
 		handleLikeClick: () => {
-			// console.warn('>>> index.js >>> handleLikeClick');
-			/*
-				*	8. Постановка и снятие лайка
-				*	Чтобы лайкнуть карточку, отправьте PUT-запрос:
-				*	PUT https://mesto.nomoreparties.co/v1/cohortId/cards/cardId/likes
-				*	Чтобы убрать лайк, нужно отправить DELETE-запрос с тем же URL:
-				*	DELETE https://mesto.nomoreparties.co/v1/cohortId/cards/cardId/likes
-				*	Вместо cardId в URL нужно подставить свойство _id соответствующей карточки.
-			 */
-
 			if (! card.checkMyLike() ){
 				// console.log(`еще не ставил лайк`);
-
 				api.addLike(card._id)
 					.then((res) => {
 						card.updateLikes(res);
@@ -158,7 +147,6 @@ function addNewCard(item) {
 
 			}else {
 				// console.log(`есть лайк`);
-
 				api.removeLike(card._id)
 					.then((res) => {
 						card.updateLikes(res);
@@ -172,7 +160,6 @@ function addNewCard(item) {
 					})
 
 			}
-
 		}
 
 
@@ -210,44 +197,44 @@ popupQuestion.setEventListeners();
 // // cardList.renderItems();
 
 
-// api.getUserInfo()
-// 	.then((res) => {
-// 		// console.table(res);
-// 		profileInfo.setUserInfo({
-// 			name: res.name,
-// 			about: res.about,
-// 			avatar: res.avatar,
-// 		});
-// 	});
+api.getUserInfo()
+	.then((res) => {
+		// console.table(res);
+		profileInfo.setUserInfo({
+			name: res.name,
+			about: res.about,
+			avatar: res.avatar,
+		});
+	});
 
-// 	const popupEditorProfile = new PopupWithForm({
-// 	selector: '#popup-profile',
-// 	handleFormSubmit: (data) => {
+	const popupEditorProfile = new PopupWithForm({
+	selector: '#popup-profile',
+	handleFormSubmit: (data) => {
 
-// 		profileInfo.setUserInfo({
-// 			name: data.name,
-// 			about: data.about
-// 		});
+		profileInfo.setUserInfo({
+			name: data.name,
+			about: data.about
+		});
 
-// 		api.setUserInfo(data)
+		api.setUserInfo(data)
 
-// 			.then((res) => {
-// 				console.warn('>>> api.setUserInfo ');
-// 				console.log(data);
-// 			})
-// 			.catch((err) => {
-// 				console.error('Ошибка! Ошибка добавления информации');
-// 			})
-// 			.finally((res) => {
-// 				profileInfo.setUserInfo({
-// 					name: data.name,
-// 					about: data.about,
-// 				});
-// 			})
+			.then((res) => {
+				console.warn('>>> api.setUserInfo ');
+				console.log(data);
+			})
+			.catch((err) => {
+				console.error('Ошибка! Ошибка добавления информации');
+			})
+			.finally((res) => {
+				profileInfo.setUserInfo({
+					name: data.name,
+					about: data.about,
+				});
+			})
 
-// 		popupEditorProfile.close();
-// 	}
-// });
+		popupEditorProfile.close();
+	}
+});
 
 
 
@@ -330,7 +317,7 @@ newCardBtnAdd.addEventListener('click', () => {
 
 
 
-/*
+
 
 const imageFancybox = new PopupWithImage(popupImageSelector);
 
@@ -340,51 +327,11 @@ function handleCardClick(link, name) {
 
 imageFancybox.setEventListeners();
 
-const cardPopup = new PopupWithForm({
-	selector: newCardPopupSelector,
-	handleFormSubmit: (data) => {
-		console.warn('>>>>>> cardPopup ');
-		console.log(data);
 
-		api.addNewCard(data)
-			.then((res) => {
-				// cardList.addItem(addNewCard(data));
-			})
-			.catch((err) => {
-				console.error('Ошибка! Ошибка добавлении новой карточки');
-			})
-			.finally((res) => {
-				cardList.addItem(addNewCard(data), true);
-			})
-
-		cardPopup.close();
-	}
-});
-cardPopup.setEventListeners();
+// # popup profile
 
 popupEditorProfile.setEventListeners();
 
-newCardBtnAdd.addEventListener('click', () => {
-
-	validationNewCardPopup.resetValidation();
-
-	cardPopup.open();
-});
-
-
-
-
-
-function handleRemoveClick(id) {
-	console.log(`Давай удалим карточку = ${id}`);
-	// qustionPopup.open();
-	// document.querySelector('#popup-question').open()
-	popupQuestion.setTarget(id);
-	popupQuestion.open()
-}
-
-
-// # popup profile
 profileBtnEdit.addEventListener('click', () => {
 	validationProfilePopup.resetValidation();
 
@@ -444,6 +391,6 @@ avatarBtnEdit.addEventListener('click', () => {
 	popupEditorAvatar.open();
 });
 
-*/
+
 
 
