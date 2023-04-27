@@ -11,6 +11,14 @@ export default class Api {
 		this._userAvatarUrl = this._url + '/users/me/avatar';
 	}
 
+	_checkResponse(res) {
+		// Проверка статуса ответа сервера
+
+		if (res.ok) return res.json()
+
+		return Promise.reject('Promise reject error');
+	}
+
 	/*
 	* Работаем с карточками
 	*/
@@ -18,9 +26,7 @@ export default class Api {
 		return fetch(this._cardsUrl, {
 			headers: this._headers
 		})
-			.then((res) => {
-				if (res.ok) return res.json();
-			})
+			.then(this._checkResponse)
 			.catch((err) => {
 				console.error('Ошибка! Ошибка при выводе карточек');
 			})
@@ -32,9 +38,7 @@ export default class Api {
 			headers: this._headers,
 			body: JSON.stringify(data),
 		})
-			.then((data) => {
-				if (data.ok) return data.json();
-			})
+			.then(this._checkResponse)
 			.catch((err) => {
 				console.error('Ошибка! Ошибка добавлении новой карточки');
 			})
@@ -46,12 +50,7 @@ export default class Api {
 			method: 'DELETE',
 			headers: this._headers,
 		})
-
-			.then((res) => {
-				if (res.ok) return res.json()
-
-				return Promise.reject('Promise reject error');
-			})
+			.then(this._checkResponse)
 			.catch((err) => {
 				console.error('Ошибка! Ошибка удаления карточки');
 			})
@@ -63,9 +62,7 @@ export default class Api {
 			headers: this._headers,
 			method: 'PUT',
 		})
-			.then((res) => {
-				if (res.ok) return res.json();
-			})
+			.then(this._checkResponse)
 			.catch((err) => {
 				console.error('Ошибка! Ошибка лайка карточки');
 			})
@@ -76,9 +73,7 @@ export default class Api {
 			headers: this._headers,
 			method: 'DELETE',
 		})
-			.then((res) => {
-				if (res.ok) return res.json();
-			})
+			.then(this._checkResponse)
 			.catch((err) => {
 				console.error('Ошибка! Ошибка дизлайка карточки');
 			})
@@ -93,9 +88,7 @@ export default class Api {
 		return fetch(this._userUrl, {
 			headers: this._headers
 		})
-			.then((res) => {
-				if (res.ok) return res.json();
-			})
+			.then(this._checkResponse)
 			.catch((err) => {
 				console.error('Ошибка! Ошибка при получении данных о пользователе');
 			})
@@ -108,9 +101,7 @@ export default class Api {
 			headers: this._headers,
 			body: JSON.stringify(data),
 		})
-			.then((res) => {
-				if (res.ok) return res.json();
-			})
+			.then(this._checkResponse)
 			.catch((err) => {
 				console.error('Ошибка! Ошибка при Добавлении новых данных о пользователе');
 			})
@@ -123,9 +114,7 @@ export default class Api {
 			headers: this._headers,
 			body: JSON.stringify(data),
 		})
-			.then((res) => {
-				if (res.ok) return res.json();
-			})
+			.then(this._checkResponse)
 			.catch((err) => {
 				console.error('Ошибка! Ошибка при Добавлении новых данных о пользователе');
 			})
