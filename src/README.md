@@ -11,6 +11,7 @@
 * Добавлена валидация форм.
 * Улучшенное взаимодествие при работе с модальными окнами
 * Сборка проекта Вебпаком
+* работа с API
 
 ## Технологии
 * flexbox
@@ -30,3 +31,4 @@
 * [Чеклист 6 спринта](https://code.s3.yandex.net/web-developer/checklists-pdf/new-program/checklist-6.pdf)
 * [Чеклист 7 спринта](https://code.s3.yandex.net/web-developer/checklists-pdf/new-program/checklist-7.pdf)
 * [Чеклист 8 спринта](https://code.s3.yandex.net/web-developer/checklists-pdf/new-program/checklist-8.pdf)
+* [Чеклист 9 спринта](https://code.s3.yandex.net/web-developer/checklists-pdf/new-program/checklist-9.pdf)
