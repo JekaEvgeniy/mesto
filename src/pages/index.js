@@ -4,7 +4,9 @@ import {
 	profilePopupInputAbout,
 	profileBtnEdit,
 
+	cardsSelector,
 	cardTemplateSelector,
+
 	newCardBtnAdd,
 	newCardPopupSelector,
 	newCardPopupForm,
@@ -58,26 +60,15 @@ validationNewCardPopup.enableValidation();
 const validationAvatarPopup = new FormValidator(validationConfig, avatarPopupForm);
 validationAvatarPopup.enableValidation();
 
-
-
-/* Переписываем. Плохо работает удаление карточек.
-	1. При добавлении карточки и удаления нет доступа к ID
-	2. При обновлении страницы карточка удаляется из базы, но  при удалении со страницы - ошибка.
-*/
-
 const cardList = new Section(
 	{
-		// items: initialCards,
-		// items: [],
-
 		renderer: (item) => {
 			cardList.addItem(addNewCard(item));
 		}
 	},
 
 	// Второй параметр конструктора — селектор контейнера, в который нужно добавлять созданные элементы.
-	// cardsSelector
-	'#cards'
+	cardsSelector
 );
 
 
