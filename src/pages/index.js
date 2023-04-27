@@ -87,12 +87,12 @@ function addNewCard(item) {
 				api.removeCard(card._id)
 					.then((res) => {
 						card.removeThisCard(res);
+						popupQuestion.close();
 					})
 					.catch((res) => {
 						console.error('Ошибка! Ошибка удаления карточки');
 					})
 					.finally(() => {
-						popupQuestion.close();
 						popupQuestion.replaceBtnText('Да', 'Сохранение...', false);
 					})
 			});
@@ -108,10 +108,6 @@ function addNewCard(item) {
 					.catch((res) => {
 						console.error('Ошибка! Ошибка лайка карточки');
 					})
-					.finally(() => {
-
-					})
-
 			} else {
 				api.removeLike(card._id)
 					.then((res) => {
@@ -120,14 +116,10 @@ function addNewCard(item) {
 					.catch((res) => {
 						console.error('Ошибка! Ошибка удаления лайка карточки');
 					})
-					.finally(() => {
-					})
-
 			}
 		},
 
 		handleCardClick: () => {
-			// imageFancybox.open(link, name);
 			imageFancybox.open(item.link, item.name);
 		}
 
@@ -144,44 +136,27 @@ const popupQuestion = new PopupWithQuestion({
 popupQuestion.setEventListeners();
 
 
-api.getUserInfo()
-	.then((res) => {
-		profileInfo.setUserInfo({
-			name: res.name,
-			about: res.about,
-			avatar: res.avatar,
-		});
-	});
-
 const popupEditorProfile = new PopupWithForm({
 	selector: '#popup-profile',
 	handleFormSubmit: (data) => {
 
 		popupEditorProfile.replaceBtnText('Сохранить', 'Сохранение...', true);
 
-		profileInfo.setUserInfo({
-			name: data.name,
-			about: data.about
-		});
-
 		api.setUserInfo(data)
-
 			.then((res) => {
-
-			})
-			.catch((err) => {
-				console.error('Ошибка! Ошибка добавления информации');
-			})
-			.finally((res) => {
 				profileInfo.setUserInfo({
 					name: data.name,
 					about: data.about,
 				});
 
+				popupEditorProfile.close();
+			})
+			.catch((err) => {
+				console.error('Ошибка! Ошибка добавления информации');
+			})
+			.finally(() => {
 				popupEditorProfile.replaceBtnText('Сохранить', 'Сохранение...', false);
 			})
-
-		popupEditorProfile.close();
 	}
 });
 
@@ -191,14 +166,17 @@ Promise.all([api.getUserInfo(), api.getCards()])
 	.then((data) => {
 
 		myID = data[0]._id;
-		cardList.renderItems(data[1]);
 
+		profileInfo.setUserInfo({
+			name: data[0].name,
+			about: data[0].about,
+			avatar: data[0].avatar,
+		});
+
+		cardList.renderItems(data[1]);
 	})
 	.catch((err) => {
 		console.error(err);
-	})
-	.finally(() => {
-
 	})
 	;
 
@@ -212,14 +190,14 @@ const cardPopup = new PopupWithForm({
 		api.addNewCard(data)
 			.then((res) => {
 				cardList.addItem(addNewCard(res), true);
+				cardPopup.close();
 			})
 			.catch((err) => {
 				console.error('Ошибка! Ошибка добавлении новой карточки');
 				console.error(err);
 			})
-			.finally((res) => {
+			.finally(() => {
 				cardPopup.replaceBtnText('Создать', 'Сохранение...', false);
-				cardPopup.close();
 			})
 
 	}
@@ -274,25 +252,21 @@ const popupEditorAvatar = new PopupWithForm({
 
 		api.setUserAvatar(data)
 			.then((res) => {
+				profileInfo.setUserInfo({
+					avatar: res.avatar
+				});
 
+				popupEditorAvatar.close();
 			})
 			.catch((err) => {
 				console.error('Ошибка! Ошибка добавлении новой фотографии');
 				console.error(err);
 			})
-			.finally((res) => {
-
-				profileInfo.setUserInfo({
-					avatar: data.avatar
-				});
-
-				popupEditorAvatar.close();
-
+			.finally(() => {
 				popupEditorAvatar.replaceBtnText('Сохранить', 'Сохранение...', false);
-
 			})
-
 	}
+
 });
 
 popupEditorAvatar.setEventListeners();
