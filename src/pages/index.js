@@ -1,35 +1,19 @@
 import {
-	// profilePopup,
 	profilePopupForm,
 	profilePopupInputName,
 	profilePopupInputAbout,
 	profileBtnEdit,
 
-	// cardsSelector,
 	cardTemplateSelector,
-	// cardsContainer,
-
 	newCardBtnAdd,
-	// newCardPopup,
 	newCardPopupSelector,
 	newCardPopupForm,
-	// popupImage,
+
 	popupImageSelector,
-	// popupFigure,
-	// popupImageCaption,
-
 	avatarBtnEdit,
-	// avatarPopup,
-	// avatarPopupSelector,
 	avatarPopupForm,
-
-	// qustionBtnSelector,
 	qustionPopupSelector,
-	// qustionPopup,
-	// qustionPopupForm,
-
 	token,
-	// cohortID
 } from '../vars/Data.js';
 
 
