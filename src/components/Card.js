@@ -88,25 +88,24 @@ export default class Card {
 		}else {
 			this.removeLike();
 		}
-
 	}
 
 	checkMyLike() {
 		/* Проверяем, есть ли мой лайк */
 		let checkMyLike = false;
-		if (this._likes.length > 1) {
-			const arrLikeUsers = this._likes;
 
-			for (let i = 0; i < arrLikeUsers.length; i++) {
-				let user = arrLikeUsers[i];
-				let userID = user._id;
+		const arrLikeUsers = this._likes;
 
-				if (userID === this._myID) {
-					checkMyLike = true;
-					break;
-				}
+		for (let i = 0; i < arrLikeUsers.length; i++) {
+			let user = arrLikeUsers[i];
+			let userID = user._id;
+
+			if (userID === this._myID) {
+				checkMyLike = true;
+				break;
 			}
 		}
+
 
 		return checkMyLike;
 	}
