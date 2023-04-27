@@ -92,6 +92,7 @@ export default class Api {
 	// 	})
 	// }
 
+
 	getLikes(data){
 		// Получаем список лайков
 		return fetch(this._cardLikes, {
@@ -109,7 +110,40 @@ export default class Api {
 		})
 	}
 
+	/*
+		*	Чтобы лайкнуть карточку, отправьте PUT-запрос:
+		* PUT https://mesto.nomoreparties.co/v1/cohortId/cards/cardId/likes
+	*/
 
+	addLike(id) {
+		return fetch(`${this._cardID}/likes//${id}`, {
+			headers: this._headers,
+			method: 'PUT',
+		})
+			.then((res) => {
+				// console.warn('APi.js >>> addLike() ');
+
+				if (res.ok) return res.json();
+			})
+			.catch((err) => {
+				console.error('Ошибка! Ошибка лайка карточки');
+			})
+	}
+
+	removeLike(id) {
+		return fetch(`${this._cardID}/likes//${id}`, {
+			headers: this._headers,
+			method: 'DELETE',
+		})
+			.then((res) => {
+				// console.warn('APi.js >>> removeLike() ');
+
+				if (res.ok) return res.json();
+			})
+			.catch((err) => {
+				console.error('Ошибка! Ошибка дизлайка карточки');
+			})
+	}
 
 
 

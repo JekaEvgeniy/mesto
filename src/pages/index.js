@@ -105,12 +105,10 @@ function addNewCard(item) {
 
 	const card = new Card(cardTemplateSelector, {
 		data: { ...item, myID },
+
 		handleRemoveClick: () => {
 			console.log(`Давай удалим карточку id=${card._id}`);
-
 			popupQuestion.open(card._id);
-
-
 
 			popupQuestion.formSubmit( () => {
 				console.warn('popupQuestion.formSubmit');
@@ -129,11 +127,55 @@ function addNewCard(item) {
 						popupQuestion.close();
 					})
 			});
+		},
+
+		handleLikeClick: () => {
+			// console.warn('>>> index.js >>> handleLikeClick');
+			/*
+				*	8. Постановка и снятие лайка
+				*	Чтобы лайкнуть карточку, отправьте PUT-запрос:
+				*	PUT https://mesto.nomoreparties.co/v1/cohortId/cards/cardId/likes
+				*	Чтобы убрать лайк, нужно отправить DELETE-запрос с тем же URL:
+				*	DELETE https://mesto.nomoreparties.co/v1/cohortId/cards/cardId/likes
+				*	Вместо cardId в URL нужно подставить свойство _id соответствующей карточки.
+			 */
+
+			if (! card.checkMyLike() ){
+				// console.log(`еще не ставил лайк`);
+
+				api.addLike(card._id)
+					.then((res) => {
+						card.updateLikes(res);
+						// card.addLike();
+					})
+					.catch((res) => {
+						console.error('Ошибка! Ошибка лайка карточки');
+					})
+					.finally(() => {
+						console.warn('success: лайк card');
+					})
 
 
+			}else {
+				// console.log(`есть лайк`);
 
+				api.removeLike(card._id)
+					.then((res) => {
+						card.updateLikes(res);
+						// card.removeLike();
+					})
+					.catch((res) => {
+						console.error('Ошибка! Ошибка удаления лайка карточки');
+					})
+					.finally(() => {
+						console.warn('success: дизлайк card');
+					})
+
+			}
 
 		}
+
+
 	});
 
 	return card.renderNewCard();
