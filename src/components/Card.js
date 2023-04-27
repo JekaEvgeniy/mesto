@@ -1,10 +1,5 @@
 export default class Card {
-
-// { name, link },
-// , handleCardClick, id, author, likes, myID, handleRemoveClick
-	constructor(container, { data, handleRemoveClick, handleLikeClick } ) {
-		// console.log(data);
-
+	constructor(container, { data, handleRemoveClick, handleLikeClick, handleCardClick }) {
 		this._container = container;
 		this._data = data;
 
@@ -14,13 +9,10 @@ export default class Card {
 
 		this._id = data._id;
 		this._author = data.owner._id;
-		// console.log(`data.owner._id = ${data.owner._id}`);
-		// console.log(`this._author = ${this._author}`);
 
-		this._myID   = data.myID;
+		this._myID = data.myID;
 
-		// this._handleCardClick = handleCardClick;
-
+		this._handleCardClick = handleCardClick;
 		this._handleRemoveClick = handleRemoveClick;
 		this._handleLikeClick = handleLikeClick;
 	}
@@ -45,10 +37,6 @@ export default class Card {
 		this._cardTitle.textContent = this._name;
 
 		// Если изображения нет - заменить на no-photo или скрывать изображение (в ТЗ нет)
-
-
-
-
 		if (this._link) {
 			this._cardImage.src = this._link;
 		} else {
@@ -58,36 +46,29 @@ export default class Card {
 
 		this._cardCounter.textContent = (this._likes) ? this._likes.length : 0;
 
-
-
-		/* END Проверяем, есть ли мой лайк */
-
-
-
 		const checkMyCard = (this._myID === this._author) ? true : false;
-		if (! checkMyCard ){
+		if (!checkMyCard) {
 			this._btnRemove.remove()
 		}
 
 		// при загрузке страницы toggle like
-		if ( this.checkMyLike() ){
+		if (this.checkMyLike()) {
 			this.addLike();
 		}
-
 
 		this._setEventListeners();
 
 		return this._view;
 	}
 
-	updateLikes(res){
+	updateLikes(res) {
 		this._likes = res.likes;
 
 		this._cardCounter.textContent = res.likes.length;
 
-		if (this.checkMyLike() ) {
+		if (this.checkMyLike()) {
 			this.addLike();
-		}else {
+		} else {
 			this.removeLike();
 		}
 	}
@@ -108,64 +89,35 @@ export default class Card {
 			}
 		}
 
-
 		return checkMyLike;
 	}
 
-	addLike(){
+	addLike() {
 		this._btnLike.classList.add('card__button_active');
 	}
 
-	removeLike(){
+	removeLike() {
 		this._btnLike.classList.remove('card__button_active');
 	}
 
 	_setEventListeners() {
-
 		this._btnLike.addEventListener('click', () => {
-			// console.log('>>> click >>> this._btnLike');
-
 			this._handleLikeClick();
 		});
 
-		// this._view.querySelector('.card__image').addEventListener('click', () => this._handleCardClick(this._link, this._name));
+		this._cardImage.addEventListener('click', () => this._handleCardClick(this._link, this._name));
 
-		if ( this._btnRemove ){
-			// // Добавляем кнопку удаления только у тех карточек, где она есть
+		if (this._btnRemove) {
+			// // Добавляем слушатель только там, где есть кнопка
 
 			this._btnRemove.addEventListener('click', () => {
-				console.warn(`>>> Card.js >>> _setEventListeners >>> this._id = ${this._id}`);
-
 				this._handleRemoveClick();
 			});
 		}
-
-
-
 	}
 
-
-	// _removeCard = () => {
-	// 	console.log('>>> card.js _removeCard')
-	// 	this._view.remove();
-	// }
-
-
-
-	// _handleRemove() {
-	// 	console.warn(`>>> card.js _handleRemoveClick  + ID = ${this._id}`);
-	// 	this._handleRemoveClick(this._id);
-	// }
-
 	removeThisCard() {
-		console.log('>>> card.js >>>  removeThisCard');
 		this._view.remove();
 		this._view = null;
 	}
-
-
-	// _likeCard = () => {
-	// 	this._btnLike.classList.toggle('card__button_active');
-	// }
-
 }

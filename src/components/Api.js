@@ -4,10 +4,10 @@ export default class Api {
 		this._headers = headers;
 
 		this._cardsUrl = this._url + '/cards';
-		this._cardID   = this._url + '/cards/';
+		this._cardID = this._url + '/cards/';
 		this._cardLikes = this._url + '/cards/cardId/likes';
 
-		this._userUrl  = this._url + '/users/me';
+		this._userUrl = this._url + '/users/me';
 		this._userAvatarUrl = this._url + '/users/me/avatar';
 	}
 
@@ -18,7 +18,7 @@ export default class Api {
 		return fetch(this._cardsUrl, {
 			headers: this._headers
 		})
-			.then( (res) => {
+			.then((res) => {
 				if (res.ok) return res.json();
 			})
 			.catch((err) => {
@@ -26,73 +26,37 @@ export default class Api {
 			})
 	}
 
-	addNewCard(data){
+	addNewCard(data) {
 		return fetch(this._cardsUrl, {
-			method:'POST',
+			method: 'POST',
 			headers: this._headers,
 			body: JSON.stringify(data),
 		})
-		.then((data) => {
-			if ( data.ok ) return data.json();
-		})
-		.catch((err) => {
-			console.error('Ошибка! Ошибка добавлении новой карточки');
-		})
+			.then((data) => {
+				if (data.ok) return data.json();
+			})
+			.catch((err) => {
+				console.error('Ошибка! Ошибка добавлении новой карточки');
+			})
 	}
 
 
-	removeCard(id){
+	removeCard(id) {
 		return fetch(`${this._cardsUrl}/${id}`, {
 			method: 'DELETE',
 			headers: this._headers,
 		})
 
-		.then( (res) => {
-			if (res.ok) return res.json()
+			.then((res) => {
+				if (res.ok) return res.json()
 
-			return Promise.reject('Promise reject error');
-		})
-		.catch( (err) => {
-			console.error('Ошибка! Ошибка удаления карточки');
-		})
+				return Promise.reject('Promise reject error');
+			})
+			.catch((err) => {
+				console.error('Ошибка! Ошибка удаления карточки');
+			})
 	}
 
-	// addLike(data){
-	// 	return fetch(this._cardLikes, {
-	// 		method:'PUT',
-	// 		headers: this._headers,
-	// 		body: JSON.stringify(data),
-	// 	})
-	// 	.then((data) => {
-	// 		console.warn('APi.js >>> addLike() ');
-	// 		console.log(data);
-
-	// 		if ( data.ok ) return data.json();
-	// 	})
-	// 	.catch((err) => {
-	// 		console.error('Ошибка! Ошибка Like карточки');
-	// 	})
-	// }
-
-
-	getLikes(data){
-		// Получаем список лайков
-		return fetch(this._cardLikes, {
-			headers: this._headers,
-			body: JSON.stringify(data),
-		})
-		.then((data) => {
-			if ( data.ok ) return data.json();
-		})
-		.catch((err) => {
-			console.error('Ошибка! Ошибка getLikes карточки');
-		})
-	}
-
-	/*
-		*	Чтобы лайкнуть карточку, отправьте PUT-запрос:
-		* PUT https://mesto.nomoreparties.co/v1/cohortId/cards/cardId/likes
-	*/
 
 	addLike(id) {
 		return fetch(`${this._cardID}/likes//${id}`, {
@@ -121,7 +85,6 @@ export default class Api {
 	}
 
 
-
 	/*
 	* Работаем с инфополем
 	*/
@@ -146,9 +109,6 @@ export default class Api {
 			body: JSON.stringify(data),
 		})
 			.then((res) => {
-				console.warn('>>> API.JS >>> setUserInfo ');
-				console.log(data);
-
 				if (res.ok) return res.json();
 			})
 			.catch((err) => {
@@ -164,9 +124,6 @@ export default class Api {
 			body: JSON.stringify(data),
 		})
 			.then((res) => {
-				console.warn('>>> API.JS >>> setUserAvatar ');
-				console.log(data);
-
 				if (res.ok) return res.json();
 			})
 			.catch((err) => {

@@ -1,40 +1,37 @@
 import {
-	profilePopup,
+	// profilePopup,
 	profilePopupForm,
 	profilePopupInputName,
 	profilePopupInputAbout,
 	profileBtnEdit,
 
-	cardsSelector,
+	// cardsSelector,
 	cardTemplateSelector,
-	cardsContainer,
+	// cardsContainer,
 
 	newCardBtnAdd,
-	newCardPopup,
+	// newCardPopup,
 	newCardPopupSelector,
 	newCardPopupForm,
-	popupImage,
+	// popupImage,
 	popupImageSelector,
-	popupFigure,
-	popupImageCaption,
+	// popupFigure,
+	// popupImageCaption,
 
 	avatarBtnEdit,
-	avatarPopup,
-	avatarPopupSelector,
+	// avatarPopup,
+	// avatarPopupSelector,
 	avatarPopupForm,
 
-	qustionBtnSelector,
+	// qustionBtnSelector,
 	qustionPopupSelector,
-	qustionPopup,
-	qustionPopupForm,
+	// qustionPopup,
+	// qustionPopupForm,
 
 	token,
-	cohortID
+	// cohortID
 } from '../vars/Data.js';
 
-console.clear();
-
-// import initialCards from '../vars/initialCards.js';
 
 import validationConfig from '../vars/validationConfig.js';
 
@@ -107,25 +104,19 @@ function addNewCard(item) {
 		data: { ...item, myID },
 
 		handleRemoveClick: () => {
-			console.log(`Давай удалим карточку id=${card._id}`);
 			popupQuestion.open(card._id);
 
-			popupQuestion.formSubmit( () => {
-				console.warn('popupQuestion.formSubmit');
-
+			popupQuestion.formSubmit(() => {
 				popupQuestion.replaceBtnText('Да', 'Сохранение...', true);
 
 				api.removeCard(card._id)
 					.then((res) => {
-						console.log('(1) removeCard');
-
 						card.removeThisCard(res);
 					})
 					.catch((res) => {
 						console.error('Ошибка! Ошибка удаления карточки');
 					})
 					.finally(() => {
-						console.warn('success: remove card');
 						popupQuestion.close();
 						popupQuestion.replaceBtnText('Да', 'Сохранение...', false);
 					})
@@ -133,36 +124,36 @@ function addNewCard(item) {
 		},
 
 		handleLikeClick: () => {
-			if (! card.checkMyLike() ){
-				// console.log(`еще не ставил лайк`);
+			if (!card.checkMyLike()) {
+
 				api.addLike(card._id)
 					.then((res) => {
 						card.updateLikes(res);
-						// card.addLike();
 					})
 					.catch((res) => {
 						console.error('Ошибка! Ошибка лайка карточки');
 					})
 					.finally(() => {
-						console.warn('success: лайк card');
+
 					})
 
-
-			}else {
-				// console.log(`есть лайк`);
+			} else {
 				api.removeLike(card._id)
 					.then((res) => {
 						card.updateLikes(res);
-						// card.removeLike();
 					})
 					.catch((res) => {
 						console.error('Ошибка! Ошибка удаления лайка карточки');
 					})
 					.finally(() => {
-						console.warn('success: дизлайк card');
 					})
 
 			}
+		},
+
+		handleCardClick: () => {
+			// imageFancybox.open(link, name);
+			imageFancybox.open(item.link, item.name);
 		}
 
 
@@ -174,35 +165,12 @@ function addNewCard(item) {
 
 const popupQuestion = new PopupWithQuestion({
 	selector: qustionPopupSelector,
-	// handleFormSubmit: (id) => {
-	// 	console.warn(`>>>>>> В модалке нажали на кпопку удаления карточки = ${id}`);
-
-	// 	api.removeCard(id)
-	// 		.then(() => {
-	// 			console.log('(1) removeCard');
-	// 		})
-	// 		.catch(() => {
-	// 			console.error('Ошибка! Ошибка удаления карточки');
-	// 		})
-	// 		.finally(() => {
-	// 			console.warn('success: remove card');
-
-	// 			// Card.removeThisCard();
-
-	// 			popupQuestion.close();
-	// 		})
-	// },
 });
-
-
 popupQuestion.setEventListeners();
-
-// // cardList.renderItems();
 
 
 api.getUserInfo()
 	.then((res) => {
-		// console.table(res);
 		profileInfo.setUserInfo({
 			name: res.name,
 			about: res.about,
@@ -210,7 +178,7 @@ api.getUserInfo()
 		});
 	});
 
-	const popupEditorProfile = new PopupWithForm({
+const popupEditorProfile = new PopupWithForm({
 	selector: '#popup-profile',
 	handleFormSubmit: (data) => {
 
@@ -224,8 +192,7 @@ api.getUserInfo()
 		api.setUserInfo(data)
 
 			.then((res) => {
-				console.warn('>>> api.setUserInfo ');
-				console.log(data);
+
 			})
 			.catch((err) => {
 				console.error('Ошибка! Ошибка добавления информации');
@@ -245,57 +212,31 @@ api.getUserInfo()
 
 
 
-Promise.all([api.getUserInfo(), api.getCards() ])
-	.then(( data ) => {
+Promise.all([api.getUserInfo(), api.getCards()])
+	.then((data) => {
+
 		myID = data[0]._id;
-
-		console.warn('START Promise.all >>>')
-		console.warn(`>>> myID = ${myID}`);
-		// console.log(`OWNER.ID = ${data[1].owner._id}`);
-
-		// cardList.addItem(addNewCard(data[1]), myID );
-		const items = data[1];
-		// console.log( items[0] );
-		cardList.renderItems(items);
-
-		// items.forEach((item) => {
-
-		// 	const itemID = item._id;
-		// 	const itemAuthor = item.owner._id;
-
-		// 	const itemLikes = item.likes.length;
-
-		// 	// console.table(itemAuthor);
-		// 	// console.log(`card LIKES = ${itemLikes}`);
-
-
-		// 	cardList.addItem(addNewCard(item, itemID, itemAuthor, itemLikes, myID));
-		// })
+		cardList.renderItems(data[1]);
 
 	})
 	.catch((err) => {
-			console.error(err);
+		console.error(err);
 	})
 	.finally(() => {
-		// console.warn('END Promise.all <<<');
+
 	})
-;
+	;
 
 
 
 const cardPopup = new PopupWithForm({
 	selector: newCardPopupSelector,
 	handleFormSubmit: (data) => {
-		console.warn('>>>index.js >>> const = cardPopup : handleFormSubmit');
-		console.log(data);
-
 		cardPopup.replaceBtnText('Создать', 'Сохранение...', true);
 
 		api.addNewCard(data)
 			.then((res) => {
-
 				cardList.addItem(addNewCard(res), true);
-
 			})
 			.catch((err) => {
 				console.error('Ошибка! Ошибка добавлении новой карточки');
@@ -321,13 +262,7 @@ newCardBtnAdd.addEventListener('click', () => {
 
 
 
-
-
 const imageFancybox = new PopupWithImage(popupImageSelector);
-
-function handleCardClick(link, name) {
-	imageFancybox.open(link, name);
-}
 
 imageFancybox.setEventListeners();
 
@@ -364,12 +299,11 @@ const popupEditorAvatar = new PopupWithForm({
 
 		api.setUserAvatar(data)
 			.then((res) => {
-				console.log(`===========>`);
-				console.log(res);
+
 			})
 			.catch((err) => {
-				console.error(err);
 				console.error('Ошибка! Ошибка добавлении новой фотографии');
+				console.error(err);
 			})
 			.finally((res) => {
 
