@@ -83,6 +83,8 @@ export default class Card {
 	updateLikes(res){
 		this._likes = res.likes;
 
+		this._cardCounter.textContent = res.likes.length;
+
 		if (this.checkMyLike() ) {
 			this.addLike();
 		}else {
