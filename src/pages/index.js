@@ -48,7 +48,7 @@ const profileInfo = new UserInfo({
 	avatarSelector: '.profile__avatar',
 });
 
-let myID; // 2c209b6a35c5ecd4a6566de9
+let myID;
 
 // Валидация формы
 const validationProfilePopup = new FormValidator(validationConfig, profilePopupForm);
